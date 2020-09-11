@@ -1,0 +1,444 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <title>Loading Files &#8212; From Excel to Pandas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-dropdown.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Content with notebooks" href="../notebooks.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">From Excel to Pandas</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Welcome to the complete tutorial from Excel to Pandas
+  </a>
+ </li>
+</ul>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 current active">
+  <a class="reference internal" href="../content.html">
+   Content in Jupyter Book
+  </a>
+  <ul class="current">
+   <li class="toctree-l2">
+    <a class="reference internal" href="../markdown.html">
+     Markdown Files
+    </a>
+   </li>
+   <li class="toctree-l2">
+    <a class="reference internal" href="../notebooks.html">
+     Content with notebooks
+    </a>
+   </li>
+   <li class="toctree-l2 current active">
+    <a class="current reference internal" href="#">
+     Loading Files
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/notebooks/01 - loading files.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/notebooks/01 - loading files.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/notebooks/01 - loading files.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="loading-files">
+<h1>Loading Files<a class="headerlink" href="#loading-files" title="Permalink to this headline">¶</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">table_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/open_restaurant_applications_1.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">table_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>objectid</th>
+      <th>globalid</th>
+      <th>seating_interest_sidewalk_roadway_both</th>
+      <th>restaurant_name</th>
+      <th>legal_business_name</th>
+      <th>doing_business_as_dba</th>
+      <th>bulding_number</th>
+      <th>street</th>
+      <th>borough</th>
+      <th>postcode</th>
+      <th>...</th>
+      <th>time_of_submission</th>
+      <th>latitude</th>
+      <th>longitude</th>
+      <th>community_board</th>
+      <th>council_district</th>
+      <th>census_tract</th>
+      <th>bin</th>
+      <th>bbl</th>
+      <th>nta</th>
+      <th>location</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>32</td>
+      <td>ae5914d4-6080-4144-8634-98ca22b215de</td>
+      <td>sidewalk</td>
+      <td>Arbuz Cafe</td>
+      <td>Arbuz Cafe NY inc.</td>
+      <td>Arbuz Cafe NY inc.</td>
+      <td>1706</td>
+      <td>Sheepshead Bay Rd</td>
+      <td>Brooklyn</td>
+      <td>11235</td>
+      <td>...</td>
+      <td>2020-06-19</td>
+      <td>40.585724</td>
+      <td>-73.951767</td>
+      <td>315.0</td>
+      <td>48.0</td>
+      <td>606.0</td>
+      <td>3343289.0</td>
+      <td>3.087700e+09</td>
+      <td>Sheepshead Bay-Gerritsen Beach-Manhattan Beach</td>
+      <td>POINT(-73.951767 40.585724)</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>33</td>
+      <td>81a2bad2-5bdc-49ed-8bb6-9dc3f9798732</td>
+      <td>roadway</td>
+      <td>Nerai</td>
+      <td>Koureli Restaurant Group Inc</td>
+      <td>Nerai</td>
+      <td>55</td>
+      <td>East 54th Street</td>
+      <td>Manhattan</td>
+      <td>10022</td>
+      <td>...</td>
+      <td>2020-06-19</td>
+      <td>40.760117</td>
+      <td>-73.973162</td>
+      <td>105.0</td>
+      <td>4.0</td>
+      <td>102.0</td>
+      <td>1035748.0</td>
+      <td>1.012900e+09</td>
+      <td>Midtown-Midtown South</td>
+      <td>POINT(-73.973162 40.760117)</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>34</td>
+      <td>b4bcb3a5-e2f7-4069-8c3b-21f47f051a63</td>
+      <td>roadway</td>
+      <td>Hill Country</td>
+      <td>Hill Country New York, LLC</td>
+      <td>Hill Country</td>
+      <td>30</td>
+      <td>West 26th</td>
+      <td>Manhattan</td>
+      <td>10010</td>
+      <td>...</td>
+      <td>2020-06-19</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>35</td>
+      <td>a1054682-ff93-4b07-8f99-daa2a7b0daaf</td>
+      <td>both</td>
+      <td>Sundays Well</td>
+      <td>Two Bridge Tavern LLC</td>
+      <td>Sundays Well</td>
+      <td>360</td>
+      <td>3rd Ave</td>
+      <td>Manhattan</td>
+      <td>10016</td>
+      <td>...</td>
+      <td>2020-06-19</td>
+      <td>40.740892</td>
+      <td>-73.981657</td>
+      <td>106.0</td>
+      <td>2.0</td>
+      <td>68.0</td>
+      <td>1018142.0</td>
+      <td>1.008820e+09</td>
+      <td>Gramercy</td>
+      <td>POINT(-73.981657 40.740892)</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>36</td>
+      <td>1dd1f4e5-3e2c-4522-89e4-b3f4fc802436</td>
+      <td>roadway</td>
+      <td>Le Baba Cool, Inc</td>
+      <td>Le Baba Cool, Inc</td>
+      <td>Le Baba Cool, Inc</td>
+      <td>64</td>
+      <td>Lafayette AVe</td>
+      <td>Brooklyn</td>
+      <td>11217</td>
+      <td>...</td>
+      <td>2020-06-19</td>
+      <td>40.687102</td>
+      <td>-73.975365</td>
+      <td>302.0</td>
+      <td>35.0</td>
+      <td>35.0</td>
+      <td>3059298.0</td>
+      <td>3.021160e+09</td>
+      <td>Fort Greene</td>
+      <td>POINT(-73.975365 40.687102)</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 36 columns</p>
+</div></div></div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python37364bitbaseconda6f6003116ada4c63b5bf39f2117e87c1",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python37364bitbaseconda6f6003116ada4c63b5bf39f2117e87c1'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="../notebooks.html" title="previous page">Content with notebooks</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By The Aiola Team<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>
