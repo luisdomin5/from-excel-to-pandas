@@ -37,7 +37,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Reading Data from Web Sites" href="01.02 - loading data from HTML.html" />
-    <link rel="prev" title="Content with notebooks" href="../notebooks.html" />
+    <link rel="prev" title="Welcome to the complete tutorial from Excel to Pandas" href="../intro.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
@@ -79,31 +79,14 @@
 </ul>
 <ul class="current nav sidenav_l1">
  <li class="toctree-l1 current active">
-  <a class="reference internal" href="../content.html">
-   Content in Jupyter Book
+  <a class="current reference internal" href="#">
+   Loading Files
   </a>
-  <ul class="current">
-   <li class="toctree-l2">
-    <a class="reference internal" href="../markdown.html">
-     Markdown Files
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../notebooks.html">
-     Content with notebooks
-    </a>
-   </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
-     Loading Files
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="01.02 - loading data from HTML.html">
-     Reading Data from Web Sites
-    </a>
-   </li>
-  </ul>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="01.02 - loading data from HTML.html">
+   Reading Data from Web Sites
+  </a>
  </li>
 </ul>
 
@@ -219,8 +202,10 @@
                 
   <div class="section" id="loading-files">
 <h1>Loading Files<a class="headerlink" href="#loading-files" title="Permalink to this headline">¶</a></h1>
+<p>In the first chapter we will learn how to load data into Pandas DataFrames. We will load multile formats of data sources including CSV files, Excel files, tables from web sites, tables in Databases, etc.</p>
 <div class="section" id="loading-csv-file">
 <h2>Loading CSV file<a class="headerlink" href="#loading-csv-file" title="Permalink to this headline">¶</a></h2>
+<p>The comma-separated-values (CSV) format is one of the simplest and pupolar way to share (small) data. You can save an Excel files as CSV and it is the default format of many bulk download of data from databases and other sources.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -229,6 +214,7 @@
 </div>
 </div>
 </div>
+<p>The first example is using data file about permits for restaurants in NY city. It was downloaded from the open data web site <a class="reference external" href="https://data.world/city-of-ny/pitm-atqc">data.world</a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">table_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/open_restaurant_applications_1.csv&#39;</span><span class="p">)</span>
@@ -662,10 +648,10 @@ memory usage: 2.2+ MB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7fb1701c6a58&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7febd020f6d8&gt;
 </pre></div>
 </div>
-<img alt="../_images/01 - loading files_7_1.png" src="../_images/01 - loading files_7_1.png" />
+<img alt="../_images/01 - loading files_8_1.png" src="../_images/01 - loading files_8_1.png" />
 </div>
 </div>
 </div>
@@ -696,10 +682,10 @@ The colNum attribute was deprecated in Matplotlib 3.2 and will be removed two mi
   if not layout[ax.rowNum + 1, ax.colNum]:
 </pre></div>
 </div>
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7fb170ad9e80&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7febd0a4a668&gt;
 </pre></div>
 </div>
-<img alt="../_images/01 - loading files_9_2.png" src="../_images/01 - loading files_9_2.png" />
+<img alt="../_images/01 - loading files_10_2.png" src="../_images/01 - loading files_10_2.png" />
 </div>
 </div>
 </div>
@@ -733,7 +719,7 @@ The colNum attribute was deprecated in Matplotlib 3.2 and will be removed two mi
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="../notebooks.html" title="previous page">Content with notebooks</a>
+    <a class='left-prev' id="prev-link" href="../intro.html" title="previous page">Welcome to the complete tutorial from Excel to Pandas</a>
     <a class='right-next' id="next-link" href="01.02 - loading data from HTML.html" title="next page">Reading Data from Web Sites</a>
 
     </div>

@@ -77,32 +77,15 @@
  </li>
 </ul>
 <ul class="current nav sidenav_l1">
- <li class="toctree-l1 current active">
-  <a class="reference internal" href="../content.html">
-   Content in Jupyter Book
+ <li class="toctree-l1">
+  <a class="reference internal" href="01 - loading files.html">
+   Loading Files
   </a>
-  <ul class="current">
-   <li class="toctree-l2">
-    <a class="reference internal" href="../markdown.html">
-     Markdown Files
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="../notebooks.html">
-     Content with notebooks
-    </a>
-   </li>
-   <li class="toctree-l2">
-    <a class="reference internal" href="01 - loading files.html">
-     Loading Files
-    </a>
-   </li>
-   <li class="toctree-l2 current active">
-    <a class="current reference internal" href="#">
-     Reading Data from Web Sites
-    </a>
-   </li>
-  </ul>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Reading Data from Web Sites
+  </a>
  </li>
 </ul>
 
@@ -211,6 +194,11 @@
    Loading from complex web sites
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#simple-data-visualization">
+   Simple Data Visualization
+  </a>
+ </li>
 </ul>
 
         </nav>
@@ -223,8 +211,11 @@
                 
   <div class="section" id="reading-data-from-web-sites">
 <h1>Reading Data from Web Sites<a class="headerlink" href="#reading-data-from-web-sites" title="Permalink to this headline">¶</a></h1>
+<p>Many times you want to add external data to your analysis. External data is often found in external web sites, usually in the format of an HTML table. You can import HTML directly into Excel using <em>“Import”</em>.</p>
+<p>In this notebook, we will learn how to use pandas <em>read_html</em> to load tables from web site with ease, including cases where the data is complex to retrieve.</p>
 <div class="section" id="loading-html-data">
 <h2>Loading HTML data<a class="headerlink" href="#loading-html-data" title="Permalink to this headline">¶</a></h2>
+<p>We will load a few tables from simple sites as well as complex ones</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -396,6 +387,8 @@
 </div>
 </div>
 </div>
+<p>Here we will look like a browser to the web site, as some web sites block their context to bots and crawlers. Since we are not hitting the web site a lot, pretending to be a browser is considered as acceptable usage.</p>
+<p>We will send to the web site a header that a browser is sending and get the reply of the page as text. The text (<em>r.text</em>) will be parsed by the <em>read_html</em> function and create the dataframe. We will also add the HTML id of the table that we want. This id (<em>‘sortable_table_world’</em>) can be found when using the <em>inspect</em> option in Chrome, Safari, Firefox and other browsers.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">requests</span>
@@ -459,19 +452,19 @@
     <tr>
       <th>0</th>
       <td>TOTAL</td>
-      <td>31024156</td>
-      <td>3990</td>
-      <td>47561</td>
-      <td>0.15%</td>
-      <td>61398</td>
-      <td>962064</td>
+      <td>31035726</td>
+      <td>3992</td>
+      <td>59131</td>
+      <td>0.19%</td>
+      <td>61413</td>
+      <td>962188</td>
       <td>124</td>
-      <td>1193</td>
-      <td>0.12%</td>
-      <td>599015174</td>
-      <td>7496036</td>
-      <td>22402507</td>
-      <td>2881</td>
+      <td>1317</td>
+      <td>0.14%</td>
+      <td>599183027</td>
+      <td>7498396</td>
+      <td>22411593</td>
+      <td>2883</td>
       <td>7774812442</td>
     </tr>
     <tr>
@@ -666,6 +659,10 @@
 </div>
 </div>
 </div>
+</div>
+<div class="section" id="simple-data-visualization">
+<h2>Simple Data Visualization<a class="headerlink" href="#simple-data-visualization" title="Permalink to this headline">¶</a></h2>
+<p>External data is often “messy”, and it is a best practice to clean it up before staring to work with it. In the next cell we will make sure that the numeric columns are indeed numeric (removing “Unknown”, for example). We will also resolve the conflict of having multiple columns with the same name (“Per Million”, in this exammple), and translate to more meaningful names.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
@@ -683,10 +680,10 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7f91580ceef0&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7fca4233e3c8&gt;
 </pre></div>
 </div>
-<img alt="../_images/01.02 - loading data from HTML_12_1.png" src="../_images/01.02 - loading data from HTML_12_1.png" />
+<img alt="../_images/01.02 - loading data from HTML_14_1.png" src="../_images/01.02 - loading data from HTML_14_1.png" />
 </div>
 </div>
 </div>
