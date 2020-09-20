@@ -1,7 +1,4 @@
 - file: intro
-- file: content
   sections:
-    - file: markdown
-    - file: notebooks
     - file: notebooks/01 - loading files
     - file: notebooks/01.02 - loading data from HTML
