@@ -186,6 +186,11 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#simple-data-visualization">
+   Simple data visualization
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#adding-new-columns">
    Adding new columns
   </a>
@@ -649,22 +654,32 @@ memory usage: 2.2+ MB
 </table>
 </div></div></div>
 </div>
+</div>
+<div class="section" id="simple-data-visualization">
+<h2>Simple data visualization<a class="headerlink" href="#simple-data-visualization" title="Permalink to this headline">¶</a></h2>
+<p>As part of the data exploration phase, you want to look at the columns, a few rows (<em>head</em>), column statistics (<em>describe</em>), data types and number of values (<em>info</em>). However, usually the most effective way is to visualize the data to understand it.</p>
+<p>In the next cell, we build a simple scatter plot of the data with <em>longitude</em> and <em>latitude</em> as x-axis and y-axis, respectively.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">table_df</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;longitude&#39;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;latitude&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">table_df</span>
+    <span class="o">.</span><span class="n">plot</span>
+    <span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;longitude&#39;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;latitude&#39;</span><span class="p">)</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7ffd2b780940&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7fbd4991abe0&gt;
 </pre></div>
 </div>
-<img alt="../_images/01 - loading files_9_1.png" src="../_images/01 - loading files_9_1.png" />
+<img alt="../_images/01 - loading files_10_1.png" src="../_images/01 - loading files_10_1.png" />
 </div>
 </div>
 </div>
 <div class="section" id="adding-new-columns">
 <h2>Adding new columns<a class="headerlink" href="#adding-new-columns" title="Permalink to this headline">¶</a></h2>
+<p>One of the most common tasks that we do when building an analysis is to add calcualted fields, based on the other columns in our table/DataFrame. We will discuss power of Pandas in adding new columns in the next sections of this guide. However, here is an example of calcuting the color of a data point, based on the value of <em>approved_for_roadway_seating</em> column. It will be green (<em>g</em>) if the value is <em>yes</em>, or red (<em>r</em>) otherwise.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
@@ -676,10 +691,10 @@ memory usage: 2.2+ MB
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7ffd2ea10860&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7fbd4b7c9b00&gt;
 </pre></div>
 </div>
-<img alt="../_images/01 - loading files_11_1.png" src="../_images/01 - loading files_11_1.png" />
+<img alt="../_images/01 - loading files_12_1.png" src="../_images/01 - loading files_12_1.png" />
 </div>
 </div>
 </div>
