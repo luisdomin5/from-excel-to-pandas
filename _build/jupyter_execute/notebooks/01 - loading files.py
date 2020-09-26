@@ -91,7 +91,7 @@ table_df.describe()
 # In[9]:
 
 
-get_ipython().system('pip3 install xlrd')
+get_ipython().system('pip install xlrd')
 
 
 # Then, we can call _read_excel_ instead of _read_csv_
