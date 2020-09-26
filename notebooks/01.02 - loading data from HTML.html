@@ -27,8 +27,6 @@
     <script src="../_static/copybutton.js"></script>
     <script src="../_static/sphinx-book-theme.js"></script>
     <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
-    <script async="async" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.7/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
-    <script type="text/x-mathjax-config">MathJax.Hub.Config({"tex2jax": {"inlineMath": [["\\(", "\\)"]], "displayMath": [["\\[", "\\]"]], "processRefs": false, "processEnvironments": false}})</script>
     <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
     <script >
         const thebe_selector = ".thebe"
@@ -38,6 +36,7 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Adding New Columns" href="02.01_Adding_New_Columns.html" />
     <link rel="prev" title="Loading Files" href="01%20-%20loading%20files.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -87,6 +86,11 @@
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    Reading Data from Web Sites
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02.01_Adding_New_Columns.html">
+   Adding New Columns
   </a>
  </li>
 </ul>
@@ -242,45 +246,6 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;http://www.fdic.gov/bank/individual/failed/banklist.html&#39;</span>
 <span class="n">dfs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_html</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">3</span><span class="o">-</span><span class="mi">2</span><span class="n">fcdc94f47cc</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;http://www.fdic.gov/bank/individual/failed/banklist.html&#39;</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">dfs</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_html</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-
-<span class="nn">~/miniconda3/lib/python3.8/site-packages/pandas/util/_decorators.py</span> in <span class="ni">wrapper</span><span class="nt">(*args, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">294</span>                 <span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">295</span>                 <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="ne">FutureWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="n">stacklevel</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">296</span>             <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">297</span> 
-<span class="g g-Whitespace">    </span><span class="mi">298</span>         <span class="k">return</span> <span class="n">wrapper</span>
-
-<span class="nn">~/miniconda3/lib/python3.8/site-packages/pandas/io/html.py</span> in <span class="ni">read_html</span><span class="nt">(io, match, flavor, header, index_col, skiprows, attrs, parse_dates, thousands, encoding, decimal, converters, na_values, keep_default_na, displayed_only)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1084</span>         <span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1085</span>     <span class="n">validate_header_arg</span><span class="p">(</span><span class="n">header</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1086</span>     <span class="k">return</span> <span class="n">_parse</span><span class="p">(</span>
-<span class="g g-Whitespace">   </span><span class="mi">1087</span>         <span class="n">flavor</span><span class="o">=</span><span class="n">flavor</span><span class="p">,</span>
-<span class="g g-Whitespace">   </span><span class="mi">1088</span>         <span class="n">io</span><span class="o">=</span><span class="n">io</span><span class="p">,</span>
-
-<span class="nn">~/miniconda3/lib/python3.8/site-packages/pandas/io/html.py</span> in <span class="ni">_parse</span><span class="nt">(flavor, io, match, attrs, encoding, displayed_only, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">892</span>     <span class="n">retained</span> <span class="o">=</span> <span class="kc">None</span>
-<span class="g g-Whitespace">    </span><span class="mi">893</span>     <span class="k">for</span> <span class="n">flav</span> <span class="ow">in</span> <span class="n">flavor</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">894</span>         <span class="n">parser</span> <span class="o">=</span> <span class="n">_parser_dispatch</span><span class="p">(</span><span class="n">flav</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">895</span>         <span class="n">p</span> <span class="o">=</span> <span class="n">parser</span><span class="p">(</span><span class="n">io</span><span class="p">,</span> <span class="n">compiled_match</span><span class="p">,</span> <span class="n">attrs</span><span class="p">,</span> <span class="n">encoding</span><span class="p">,</span> <span class="n">displayed_only</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">896</span> 
-
-<span class="nn">~/miniconda3/lib/python3.8/site-packages/pandas/io/html.py</span> in <span class="ni">_parser_dispatch</span><span class="nt">(flavor)</span>
-<span class="g g-Whitespace">    </span><span class="mi">849</span>     <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">850</span>         <span class="k">if</span> <span class="ow">not</span> <span class="n">_HAS_LXML</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">851</span>             <span class="k">raise</span> <span class="ne">ImportError</span><span class="p">(</span><span class="s2">&quot;lxml not found, please install it&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">852</span>     <span class="k">return</span> <span class="n">_valid_parsers</span><span class="p">[</span><span class="n">flavor</span><span class="p">]</span>
-<span class="g g-Whitespace">    </span><span class="mi">853</span> 
-
-<span class="ne">ImportError</span>: lxml not found, please install it
 </pre></div>
 </div>
 </div>
@@ -501,92 +466,92 @@
     <tr>
       <th>0</th>
       <td>TOTAL</td>
-      <td>30993016</td>
-      <td>3986</td>
-      <td>16395</td>
-      <td>0.05%</td>
-      <td>61410</td>
-      <td>961479</td>
-      <td>124</td>
-      <td>607</td>
-      <td>0.06%</td>
-      <td>598346540</td>
-      <td>7499869</td>
-      <td>22368118</td>
-      <td>2877</td>
-      <td>7774812442</td>
+      <td>32981473</td>
+      <td>4241</td>
+      <td>229227</td>
+      <td>0.7%</td>
+      <td>64018</td>
+      <td>996593</td>
+      <td>128</td>
+      <td>3614</td>
+      <td>0.36%</td>
+      <td>631195730</td>
+      <td>7702593</td>
+      <td>24116345</td>
+      <td>3101</td>
+      <td>7776040594</td>
     </tr>
     <tr>
       <th>1</th>
       <td>★  Afghanistan</td>
-      <td>39044</td>
-      <td>998</td>
-      <td>125</td>
-      <td>0.32%</td>
+      <td>39192</td>
+      <td>1002</td>
+      <td>6</td>
+      <td>0.02%</td>
       <td>93</td>
-      <td>1441</td>
+      <td>1453</td>
       <td>37</td>
-      <td>4</td>
-      <td>0.28%</td>
-      <td>108591</td>
-      <td>5027</td>
-      <td>32576</td>
-      <td>833</td>
-      <td>39115100</td>
+      <td>2</td>
+      <td>0.14%</td>
+      <td>109868</td>
+      <td>5104</td>
+      <td>32635</td>
+      <td>834</td>
+      <td>39129508</td>
     </tr>
     <tr>
       <th>2</th>
       <td>★  Albania</td>
-      <td>12226</td>
-      <td>4249</td>
-      <td>0</td>
-      <td>0%</td>
-      <td>13</td>
-      <td>358</td>
-      <td>124</td>
-      <td>0</td>
-      <td>0%</td>
-      <td>74487</td>
-      <td>4980</td>
-      <td>6888</td>
-      <td>2394</td>
-      <td>2877094</td>
+      <td>13153</td>
+      <td>4572</td>
+      <td>108</td>
+      <td>0.83%</td>
+      <td>18</td>
+      <td>375</td>
+      <td>130</td>
+      <td>2</td>
+      <td>0.54%</td>
+      <td>80323</td>
+      <td>5381</td>
+      <td>7397</td>
+      <td>2571</td>
+      <td>2877043</td>
     </tr>
     <tr>
       <th>3</th>
       <td>★  Algeria</td>
-      <td>49623</td>
-      <td>1127</td>
-      <td>0</td>
-      <td>0%</td>
+      <td>50914</td>
+      <td>1156</td>
+      <td>160</td>
+      <td>0.32%</td>
       <td>31</td>
-      <td>1665</td>
-      <td>38</td>
-      <td>0</td>
-      <td>0%</td>
+      <td>1711</td>
+      <td>39</td>
+      <td>4</td>
+      <td>0.23%</td>
       <td>Unknown</td>
       <td>Unknown</td>
-      <td>34923</td>
-      <td>793</td>
-      <td>44021396</td>
+      <td>35756</td>
+      <td>812</td>
+      <td>44034394</td>
     </tr>
     <tr>
       <th>4</th>
       <td>★  Andorra</td>
-      <td>1564</td>
+      <td>1836</td>
       <td>0</td>
       <td>0</td>
       <td>0%</td>
-      <td>4</td>
+      <td>9</td>
       <td>53</td>
       <td>0</td>
       <td>0</td>
       <td>0%</td>
       <td>137457</td>
-      <td>347</td>
-      <td>1164</td>
+      <td>520</td>
+      <td>1263</td>
       <td>0</td>
-      <td>77293</td>
+      <td>77295</td>
     </tr>
     <tr>
       <th>...</th>
@@ -608,6 +573,24 @@
     </tr>
     <tr>
       <th>210</th>
+      <td>★  Greenland</td>
+      <td>14</td>
+      <td>0</td>
+      <td>0</td>
+      <td>0%</td>
+      <td>Unknown</td>
+      <td>Unknown</td>
+      <td>Unknown</td>
+      <td>0</td>
+      <td>0%</td>
+      <td>7505</td>
+      <td>Unknown</td>
+      <td>14</td>
+      <td>0</td>
+      <td>56794</td>
+    </tr>
+    <tr>
+      <th>211</th>
       <td>★  Montserrat</td>
       <td>13</td>
       <td>0</td>
@@ -618,14 +601,14 @@
       <td>0</td>
       <td>0</td>
       <td>0%</td>
-      <td>373</td>
+      <td>449</td>
       <td>0</td>
       <td>12</td>
       <td>0</td>
       <td>4993</td>
     </tr>
     <tr>
-      <th>211</th>
+      <th>212</th>
       <td>★  Falkland Islands</td>
       <td>13</td>
       <td>0</td>
@@ -640,25 +623,7 @@
       <td>Unknown</td>
       <td>13</td>
       <td>0</td>
-      <td>3501</td>
-    </tr>
-    <tr>
-      <th>212</th>
-      <td>★  Saint Pierre and Miquelon</td>
-      <td>11</td>
-      <td>0</td>
-      <td>0</td>
-      <td>0%</td>
-      <td>Unknown</td>
-      <td>Unknown</td>
-      <td>Unknown</td>
-      <td>0</td>
-      <td>0%</td>
-      <td>1051</td>
-      <td>Unknown</td>
-      <td>5</td>
-      <td>0</td>
-      <td>5788</td>
+      <td>3503</td>
     </tr>
     <tr>
       <th>213</th>
@@ -676,23 +641,23 @@
       <td>Unknown</td>
       <td>3</td>
       <td>0</td>
-      <td>15032</td>
+      <td>15035</td>
     </tr>
     <tr>
       <th>214</th>
       <td>★  China</td>
-      <td>85279</td>
+      <td>85337</td>
       <td>59</td>
-      <td>10</td>
-      <td>0.01%</td>
-      <td>3</td>
+      <td>15</td>
+      <td>0.02%</td>
+      <td>4</td>
       <td>4634</td>
       <td>3</td>
       <td>0</td>
       <td>0%</td>
       <td>160000000</td>
-      <td>168</td>
-      <td>80477</td>
+      <td>167</td>
+      <td>80536</td>
       <td>56</td>
       <td>1439323776</td>
     </tr>
@@ -729,10 +694,11 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;matplotlib.axes._subplots.AxesSubplot at 0x7fbf906ffdd8&gt;
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;Name&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/01.02 - loading data from HTML_15_1.svg" src="../_images/01.02 - loading data from HTML_15_1.svg" /></div>
+<img alt="../_images/01.02 - loading data from HTML_15_1.png" src="../_images/01.02 - loading data from HTML_15_1.png" />
+</div>
 </div>
 </div>
 </div>
@@ -766,6 +732,7 @@
     <div class='prev-next-bottom'>
         
     <a class='left-prev' id="prev-link" href="01%20-%20loading%20files.html" title="previous page">Loading Files</a>
+    <a class='right-next' id="next-link" href="02.01_Adding_New_Columns.html" title="next page">Adding New Columns</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">
