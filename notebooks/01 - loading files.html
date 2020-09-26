@@ -151,28 +151,6 @@
 
         <!-- Launch buttons -->
 
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/notebooks/01 - loading files.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/notebooks/01 - loading files.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="../_static/images/logo_colab.png"
-                    alt="Interact on Colab">Colab</button></a>
-        
-        
-    </div>
-</div>
-
     </div>
 
     <!-- Table of contents -->
@@ -215,9 +193,7 @@
   <div class="section" id="loading-files">
 <h1>Loading Files<a class="headerlink" href="#loading-files" title="Permalink to this headline">¶</a></h1>
 <p>In the first chapter we will learn how to load data into Pandas DataFrames. We will load multile formats of data sources including CSV files, Excel files, tables from web sites, tables in Databases, etc.</p>
-<div class="section" id="loading-csv-file">
-<h2>Loading CSV file<a class="headerlink" href="#loading-csv-file" title="Permalink to this headline">¶</a></h2>
-<p>The comma-separated-values (CSV) format is one of the simplest and pupolar way to share (small) data. You can save an Excel files as CSV and it is the default format of many bulk download of data from databases and other sources.</p>
+<p>To make the notebooks cleaner and easier to read we will suppress warnings. Bad practice, however, OK for a tutorial.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">warnings</span>
@@ -226,6 +202,9 @@
 </div>
 </div>
 </div>
+<div class="section" id="loading-csv-file">
+<h2>Loading CSV file<a class="headerlink" href="#loading-csv-file" title="Permalink to this headline">¶</a></h2>
+<p>The comma-separated-values (CSV) format is one of the simplest and pupolar way to share (small) data. You can save an Excel files as CSV and it is the default format of many bulk download of data from databases and other sources.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -681,7 +660,7 @@ memory usage: 2.2+ MB
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;longitude&#39;, ylabel=&#39;latitude&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/01 - loading files_10_1.png" src="../_images/01 - loading files_10_1.png" />
+<img alt="../_images/01 - loading files_11_1.png" src="../_images/01 - loading files_11_1.png" />
 </div>
 </div>
 </div>
@@ -702,7 +681,7 @@ memory usage: 2.2+ MB
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;longitude&#39;, ylabel=&#39;latitude&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/01 - loading files_12_1.png" src="../_images/01 - loading files_12_1.png" />
+<img alt="../_images/01 - loading files_13_1.png" src="../_images/01 - loading files_13_1.png" />
 </div>
 </div>
 </div>
@@ -723,7 +702,9 @@ To avoid this problem you can invoke Python with &#39;-m pip&#39; instead of run
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Defaulting to user installation because normal site-packages is not writeable
-Requirement already satisfied: xlrd in /Users/guy/Library/Python/3.8/lib/python/site-packages (1.2.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: xlrd in /Users/guy/Library/Python/3.8/lib/python/site-packages (1.2.0)
 </pre></div>
 </div>
 </div>
@@ -731,15 +712,15 @@ Requirement already satisfied: xlrd in /Users/guy/Library/Python/3.8/lib/python/
 <p>Then, we can call <em>read_excel</em> instead of <em>read_csv</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">table_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;../data/open_restaurant_applications.xlsx&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">table_df_from_excel</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;../data/open_restaurant_applications.xlsx&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">171233565</span><span class="n">b86</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">table_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;../data/open_restaurant_applications.xlsx&#39;</span><span class="p">)</span>
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="n">d68f28157e0e</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">table_df_from_excel</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;../data/open_restaurant_applications.xlsx&#39;</span><span class="p">)</span>
 
 <span class="nn">~/miniconda3/lib/python3.8/site-packages/pandas/util/_decorators.py</span> in <span class="ni">wrapper</span><span class="nt">(*args, **kwargs)</span>
 <span class="g g-Whitespace">    </span><span class="mi">294</span>                 <span class="p">)</span>
@@ -785,7 +766,7 @@ Requirement already satisfied: xlrd in /Users/guy/Library/Python/3.8/lib/python/
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
-    <span class="n">table_df</span>
+    <span class="n">table_df_from_excel</span>
     <span class="o">.</span><span class="n">plot</span>
     <span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;longitude&#39;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;latitude&#39;</span><span class="p">)</span>
 <span class="p">)</span>
@@ -796,7 +777,7 @@ Requirement already satisfied: xlrd in /Users/guy/Library/Python/3.8/lib/python/
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;longitude&#39;, ylabel=&#39;latitude&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/01 - loading files_18_1.svg" src="../_images/01 - loading files_18_1.svg" /></div>
+<img alt="../_images/01 - loading files_19_1.svg" src="../_images/01 - loading files_19_1.svg" /></div>
 </div>
 </div>
 </div>

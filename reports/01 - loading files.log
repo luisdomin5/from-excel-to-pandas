@@ -17,13 +17,13 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply['content'])
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-table_df = pd.read_excel('../data/open_restaurant_applications.xlsx')
+table_df_from_excel = pd.read_excel('../data/open_restaurant_applications.xlsx')
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
 [0;31mImportError[0m                               Traceback (most recent call last)
-[0;32m<ipython-input-10-171233565b86>[0m in [0;36m<module>[0;34m[0m
-[0;32m----> 1[0;31m [0mtable_df[0m [0;34m=[0m [0mpd[0m[0;34m.[0m[0mread_excel[0m[0;34m([0m[0;34m'../data/open_restaurant_applications.xlsx'[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m<ipython-input-10-d68f28157e0e>[0m in [0;36m<module>[0;34m[0m
+[0;32m----> 1[0;31m [0mtable_df_from_excel[0m [0;34m=[0m [0mpd[0m[0;34m.[0m[0mread_excel[0m[0;34m([0m[0;34m'../data/open_restaurant_applications.xlsx'[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
 [0m
 [0;32m~/miniconda3/lib/python3.8/site-packages/pandas/util/_decorators.py[0m in [0;36mwrapper[0;34m(*args, **kwargs)[0m
 [1;32m    294[0m                 )
