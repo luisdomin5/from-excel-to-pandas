@@ -197,6 +197,11 @@
    Adding new columns
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#loading-excel-files">
+   Loading Excel Files
+  </a>
+ </li>
 </ul>
 
         </nav>
@@ -699,6 +704,99 @@ memory usage: 2.2+ MB
 </div>
 <img alt="../_images/01 - loading files_12_1.png" src="../_images/01 - loading files_12_1.png" />
 </div>
+</div>
+</div>
+<div class="section" id="loading-excel-files">
+<h2>Loading Excel Files<a class="headerlink" href="#loading-excel-files" title="Permalink to this headline">¶</a></h2>
+<p>You can also read files that were edited in Excel and saved in the Excel format.</p>
+<p>If the python environment that we are using is missing part of the needed functionality, such as the ability to parse the format of the Microsoft Excel files, we need to install using the following command:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">!</span>pip3 install xlrd
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>WARNING: pip is being invoked by an old script wrapper. This will fail in a future version of pip.
+Please see https://github.com/pypa/pip/issues/5599 for advice on fixing the underlying issue.
+To avoid this problem you can invoke Python with &#39;-m pip&#39; instead of running pip directly.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Defaulting to user installation because normal site-packages is not writeable
+Requirement already satisfied: xlrd in /Users/guy/Library/Python/3.8/lib/python/site-packages (1.2.0)
+</pre></div>
+</div>
+</div>
+</div>
+<p>Then, we can call <em>read_excel</em> instead of <em>read_csv</em></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">table_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;../data/open_restaurant_applications.xlsx&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ImportError</span><span class="g g-Whitespace">                               </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">10</span><span class="o">-</span><span class="mi">171233565</span><span class="n">b86</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="n">table_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_excel</span><span class="p">(</span><span class="s1">&#39;../data/open_restaurant_applications.xlsx&#39;</span><span class="p">)</span>
+
+<span class="nn">~/miniconda3/lib/python3.8/site-packages/pandas/util/_decorators.py</span> in <span class="ni">wrapper</span><span class="nt">(*args, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">294</span>                 <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">295</span>                 <span class="n">warnings</span><span class="o">.</span><span class="n">warn</span><span class="p">(</span><span class="n">msg</span><span class="p">,</span> <span class="ne">FutureWarning</span><span class="p">,</span> <span class="n">stacklevel</span><span class="o">=</span><span class="n">stacklevel</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">296</span>             <span class="k">return</span> <span class="n">func</span><span class="p">(</span><span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">297</span> 
+<span class="g g-Whitespace">    </span><span class="mi">298</span>         <span class="k">return</span> <span class="n">wrapper</span>
+
+<span class="nn">~/miniconda3/lib/python3.8/site-packages/pandas/io/excel/_base.py</span> in <span class="ni">read_excel</span><span class="nt">(io, sheet_name, header, names, index_col, usecols, squeeze, dtype, engine, converters, true_values, false_values, skiprows, nrows, na_values, keep_default_na, na_filter, verbose, parse_dates, date_parser, thousands, comment, skipfooter, convert_float, mangle_dupe_cols)</span>
+<span class="g g-Whitespace">    </span><span class="mi">302</span> 
+<span class="g g-Whitespace">    </span><span class="mi">303</span>     <span class="k">if</span> <span class="ow">not</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">io</span><span class="p">,</span> <span class="n">ExcelFile</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">304</span>         <span class="n">io</span> <span class="o">=</span> <span class="n">ExcelFile</span><span class="p">(</span><span class="n">io</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="n">engine</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">305</span>     <span class="k">elif</span> <span class="n">engine</span> <span class="ow">and</span> <span class="n">engine</span> <span class="o">!=</span> <span class="n">io</span><span class="o">.</span><span class="n">engine</span><span class="p">:</span>
+<span class="g g-Whitespace">    </span><span class="mi">306</span>         <span class="k">raise</span> <span class="ne">ValueError</span><span class="p">(</span>
+
+<span class="nn">~/miniconda3/lib/python3.8/site-packages/pandas/io/excel/_base.py</span> in <span class="ni">__init__</span><span class="nt">(self, path_or_buffer, engine)</span>
+<span class="g g-Whitespace">    </span><span class="mi">865</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_io</span> <span class="o">=</span> <span class="n">stringify_path</span><span class="p">(</span><span class="n">path_or_buffer</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">866</span> 
+<span class="ne">--&gt; </span><span class="mi">867</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_reader</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_engines</span><span class="p">[</span><span class="n">engine</span><span class="p">](</span><span class="bp">self</span><span class="o">.</span><span class="n">_io</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">868</span> 
+<span class="g g-Whitespace">    </span><span class="mi">869</span>     <span class="k">def</span> <span class="nf">__fspath__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+<span class="nn">~/miniconda3/lib/python3.8/site-packages/pandas/io/excel/_xlrd.py</span> in <span class="ni">__init__</span><span class="nt">(self, filepath_or_buffer)</span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span>         <span class="s2">&quot;&quot;&quot;</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span><span class="s2">         err_msg = &quot;Install xlrd &gt;= 1.0.0 for Excel support&quot;</span>
+<span class="ne">---&gt; </span><span class="mi">21</span><span class="s2">         import_optional_dependency(&quot;xlrd&quot;, extra=err_msg)</span>
+<span class="g g-Whitespace">     </span><span class="mi">22</span><span class="s2">         super().__init__(filepath_or_buffer)</span>
+<span class="g g-Whitespace">     </span><span class="mi">23</span><span class="s2"> </span>
+
+<span class="nn">~/miniconda3/lib/python3.8/site-packages/pandas/compat/_optional.py</span> in <span class="ni">import_optional_dependency</span><span class="nt">(name, extra, raise_on_missing, on_version)</span>
+<span class="g g-Whitespace">    </span><span class="mi">108</span><span class="s2">     except ImportError:</span>
+<span class="g g-Whitespace">    </span><span class="mi">109</span><span class="s2">         if raise_on_missing:</span>
+<span class="ne">--&gt; </span><span class="mi">110</span><span class="s2">             raise ImportError(msg) from None</span>
+<span class="g g-Whitespace">    </span><span class="mi">111</span><span class="s2">         else:</span>
+<span class="g g-Whitespace">    </span><span class="mi">112</span><span class="s2">             return None</span>
+
+<span class="ne">ImportError</span>: Missing optional dependency &#39;xlrd&#39;. Install xlrd &gt;= 1.0.0 for Excel support Use pip or conda to install xlrd.
+</pre></div>
+</div>
+</div>
+</div>
+<p>and since the data now is in the Pandas (<em>pd</em>) DataFrame format, all the rest of the commands are exactly the same. For example, here is the same chart we plotted before.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">table_df</span>
+    <span class="o">.</span><span class="n">plot</span>
+    <span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;longitude&#39;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;latitude&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;longitude&#39;, ylabel=&#39;latitude&#39;&gt;
+</pre></div>
+</div>
+<img alt="../_images/01 - loading files_18_1.svg" src="../_images/01 - loading files_18_1.svg" /></div>
 </div>
 </div>
 </div>
