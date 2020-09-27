@@ -153,28 +153,6 @@
 
         <!-- Launch buttons -->
 
-<div class="dropdown-buttons-trigger">
-    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
-        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
-    <div class="dropdown-buttons">
-        
-        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/notebooks/02.01_Adding_New_Columns.ipynb"><button type="button"
-                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
-                data-placement="left"><img class="binder-button-logo"
-                    src="../_static/images/logo_binder.svg"
-                    alt="Interact on binder">Binder</button></a>
-        
-        
-        
-        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/notebooks/02.01_Adding_New_Columns.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
-                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
-                    src="../_static/images/logo_colab.png"
-                    alt="Interact on Colab">Colab</button></a>
-        
-        
-    </div>
-</div>
-
     </div>
 
     <!-- Table of contents -->
@@ -192,6 +170,11 @@
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#using-lambda">
    Using Lambda
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#multiple-data-sources">
+   Multiple Data Sources
   </a>
  </li>
 </ul>
@@ -724,11 +707,13 @@
 </div>
 <div class="section" id="using-lambda">
 <h2>Using Lambda<a class="headerlink" href="#using-lambda" title="Permalink to this headline">¶</a></h2>
-<p>Lambda is a bit confusing at first glance, however, it is used to define a the function that we want to apply on a each row or columns of the table. For example, let’s define a new column that is checking if the state is one of [‘NY’,’NJ’]</p>
+<p>Lambda is a bit confusing at first glance, however, it is used to define a the function that we want to apply on a each row or columns of the table. For example, let’s define two new columns: one that is calculating the quantile of the region compare to all the regions, and one that is checking if the state is one of [‘NY’,’NJ’]</p>
+<p>If you scroll all the way to the right on the table below, you can see the new two columns at the end.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
     <span class="n">df</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">last_quantile</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;2017-09&#39;</span><span class="p">]</span><span class="o">/</span><span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;2017-09&#39;</span><span class="p">]))</span>    
     <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">is_NY_or_NJ</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">State</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;NY&#39;</span><span class="p">,</span><span class="s1">&#39;NJ&#39;</span><span class="p">]))</span>
 <span class="p">)</span>
 </pre></div>
@@ -764,7 +749,6 @@
       <th>1996-05</th>
       <th>1996-06</th>
       <th>...</th>
-      <th>2017-01</th>
       <th>2017-02</th>
       <th>2017-03</th>
       <th>2017-04</th>
@@ -773,6 +757,7 @@
       <th>2017-07</th>
       <th>2017-08</th>
       <th>2017-09</th>
+      <th>last_quantile</th>
       <th>is_NY_or_NJ</th>
     </tr>
   </thead>
@@ -790,7 +775,6 @@
       <td>NaN</td>
       <td>NaN</td>
       <td>...</td>
-      <td>1290</td>
       <td>1277</td>
       <td>1272</td>
       <td>1271</td>
@@ -799,6 +783,7 @@
       <td>1279</td>
       <td>1274</td>
       <td>1270</td>
+      <td>0.702434</td>
       <td>True</td>
     </tr>
     <tr>
@@ -814,7 +799,6 @@
       <td>134.0</td>
       <td>133.0</td>
       <td>...</td>
-      <td>294</td>
       <td>296</td>
       <td>295</td>
       <td>293</td>
@@ -823,6 +807,7 @@
       <td>294</td>
       <td>294</td>
       <td>295</td>
+      <td>0.163164</td>
       <td>False</td>
     </tr>
     <tr>
@@ -838,7 +823,6 @@
       <td>NaN</td>
       <td>NaN</td>
       <td>...</td>
-      <td>1597</td>
       <td>1580</td>
       <td>1567</td>
       <td>1569</td>
@@ -847,6 +831,7 @@
       <td>1543</td>
       <td>1529</td>
       <td>1521</td>
+      <td>0.841261</td>
       <td>True</td>
     </tr>
     <tr>
@@ -863,7 +848,6 @@
       <td>150.0</td>
       <td>...</td>
       <td>333</td>
-      <td>333</td>
       <td>331</td>
       <td>330</td>
       <td>330</td>
@@ -871,6 +855,7 @@
       <td>328</td>
       <td>329</td>
       <td>329</td>
+      <td>0.181969</td>
       <td>False</td>
     </tr>
     <tr>
@@ -890,11 +875,11 @@
       <td>81</td>
       <td>81</td>
       <td>81</td>
-      <td>81</td>
       <td>82</td>
       <td>82</td>
       <td>82</td>
       <td>82</td>
+      <td>0.045354</td>
       <td>False</td>
     </tr>
     <tr>
@@ -934,7 +919,6 @@
       <td>NaN</td>
       <td>NaN</td>
       <td>...</td>
-      <td>230</td>
       <td>238</td>
       <td>243</td>
       <td>245</td>
@@ -943,6 +927,7 @@
       <td>246</td>
       <td>244</td>
       <td>240</td>
+      <td>0.132743</td>
       <td>False</td>
     </tr>
     <tr>
@@ -959,7 +944,6 @@
       <td>61.0</td>
       <td>...</td>
       <td>129</td>
-      <td>129</td>
       <td>128</td>
       <td>129</td>
       <td>130</td>
@@ -967,6 +951,7 @@
       <td>130</td>
       <td>130</td>
       <td>131</td>
+      <td>0.072456</td>
       <td>False</td>
     </tr>
     <tr>
@@ -982,7 +967,6 @@
       <td>NaN</td>
       <td>NaN</td>
       <td>...</td>
-      <td>72</td>
       <td>73</td>
       <td>74</td>
       <td>74</td>
@@ -991,6 +975,7 @@
       <td>74</td>
       <td>77</td>
       <td>79</td>
+      <td>0.043695</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1006,7 +991,6 @@
       <td>149.0</td>
       <td>151.0</td>
       <td>...</td>
-      <td>470</td>
       <td>462</td>
       <td>457</td>
       <td>457</td>
@@ -1015,6 +999,7 @@
       <td>455</td>
       <td>458</td>
       <td>460</td>
+      <td>0.254425</td>
       <td>False</td>
     </tr>
     <tr>
@@ -1030,7 +1015,6 @@
       <td>NaN</td>
       <td>NaN</td>
       <td>...</td>
-      <td>117</td>
       <td>119</td>
       <td>119</td>
       <td>119</td>
@@ -1039,13 +1023,19 @@
       <td>122</td>
       <td>124</td>
       <td>124</td>
+      <td>0.068584</td>
       <td>False</td>
     </tr>
   </tbody>
 </table>
-<p>14755 rows × 266 columns</p>
+<p>14755 rows × 267 columns</p>
 </div></div></div>
 </div>
+</div>
+<div class="section" id="multiple-data-sources">
+<h2>Multiple Data Sources<a class="headerlink" href="#multiple-data-sources" title="Permalink to this headline">¶</a></h2>
+<p>We can do a more complicated analysis that is based on additional external sources. For example, we want to calculate the differences between red states and blue states. We can then ask various questions regarding the impacts or correlation between the house prices and the election results and voting patterns.</p>
+<p>First we will load data regarding the voting in various states across the years. A quick internet search finds an interesting table in the following Wikipedia page.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">red_blue_states_wikipedia_entry</span> <span class="o">=</span> <span class="s1">&#39;https://en.wikipedia.org/wiki/Red_states_and_blue_states&#39;</span>
@@ -1181,9 +1171,11 @@
 </table>
 </div></div></div>
 </div>
+<p>We will start with creating a new list of states that voted for a specific candidate in a specific electio. First, let’s use Trump in the 2016 elections.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">red_candidate</span> <span class="o">=</span> <span class="s1">&#39;Trump&#39;</span>
+<span class="n">election_year</span> <span class="o">=</span> <span class="s1">&#39;2016&#39;</span>
 </pre></div>
 </div>
 </div>
@@ -1192,9 +1184,9 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">red_states</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">red_blue_states</span>
-    <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;2016&#39;</span><span class="p">:</span><span class="s1">&#39;Last&#39;</span><span class="p">})</span>
+    <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="n">election_year</span><span class="p">:</span><span class="s1">&#39;election_year&#39;</span><span class="p">})</span>
     <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
-    <span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;Last == @red_candidate&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;election_year == @red_candidate&quot;</span><span class="p">)</span>
     <span class="o">.</span><span class="n">iloc</span><span class="p">[:,</span><span class="mi">1</span><span class="p">]</span>
 <span class="p">)</span>
 <span class="n">red_states</span>
@@ -1236,6 +1228,8 @@ Name: Year, dtype: object
 </div>
 </div>
 </div>
+<p>Now that we have the list of the red states, we need to match them to the states that we have in our house prices data set. We see that we have to match the short version in the data set with the long version in the red state list.</p>
+<p>We will use a another option to create a data frame using a Dictionary. It is not hard to find a list of mapping of states names and abbreviations.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">us_state_abbrev</span> <span class="o">=</span> <span class="p">{</span>
@@ -1296,7 +1290,14 @@ Name: Year, dtype: object
     <span class="s1">&#39;Wisconsin&#39;</span><span class="p">:</span> <span class="s1">&#39;WI&#39;</span><span class="p">,</span>
     <span class="s1">&#39;Wyoming&#39;</span><span class="p">:</span> <span class="s1">&#39;WY&#39;</span>
 <span class="p">}</span>
-<span class="n">us_state_abbrev_df</span> <span class="o">=</span> <span class="p">(</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>and we can use the dictionary to create a table (DataFrame) from it</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">us_state_abbrev_df</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">pd</span>
     <span class="o">.</span><span class="n">DataFrame</span>
     <span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">us_state_abbrev</span><span class="p">,</span> 
@@ -1307,6 +1308,7 @@ Name: Year, dtype: object
 </div>
 </div>
 </div>
+<p>Next, we will filter the table to include only the red states that we calculated before</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">red_state_abbrev</span> <span class="o">=</span> <span class="p">(</span>
@@ -1353,6 +1355,8 @@ Name: Abbreviation, dtype: object
 </div>
 </div>
 </div>
+<p>Finally, we can create a new column in our dataset (<em>is_red</em>) by checking if the <em>State</em> in the row is in the list of red states that we calculated above.</p>
+<p>We can then, immediately use the new column to calculate the average (<em>mean</em>) price in <em>2017_09</em> of the two groups, and see that the average in the blue states (<em>is_red = False</em>) is more than twice the average of red states (<em>is_red = True</em>)</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
