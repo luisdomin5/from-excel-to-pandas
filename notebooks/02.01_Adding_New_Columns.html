@@ -153,6 +153,28 @@
 
         <!-- Launch buttons -->
 
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/notebooks/02.01_Adding_New_Columns.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/notebooks/02.01_Adding_New_Columns.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
     </div>
 
     <!-- Table of contents -->
@@ -1035,19 +1057,19 @@
 <div class="section" id="multiple-data-sources">
 <h2>Multiple Data Sources<a class="headerlink" href="#multiple-data-sources" title="Permalink to this headline">¶</a></h2>
 <p>We can do a more complicated analysis that is based on additional external sources. For example, we want to calculate the differences between red states and blue states. We can then ask various questions regarding the impacts or correlation between the house prices and the election results and voting patterns.</p>
-<p>First we will load data regarding the voting in various states across the years. A quick internet search finds an interesting table in the following Wikipedia page.</p>
+<p>First we will load data regarding the voting in various states across the years. A quick internet search finds an interesting table in the following Wikipedia page. Since there are multiple tables on that page, we can filter them using the <em>match</em> option, and using the word <em>Year</em> as the filter.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">red_blue_states_wikipedia_entry</span> <span class="o">=</span> <span class="s1">&#39;https://en.wikipedia.org/wiki/Red_states_and_blue_states&#39;</span>
-<span class="n">wikipedia_page_tables</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_html</span><span class="p">(</span><span class="n">red_blue_states_wikipedia_entry</span><span class="p">)</span>
+<span class="n">wikipedia_page_tables</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_html</span><span class="p">(</span><span class="n">red_blue_states_wikipedia_entry</span><span class="p">,</span> <span class="n">match</span><span class="o">=</span><span class="s1">&#39;Year&#39;</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
-<p>As we saw in the loading data from web site, the list includes multiple tables. After some scrolling we can see the table that we want is the one with index 11</p>
+<p>As we saw in the loading data from web site, the list can includes multiple tables. However, we filtered it and only have one table, and we can access it with the <em>[0]</em> modifier.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">red_blue_states</span> <span class="o">=</span> <span class="n">wikipedia_page_tables</span><span class="p">[</span><span class="mi">11</span><span class="p">]</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">red_blue_states</span> <span class="o">=</span> <span class="n">wikipedia_page_tables</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 <span class="n">red_blue_states</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>

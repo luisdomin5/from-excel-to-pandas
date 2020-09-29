@@ -218,6 +218,7 @@
   <div class="section" id="loading-files">
 <h1>Loading Files<a class="headerlink" href="#loading-files" title="Permalink to this headline">¶</a></h1>
 <p>In the first chapter we will learn how to load data into Pandas DataFrames. We will load multile formats of data sources including CSV files, Excel files, tables from web sites, tables in Databases, etc.</p>
+<p>You can review the official Pandas documentation about <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/io.html">reading and writing data</a>, or you can follow the simple examples here with real life examples.</p>
 <p>To make the notebooks cleaner and easier to read we will suppress warnings. Bad practice, however, OK for a tutorial.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -239,7 +240,7 @@
 </div>
 </div>
 </div>
-<p>The first example is using data file about permits for restaurants in NY city. It was downloaded from the open data web site <a class="reference external" href="https://data.world/city-of-ny/pitm-atqc">data.world</a></p>
+<p>The first example is using data file about permits for restaurants in NY city. It was downloaded from the open data web site <a class="reference external" href="https://data.world/city-of-ny/pitm-atqc">data.world</a>, and we will use the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.read_csv.html">read_csv</a> option with default values.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">table_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/open_restaurant_applications_1.csv&#39;</span><span class="p">)</span>
@@ -247,6 +248,7 @@
 </div>
 </div>
 </div>
+<p>Once we loaded the data into the table DataFrame, we can browse parts of the data and its statistics. Let’s start with browsing the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.head.html">head</a> of the data.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">table_df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -421,6 +423,8 @@
 <p>5 rows × 36 columns</p>
 </div></div></div>
 </div>
+<p>As you can see, it is only showing part of the rows and parts of the columns.</p>
+<p>If we want to understand what are the columns of the table, we can use the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.info.html">info</a> function.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">table_df</span><span class="o">.</span><span class="n">info</span><span class="p">()</span>
@@ -475,6 +479,7 @@ memory usage: 2.2+ MB
 </div>
 </div>
 </div>
+<p>Next, we want to some statistics on the various numeric values. with <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.describe.html">describe</a> we can see how many values do we have in each numeric column and some statistics such as average, minimum, maximum and their quantiles.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">table_df</span><span class="o">.</span><span class="n">describe</span><span class="p">()</span>
@@ -685,7 +690,7 @@ memory usage: 2.2+ MB
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;longitude&#39;, ylabel=&#39;latitude&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/01 - loading files_11_1.png" src="../_images/01 - loading files_11_1.png" />
+<img alt="../_images/01 - loading files_14_1.png" src="../_images/01 - loading files_14_1.png" />
 </div>
 </div>
 </div>
@@ -706,7 +711,7 @@ memory usage: 2.2+ MB
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;longitude&#39;, ylabel=&#39;latitude&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/01 - loading files_13_1.png" src="../_images/01 - loading files_13_1.png" />
+<img alt="../_images/01 - loading files_16_1.png" src="../_images/01 - loading files_16_1.png" />
 </div>
 </div>
 </div>
@@ -749,7 +754,7 @@ memory usage: 2.2+ MB
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;longitude&#39;, ylabel=&#39;latitude&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/01 - loading files_19_1.png" src="../_images/01 - loading files_19_1.png" />
+<img alt="../_images/01 - loading files_22_1.png" src="../_images/01 - loading files_22_1.png" />
 </div>
 </div>
 </div>
