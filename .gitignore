@@ -1,5 +1,6 @@
 
 .DS_Store
 *.doctree
-notebooks/.ipynb_checkpoints/02.01_Adding_New_Columns-checkpoint.ipynb
+notebooks/.ipynb_checkpoints/
 _build/
+_build/jupyter_execute/
