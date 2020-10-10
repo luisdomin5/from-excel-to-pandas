@@ -1,6 +1,6 @@
 - file: intro
   sections:
-    - file: notebooks/01 - loading files
-    - file: notebooks/01.02 - loading data from HTML
-    - file: notebooks/01.03_loading_data_from_API
-    - file: notebooks/02.01_Adding_New_Columns
+    - file: notebooks/01 - loading files.ipynb
+    - file: notebooks/01.02 - loading data from HTML.ipynb
+    - file: notebooks/01.03_loading_data_from_API.ipynb
+    - file: notebooks/02.01_Adding_New_Columns.ipynb
