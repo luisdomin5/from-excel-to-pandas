@@ -37,7 +37,7 @@
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
     <link rel="next" title="Reading Data from Web Sites" href="01.02%20-%20loading%20data%20from%20HTML.html" />
-    <link rel="prev" title="Welcome to the complete tutorial from Excel to Pandas" href="../intro.html" />
+    <link rel="prev" title="Install Locall" href="../getting_started.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="docsearch:language" content="en">
@@ -77,6 +77,28 @@
   </a>
  </li>
 </ul>
+<p class="caption">
+ <span class="caption-text">
+  Getting Started
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../getting_started.html">
+   Install Locall
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../getting_started.html#open-in-binder-colab">
+   Open in Binder/Colab
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Loading Data
+ </span>
+</p>
 <ul class="current nav sidenav_l1">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
@@ -93,6 +115,13 @@
    Reading Data from External API
   </a>
  </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Adding Columns
+ </span>
+</p>
+<ul class="nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="02.01_Adding_New_Columns.html">
    Adding New Columns
@@ -676,6 +705,198 @@ memory usage: 2.2+ MB
 </table>
 </div></div></div>
 </div>
+<p>You can modify the percentile that are calculated for the numeric columns by setting the values that you care about. For example, to get the p10, p50 and p90, you can pass the following array of values.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">table_df</span><span class="o">.</span><span class="n">describe</span><span class="p">(</span><span class="n">percentiles</span> <span class="o">=</span> <span class="p">[</span><span class="o">.</span><span class="mi">10</span><span class="p">,</span> <span class="o">.</span><span class="mi">5</span><span class="p">,</span> <span class="o">.</span><span class="mi">90</span><span class="p">])</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>objectid</th>
+      <th>postcode</th>
+      <th>sidewalk_dimensions_length</th>
+      <th>sidewalk_dimensions_width</th>
+      <th>sidewalk_dimensions_area</th>
+      <th>roadway_dimensions_length</th>
+      <th>roadway_dimensions_width</th>
+      <th>roadway_dimensions_area</th>
+      <th>latitude</th>
+      <th>longitude</th>
+      <th>community_board</th>
+      <th>council_district</th>
+      <th>census_tract</th>
+      <th>bin</th>
+      <th>bbl</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>count</th>
+      <td>7939.000000</td>
+      <td>7939.000000</td>
+      <td>7120.000000</td>
+      <td>7120.000000</td>
+      <td>7120.000000</td>
+      <td>5080.000000</td>
+      <td>5080.000000</td>
+      <td>5080.000000</td>
+      <td>6943.000000</td>
+      <td>6943.000000</td>
+      <td>6943.000000</td>
+      <td>6943.000000</td>
+      <td>6943.000000</td>
+      <td>6.888000e+03</td>
+      <td>6.888000e+03</td>
+    </tr>
+    <tr>
+      <th>mean</th>
+      <td>4006.485452</td>
+      <td>10619.992442</td>
+      <td>34.319101</td>
+      <td>10.602247</td>
+      <td>410.681882</td>
+      <td>31.530709</td>
+      <td>8.590945</td>
+      <td>280.760236</td>
+      <td>40.732316</td>
+      <td>-73.952988</td>
+      <td>231.494167</td>
+      <td>17.970906</td>
+      <td>3241.251476</td>
+      <td>2.332593e+06</td>
+      <td>2.277429e+09</td>
+    </tr>
+    <tr>
+      <th>std</th>
+      <td>2297.885878</td>
+      <td>1091.934677</td>
+      <td>38.058425</td>
+      <td>7.241442</td>
+      <td>1109.156427</td>
+      <td>30.240655</td>
+      <td>4.384592</td>
+      <td>513.508993</td>
+      <td>0.057959</td>
+      <td>0.061280</td>
+      <td>128.857022</td>
+      <td>15.370382</td>
+      <td>13737.582279</td>
+      <td>1.329363e+06</td>
+      <td>1.296711e+09</td>
+    </tr>
+    <tr>
+      <th>min</th>
+      <td>32.000000</td>
+      <td>7002.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>0.000000</td>
+      <td>40.511019</td>
+      <td>-74.248014</td>
+      <td>101.000000</td>
+      <td>1.000000</td>
+      <td>1.000000</td>
+      <td>1.000000e+06</td>
+      <td>0.000000e+00</td>
+    </tr>
+    <tr>
+      <th>10%</th>
+      <td>825.800000</td>
+      <td>10009.000000</td>
+      <td>12.000000</td>
+      <td>4.000000</td>
+      <td>64.000000</td>
+      <td>12.000000</td>
+      <td>6.000000</td>
+      <td>96.000000</td>
+      <td>40.661594</td>
+      <td>-74.003282</td>
+      <td>102.000000</td>
+      <td>2.000000</td>
+      <td>38.000000</td>
+      <td>1.007896e+06</td>
+      <td>1.004610e+09</td>
+    </tr>
+    <tr>
+      <th>50%</th>
+      <td>4005.000000</td>
+      <td>10454.000000</td>
+      <td>24.000000</td>
+      <td>8.000000</td>
+      <td>225.000000</td>
+      <td>24.000000</td>
+      <td>8.000000</td>
+      <td>192.000000</td>
+      <td>40.734268</td>
+      <td>-73.968501</td>
+      <td>208.000000</td>
+      <td>15.000000</td>
+      <td>151.000000</td>
+      <td>2.046050e+06</td>
+      <td>2.037640e+09</td>
+    </tr>
+    <tr>
+      <th>90%</th>
+      <td>7197.200000</td>
+      <td>11369.000000</td>
+      <td>70.000000</td>
+      <td>19.000000</td>
+      <td>800.000000</td>
+      <td>60.000000</td>
+      <td>9.000000</td>
+      <td>504.000000</td>
+      <td>40.795218</td>
+      <td>-73.869113</td>
+      <td>405.000000</td>
+      <td>39.000000</td>
+      <td>2602.000000</td>
+      <td>4.087712e+06</td>
+      <td>4.030800e+09</td>
+    </tr>
+    <tr>
+      <th>max</th>
+      <td>7992.000000</td>
+      <td>91206.000000</td>
+      <td>1000.000000</td>
+      <td>50.000000</td>
+      <td>50000.000000</td>
+      <td>1000.000000</td>
+      <td>50.000000</td>
+      <td>25000.000000</td>
+      <td>40.911190</td>
+      <td>-73.702668</td>
+      <td>503.000000</td>
+      <td>51.000000</td>
+      <td>157903.000000</td>
+      <td>5.169029e+06</td>
+      <td>5.080430e+09</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
 </div>
 <div class="section" id="simple-data-visualization">
 <h2>Simple data visualization<a class="headerlink" href="#simple-data-visualization" title="Permalink to this headline">¶</a></h2>
@@ -695,7 +916,7 @@ memory usage: 2.2+ MB
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;longitude&#39;, ylabel=&#39;latitude&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/01 - loading files_14_1.png" src="../_images/01 - loading files_14_1.png" />
+<img alt="../_images/01 - loading files_16_1.png" src="../_images/01 - loading files_16_1.png" />
 </div>
 </div>
 </div>
@@ -716,7 +937,7 @@ memory usage: 2.2+ MB
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;longitude&#39;, ylabel=&#39;latitude&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/01 - loading files_16_1.png" src="../_images/01 - loading files_16_1.png" />
+<img alt="../_images/01 - loading files_18_1.png" src="../_images/01 - loading files_18_1.png" />
 </div>
 </div>
 </div>
@@ -759,7 +980,7 @@ memory usage: 2.2+ MB
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;longitude&#39;, ylabel=&#39;latitude&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/01 - loading files_22_1.png" src="../_images/01 - loading files_22_1.png" />
+<img alt="../_images/01 - loading files_24_1.png" src="../_images/01 - loading files_24_1.png" />
 </div>
 </div>
 </div>
@@ -793,7 +1014,7 @@ memory usage: 2.2+ MB
     
     <div class='prev-next-bottom'>
         
-    <a class='left-prev' id="prev-link" href="../intro.html" title="previous page">Welcome to the complete tutorial from Excel to Pandas</a>
+    <a class='left-prev' id="prev-link" href="../getting_started.html" title="previous page">Install Locall</a>
     <a class='right-next' id="next-link" href="01.02%20-%20loading%20data%20from%20HTML.html" title="next page">Reading Data from Web Sites</a>
 
     </div>
