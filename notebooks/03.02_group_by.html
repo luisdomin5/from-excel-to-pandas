@@ -1,0 +1,713 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Split a Table into Groups &#8212; From Excel to Pandas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Creating a Pivot Table" href="03.01_pivot_tables.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">From Excel to Pandas</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Welcome to the complete tutorial from Excel to Pandas
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Getting Started
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../getting_started.html">
+   Install Locally
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../getting_started.html#open-in-binder-colab">
+   Open in Binder/Colab
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../getting_started.html#open-in-visual-studio-code">
+   Open in Visual Studio Code
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Loading Data
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01%20-%20loading%20files.html">
+   Loading Files
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="01.02%20-%20loading%20data%20from%20HTML.html">
+   Reading Data from Web Sites
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="01.03_loading_data_from_API.html">
+   Reading Data from External API
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Adding Columns
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="02.01_Adding_New_Columns.html">
+   Adding New Columns
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Table Aggregation and Reshaping
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.01_pivot_tables.html">
+   Creating a Pivot Table
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Split a Table into Groups
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/notebooks/03.02_group_by.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/notebooks/03.02_group_by.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/notebooks/03.02_group_by.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#loading-data">
+   Loading data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#loading-all-pages">
+   Loading all pages
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#counting-values">
+   Counting Values
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#sorting-values">
+   Sorting Values
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#visualization-of-the-data">
+   Visualization of the data
+  </a>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="split-a-table-into-groups">
+<h1>Split a Table into Groups<a class="headerlink" href="#split-a-table-into-groups" title="Permalink to this headline">¶</a></h1>
+<p>The <em>groupby</em> function is one of the most powerful and useful functions for dataframes in Pandas. The main idea is to:</p>
+<ul class="simple">
+<li><p><strong>split</strong> a large dataframe table into groups based on some values or categories in some of the columns, and then</p></li>
+<li><p><strong>apply</strong> some aggregation or other function on each group, and then</p></li>
+<li><p><strong>combine</strong> them back together into a single table.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="loading-data">
+<h2>Loading data<a class="headerlink" href="#loading-data" title="Permalink to this headline">¶</a></h2>
+<p>We will now start with another data from API from an open source <a class="reference external" href="https://www.openbrewerydb.org/">brewery-DB API</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://api.openbrewerydb.org/breweries?per_page=50&#39;</span>
+
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="n">response</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Response [200]&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">pd</span>
+    <span class="o">.</span><span class="n">json_normalize</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">())</span>
+<span class="p">)</span>
+
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>name</th>
+      <th>brewery_type</th>
+      <th>street</th>
+      <th>address_2</th>
+      <th>address_3</th>
+      <th>city</th>
+      <th>state</th>
+      <th>county_province</th>
+      <th>postal_code</th>
+      <th>country</th>
+      <th>longitude</th>
+      <th>latitude</th>
+      <th>phone</th>
+      <th>website_url</th>
+      <th>updated_at</th>
+      <th>created_at</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2</td>
+      <td>Avondale Brewing Co</td>
+      <td>micro</td>
+      <td>201 41st St S</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Birmingham</td>
+      <td>Alabama</td>
+      <td>None</td>
+      <td>35222-1932</td>
+      <td>United States</td>
+      <td>-86.774322</td>
+      <td>33.524521</td>
+      <td>2057775456</td>
+      <td>http://www.avondalebrewing.com</td>
+      <td>2018-08-23T23:19:57.825Z</td>
+      <td>2018-07-24T01:32:47.255Z</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>44</td>
+      <td>Trim Tab Brewing</td>
+      <td>micro</td>
+      <td>2721 5th Ave S</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Birmingham</td>
+      <td>Alabama</td>
+      <td>None</td>
+      <td>35233-3401</td>
+      <td>United States</td>
+      <td>-86.7914000624146</td>
+      <td>33.5128492349817</td>
+      <td>2057030536</td>
+      <td>http://www.trimtabbrewing.com</td>
+      <td>2018-08-23T23:20:31.423Z</td>
+      <td>2018-07-24T01:32:47.815Z</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>46</td>
+      <td>Yellowhammer Brewery</td>
+      <td>micro</td>
+      <td>2600 Clinton Ave W</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Huntsville</td>
+      <td>Alabama</td>
+      <td>None</td>
+      <td>35805-3046</td>
+      <td>United States</td>
+      <td>-86.5932014</td>
+      <td>34.7277523</td>
+      <td>2569755950</td>
+      <td>http://www.yellowhammerbrewery.com</td>
+      <td>2018-08-23T23:20:33.102Z</td>
+      <td>2018-07-24T01:32:47.838Z</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>55</td>
+      <td>Bearpaw River Brewing Co</td>
+      <td>micro</td>
+      <td>4605 E Palmer Wasilla Hwy</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Wasilla</td>
+      <td>Alaska</td>
+      <td>None</td>
+      <td>99654-7679</td>
+      <td>United States</td>
+      <td>-149.4127103</td>
+      <td>61.5752695</td>
+      <td></td>
+      <td>http://bearpawriverbrewing.com</td>
+      <td>2018-08-23T23:20:40.743Z</td>
+      <td>2018-07-24T01:32:47.967Z</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>76</td>
+      <td>King Street Brewing Co</td>
+      <td>micro</td>
+      <td>9050 King Street</td>
+      <td>None</td>
+      <td>None</td>
+      <td>Anchorage</td>
+      <td>Alaska</td>
+      <td>None</td>
+      <td>99515</td>
+      <td>United States</td>
+      <td>-149.879076042937</td>
+      <td>61.1384893547315</td>
+      <td>9073365464</td>
+      <td>http://www.kingstreetbrewing.com</td>
+      <td>2018-08-23T23:20:57.179Z</td>
+      <td>2018-07-24T01:32:48.301Z</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="loading-all-pages">
+<h2>Loading all pages<a class="headerlink" href="#loading-all-pages" title="Permalink to this headline">¶</a></h2>
+<p>If the number of results from an API is high, the API is often using pagination and returning a constant number of results in each page. We set up the page size to be 50 in the URL above, and now we will load 20 pages from the API</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+<span class="n">api_dataset</span> <span class="o">=</span> <span class="n">response</span>
+
+<span class="c1">#looping through and putting data to the list api_dataset</span>
+<span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">):</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;&amp;page=</span><span class="si">{</span><span class="n">page</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+    <span class="n">api_dataset</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
+
+<span class="kn">from</span> <span class="nn">pandas.io.json</span> <span class="kn">import</span> <span class="n">json_normalize</span> 
+
+<span class="n">pmap_data</span> <span class="o">=</span> <span class="n">json_normalize</span><span class="p">(</span><span class="n">api_dataset</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;ipython-input-4-17cc968474f0&gt;:11: FutureWarning: pandas.io.json.json_normalize is deprecated, use pandas.json_normalize instead
+  pmap_data = json_normalize(api_dataset)
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="counting-values">
+<h2>Counting Values<a class="headerlink" href="#counting-values" title="Permalink to this headline">¶</a></h2>
+<p>The simplest aggregation function for each group is the <em>size</em>. How many breweries do we have in each state?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">pmap_data</span>
+    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;state&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">size</span><span class="p">()</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>state
+Alabama                  48
+Alaska                   45
+Arizona                 120
+Arkansas                 17
+California              109
+Colorado                 34
+Connecticut               9
+Delaware                  2
+District of Columbia      2
+Florida                  24
+Georgia                  10
+Hawaii                    2
+Idaho                     6
+Illinois                 21
+Indiana                  16
+Iowa                      8
+Kansas                    5
+Kentucky                  5
+Louisiana                 4
+Maine                     8
+Maryland                 10
+Massachusetts            13
+Michigan                 42
+Minnesota                15
+Mississippi               2
+Missouri                 10
+Montana                   6
+Nebraska                 10
+Nevada                    5
+New Hampshire             5
+New Jersey                9
+New Mexico                7
+New York                 34
+North Carolina           26
+North Dakota              2
+Ohio                     30
+Oklahoma                  2
+Oregon                   29
+Pennsylvania             31
+Rhode Island              1
+South Carolina            6
+South Dakota              3
+Tennessee                12
+Texas                    27
+Utah                      4
+Vermont                   5
+Virginia                 20
+Washington               32
+West Virginia             3
+Wisconsin                17
+Wyoming                   2
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="sorting-values">
+<h2>Sorting Values<a class="headerlink" href="#sorting-values" title="Permalink to this headline">¶</a></h2>
+<p>To sort the values is also simple with <em>sort_value()</em> function</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">us_brewery_distribution</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">pmap_data</span>
+    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;state&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">size</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">us_brewery_distribution</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>state
+Arizona                 120
+California              109
+Alabama                  48
+Alaska                   45
+Michigan                 42
+New York                 34
+Colorado                 34
+Washington               32
+Pennsylvania             31
+Ohio                     30
+Oregon                   29
+Texas                    27
+North Carolina           26
+Florida                  24
+Illinois                 21
+Virginia                 20
+Wisconsin                17
+Arkansas                 17
+Indiana                  16
+Minnesota                15
+Massachusetts            13
+Tennessee                12
+Georgia                  10
+Maryland                 10
+Missouri                 10
+Nebraska                 10
+Connecticut               9
+New Jersey                9
+Iowa                      8
+Maine                     8
+New Mexico                7
+Montana                   6
+South Carolina            6
+Idaho                     6
+Kansas                    5
+New Hampshire             5
+Vermont                   5
+Nevada                    5
+Kentucky                  5
+Louisiana                 4
+Utah                      4
+West Virginia             3
+South Dakota              3
+District of Columbia      2
+Delaware                  2
+Oklahoma                  2
+Hawaii                    2
+Mississippi               2
+North Dakota              2
+Wyoming                   2
+Rhode Island              1
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="visualization-of-the-data">
+<h2>Visualization of the data<a class="headerlink" href="#visualization-of-the-data" title="Permalink to this headline">¶</a></h2>
+<p>Let’s do a simple visualization of the data without any map, just using the longitude and latitude values of each brewery. We will first convert the longitude and latitude to be numeric values for the plot.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">pmap_data</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">longitude</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">longitude</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">latitude</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">latitude</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">plot</span>
+    <span class="o">.</span><span class="n">hexbin</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;longitude&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;latitude&#39;</span><span class="p">,</span> <span class="n">gridsize</span><span class="o">=</span><span class="mi">20</span><span class="p">)</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/03.02_group_by_12_0.png" src="../_images/03.02_group_by_12_0.png" />
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "Python3"
+        },
+        kernelOptions: {
+            kernelName: "Python3",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'Python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="03.01_pivot_tables.html" title="previous page">Creating a Pivot Table</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By The Aiola Team<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>
