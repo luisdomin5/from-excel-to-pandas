@@ -305,7 +305,7 @@
 <p>Pivot Tables are one of the most used features in Excel. You can point to a large table of data and interactively group the data and calculate multiple statistics on each of the groups and sub groups. Pandas makes it easy to do similar functionalities using the <em>pivot_table</em> function. There are multiple options to achieve similar and even more powerful calculations with other Pandas functions, which we will cover later, however, <em>pivot_table</em> is the most straight comparison to the one in Excel, and therefore, we will start with it</p>
 <div class="section" id="loading-data">
 <h2>Loading Data<a class="headerlink" href="#loading-data" title="Permalink to this headline">¶</a></h2>
-<p>As always, we will start with loading some data set (using the great tutorial from https://pbpython.com/pandas-pivot-table-explained.html)</p>
+<p>As always, we will start with loading some data set (using the great tutorial from <a class="reference external" href="https://pbpython.com/pandas-pivot-table-explained.html">pbpython</a>)</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
@@ -1432,28 +1432,28 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><style  type="text/css" >
-</style><table id="T_a2642be2_1ab6_11eb_8b94_acde48001122" ><thead>    <tr>        <th class="blank" ></th>        <th class="blank level0" ></th>        <th class="col_heading level0 col0" >Price</th>    </tr>    <tr>        <th class="index_name level0" >Manager</th>        <th class="index_name level1" >Rep</th>        <th class="blank" ></th>    </tr></thead><tbody>
+</style><table id="T_22b337de_1ab7_11eb_9b0a_acde48001122" ><thead>    <tr>        <th class="blank" ></th>        <th class="blank level0" ></th>        <th class="col_heading level0 col0" >Price</th>    </tr>    <tr>        <th class="index_name level0" >Manager</th>        <th class="index_name level1" >Rep</th>        <th class="blank" ></th>    </tr></thead><tbody>
                 <tr>
-                        <th id="T_a2642be2_1ab6_11eb_8b94_acde48001122level0_row0" class="row_heading level0 row0" rowspan=3>Debra Henley</th>
-                        <th id="T_a2642be2_1ab6_11eb_8b94_acde48001122level1_row0" class="row_heading level1 row0" >Craig Booker</th>
-                        <td id="T_a2642be2_1ab6_11eb_8b94_acde48001122row0_col0" class="data row0 col0" >$80,000</td>
+                        <th id="T_22b337de_1ab7_11eb_9b0a_acde48001122level0_row0" class="row_heading level0 row0" rowspan=3>Debra Henley</th>
+                        <th id="T_22b337de_1ab7_11eb_9b0a_acde48001122level1_row0" class="row_heading level1 row0" >Craig Booker</th>
+                        <td id="T_22b337de_1ab7_11eb_9b0a_acde48001122row0_col0" class="data row0 col0" >$80,000</td>
             </tr>
             <tr>
-                                <th id="T_a2642be2_1ab6_11eb_8b94_acde48001122level1_row1" class="row_heading level1 row1" >Daniel Hilton</th>
-                        <td id="T_a2642be2_1ab6_11eb_8b94_acde48001122row1_col0" class="data row1 col0" >$115,000</td>
+                                <th id="T_22b337de_1ab7_11eb_9b0a_acde48001122level1_row1" class="row_heading level1 row1" >Daniel Hilton</th>
+                        <td id="T_22b337de_1ab7_11eb_9b0a_acde48001122row1_col0" class="data row1 col0" >$115,000</td>
             </tr>
             <tr>
-                                <th id="T_a2642be2_1ab6_11eb_8b94_acde48001122level1_row2" class="row_heading level1 row2" >John Smith</th>
-                        <td id="T_a2642be2_1ab6_11eb_8b94_acde48001122row2_col0" class="data row2 col0" >$40,000</td>
+                                <th id="T_22b337de_1ab7_11eb_9b0a_acde48001122level1_row2" class="row_heading level1 row2" >John Smith</th>
+                        <td id="T_22b337de_1ab7_11eb_9b0a_acde48001122row2_col0" class="data row2 col0" >$40,000</td>
             </tr>
             <tr>
-                        <th id="T_a2642be2_1ab6_11eb_8b94_acde48001122level0_row3" class="row_heading level0 row3" rowspan=2>Fred Anderson</th>
-                        <th id="T_a2642be2_1ab6_11eb_8b94_acde48001122level1_row3" class="row_heading level1 row3" >Cedric Moss</th>
-                        <td id="T_a2642be2_1ab6_11eb_8b94_acde48001122row3_col0" class="data row3 col0" >$110,000</td>
+                        <th id="T_22b337de_1ab7_11eb_9b0a_acde48001122level0_row3" class="row_heading level0 row3" rowspan=2>Fred Anderson</th>
+                        <th id="T_22b337de_1ab7_11eb_9b0a_acde48001122level1_row3" class="row_heading level1 row3" >Cedric Moss</th>
+                        <td id="T_22b337de_1ab7_11eb_9b0a_acde48001122row3_col0" class="data row3 col0" >$110,000</td>
             </tr>
             <tr>
-                                <th id="T_a2642be2_1ab6_11eb_8b94_acde48001122level1_row4" class="row_heading level1 row4" >Wendy Yule</th>
-                        <td id="T_a2642be2_1ab6_11eb_8b94_acde48001122row4_col0" class="data row4 col0" >$177,000</td>
+                                <th id="T_22b337de_1ab7_11eb_9b0a_acde48001122level1_row4" class="row_heading level1 row4" >Wendy Yule</th>
+                        <td id="T_22b337de_1ab7_11eb_9b0a_acde48001122row4_col0" class="data row4 col0" >$177,000</td>
             </tr>
     </tbody></table></div></div>
 </div>
