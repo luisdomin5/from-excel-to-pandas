@@ -280,6 +280,11 @@
    Group by multiple keys
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#advanced-group-functions">
+   Advanced Group Functions
+  </a>
+ </li>
 </ul>
 
         </nav>
@@ -986,28 +991,127 @@ dtype: int64
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><style  type="text/css" >
-</style><table id="T_b597fc16_1ad4_11eb_ac4b_acde48001122" ><thead>    <tr>        <th class="blank" ></th>        <th class="blank level0" ></th>        <th class="col_heading level0 col0" >0</th>    </tr>    <tr>        <th class="index_name level0" >annual_income</th>        <th class="index_name level1" >gender</th>        <th class="blank" ></th>    </tr></thead><tbody>
+</style><table id="T_ee03d010_1aee_11eb_ab32_acde48001122" ><thead>    <tr>        <th class="blank" ></th>        <th class="blank level0" ></th>        <th class="col_heading level0 col0" >0</th>    </tr>    <tr>        <th class="index_name level0" >annual_income</th>        <th class="index_name level1" >gender</th>        <th class="blank" ></th>    </tr></thead><tbody>
                 <tr>
-                        <th id="T_b597fc16_1ad4_11eb_ac4b_acde48001122level0_row0" class="row_heading level0 row0" rowspan=2> <=50K</th>
-                        <th id="T_b597fc16_1ad4_11eb_ac4b_acde48001122level1_row0" class="row_heading level1 row0" > Female</th>
-                        <td id="T_b597fc16_1ad4_11eb_ac4b_acde48001122row0_col0" class="data row0 col0" >38.80%</td>
+                        <th id="T_ee03d010_1aee_11eb_ab32_acde48001122level0_row0" class="row_heading level0 row0" rowspan=2> <=50K</th>
+                        <th id="T_ee03d010_1aee_11eb_ab32_acde48001122level1_row0" class="row_heading level1 row0" > Female</th>
+                        <td id="T_ee03d010_1aee_11eb_ab32_acde48001122row0_col0" class="data row0 col0" >38.80%</td>
             </tr>
             <tr>
-                                <th id="T_b597fc16_1ad4_11eb_ac4b_acde48001122level1_row1" class="row_heading level1 row1" > Male</th>
-                        <td id="T_b597fc16_1ad4_11eb_ac4b_acde48001122row1_col0" class="data row1 col0" >61.20%</td>
+                                <th id="T_ee03d010_1aee_11eb_ab32_acde48001122level1_row1" class="row_heading level1 row1" > Male</th>
+                        <td id="T_ee03d010_1aee_11eb_ab32_acde48001122row1_col0" class="data row1 col0" >61.20%</td>
             </tr>
             <tr>
-                        <th id="T_b597fc16_1ad4_11eb_ac4b_acde48001122level0_row2" class="row_heading level0 row2" rowspan=2> >50K</th>
-                        <th id="T_b597fc16_1ad4_11eb_ac4b_acde48001122level1_row2" class="row_heading level1 row2" > Female</th>
-                        <td id="T_b597fc16_1ad4_11eb_ac4b_acde48001122row2_col0" class="data row2 col0" >15.04%</td>
+                        <th id="T_ee03d010_1aee_11eb_ab32_acde48001122level0_row2" class="row_heading level0 row2" rowspan=2> >50K</th>
+                        <th id="T_ee03d010_1aee_11eb_ab32_acde48001122level1_row2" class="row_heading level1 row2" > Female</th>
+                        <td id="T_ee03d010_1aee_11eb_ab32_acde48001122row2_col0" class="data row2 col0" >15.04%</td>
             </tr>
             <tr>
-                                <th id="T_b597fc16_1ad4_11eb_ac4b_acde48001122level1_row3" class="row_heading level1 row3" > Male</th>
-                        <td id="T_b597fc16_1ad4_11eb_ac4b_acde48001122row3_col0" class="data row3 col0" >84.96%</td>
+                                <th id="T_ee03d010_1aee_11eb_ab32_acde48001122level1_row3" class="row_heading level1 row3" > Male</th>
+                        <td id="T_ee03d010_1aee_11eb_ab32_acde48001122row3_col0" class="data row3 col0" >84.96%</td>
             </tr>
     </tbody></table></div></div>
 </div>
 <p>We can now easily see that the percentage of women with higher income is less than half that of the lower income. Hopefully, the current data (this data is extracted from the 1994 Census database) has improved the gender equlity in this aspect.</p>
+</div>
+<div class="section" id="advanced-group-functions">
+<h2>Advanced Group Functions<a class="headerlink" href="#advanced-group-functions" title="Permalink to this headline">¶</a></h2>
+<p>We can also take each of the groups and calculate more advanced functions such as Correlation. Let’s see if we find Correlation with in each group between years of education and the number of work per week (which shows some quality of hard work)</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">df</span>
+    <span class="o">.</span><span class="n">loc</span><span class="p">[:,[</span><span class="s1">&#39;annual_income&#39;</span><span class="p">,</span><span class="s1">&#39;gender&#39;</span><span class="p">,</span><span class="s1">&#39;education_num&#39;</span><span class="p">,</span><span class="s1">&#39;hours_per_week&#39;</span><span class="p">]]</span>
+    <span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;annual_income&#39;</span><span class="p">,</span><span class="s1">&#39;gender&#39;</span><span class="p">])</span>
+    <span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th></th>
+      <th></th>
+      <th>education_num</th>
+      <th>hours_per_week</th>
+    </tr>
+    <tr>
+      <th>annual_income</th>
+      <th>gender</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th rowspan="4" valign="top">&lt;=50K</th>
+      <th rowspan="2" valign="top">Female</th>
+      <th>education_num</th>
+      <td>1.000000</td>
+      <td>0.150594</td>
+    </tr>
+    <tr>
+      <th>hours_per_week</th>
+      <td>0.150594</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">Male</th>
+      <th>education_num</th>
+      <td>1.000000</td>
+      <td>0.069004</td>
+    </tr>
+    <tr>
+      <th>hours_per_week</th>
+      <td>0.069004</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th rowspan="4" valign="top">&gt;50K</th>
+      <th rowspan="2" valign="top">Female</th>
+      <th>education_num</th>
+      <td>1.000000</td>
+      <td>0.186672</td>
+    </tr>
+    <tr>
+      <th>hours_per_week</th>
+      <td>0.186672</td>
+      <td>1.000000</td>
+    </tr>
+    <tr>
+      <th rowspan="2" valign="top">Male</th>
+      <th>education_num</th>
+      <td>1.000000</td>
+      <td>0.047681</td>
+    </tr>
+    <tr>
+      <th>hours_per_week</th>
+      <td>0.047681</td>
+      <td>1.000000</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>We can see that within each group the correlation of “hard work”, as we defined it before, is higher for the female than the male.</p>
 </div>
 </div>
 
