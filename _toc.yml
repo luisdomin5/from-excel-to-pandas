@@ -11,3 +11,6 @@
 - part: Adding Columns
   chapters:
   - file: notebooks/02.01_Adding_New_Columns.ipynb
+- part: Table Aggregation and Reshaping
+  chapters:
+  - file: notebooks/03.01_pivot_tables.ipynb
