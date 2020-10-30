@@ -6,7 +6,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Introduction to Pivot Table &#8212; From Excel to Pandas</title>
+    <title>Creating a Pivot Table &#8212; From Excel to Pandas</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
     <link href="../_static/css/index.css" rel="stylesheet">
     <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
@@ -140,7 +140,7 @@
 <ul class="current nav sidenav_l1">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   Introduction to Pivot Table
+   Creating a Pivot Table
   </a>
  </li>
 </ul>
@@ -300,8 +300,8 @@
         
               <div>
                 
-  <div class="section" id="introduction-to-pivot-table">
-<h1>Introduction to Pivot Table<a class="headerlink" href="#introduction-to-pivot-table" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="creating-a-pivot-table">
+<h1>Creating a Pivot Table<a class="headerlink" href="#creating-a-pivot-table" title="Permalink to this headline">¶</a></h1>
 <p>Pivot Tables are one of the most used features in Excel. You can point to a large table of data and interactively group the data and calculate multiple statistics on each of the groups and sub groups. Pandas makes it easy to do similar functionalities using the <em>pivot_table</em> function. There are multiple options to achieve similar and even more powerful calculations with other Pandas functions, which we will cover later, however, <em>pivot_table</em> is the most straight comparison to the one in Excel, and therefore, we will start with it</p>
 <div class="section" id="loading-data">
 <h2>Loading Data<a class="headerlink" href="#loading-data" title="Permalink to this headline">¶</a></h2>
@@ -1236,7 +1236,7 @@
 <div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;Manager,Rep&#39;&gt;
 </pre></div>
 </div>
-<img alt="../_images/03.01_pivot_tables_20_1.png" src="../_images/03.01_pivot_tables_20_1.png" />
+<img alt="../_images/03.01_pivot_tables_21_1.png" src="../_images/03.01_pivot_tables_21_1.png" />
 </div>
 </div>
 </div>
@@ -1413,7 +1413,7 @@
 </div>
 <div class="section" id="format-the-values">
 <h2>Format the values<a class="headerlink" href="#format-the-values" title="Permalink to this headline">¶</a></h2>
-<p>A pivot table is simple a dataframe in Pandas and you can format the values similar to the formating of any other dataframe. We will cover Styling in a dedicated section, however, here is a quick preview to formating the Sales</p>
+<p>A pivot table is simply a dataframe in Pandas and you can format the values similar to the formating of any other dataframe. We will cover Styling in a dedicated section, however, here is a quick preview to formating the the <em>Price</em> column as currency</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
@@ -1432,28 +1432,28 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><style  type="text/css" >
-</style><table id="T_37d56954_1ab5_11eb_b14f_acde48001122" ><thead>    <tr>        <th class="blank" ></th>        <th class="blank level0" ></th>        <th class="col_heading level0 col0" >Price</th>    </tr>    <tr>        <th class="index_name level0" >Manager</th>        <th class="index_name level1" >Rep</th>        <th class="blank" ></th>    </tr></thead><tbody>
+</style><table id="T_a2642be2_1ab6_11eb_8b94_acde48001122" ><thead>    <tr>        <th class="blank" ></th>        <th class="blank level0" ></th>        <th class="col_heading level0 col0" >Price</th>    </tr>    <tr>        <th class="index_name level0" >Manager</th>        <th class="index_name level1" >Rep</th>        <th class="blank" ></th>    </tr></thead><tbody>
                 <tr>
-                        <th id="T_37d56954_1ab5_11eb_b14f_acde48001122level0_row0" class="row_heading level0 row0" rowspan=3>Debra Henley</th>
-                        <th id="T_37d56954_1ab5_11eb_b14f_acde48001122level1_row0" class="row_heading level1 row0" >Craig Booker</th>
-                        <td id="T_37d56954_1ab5_11eb_b14f_acde48001122row0_col0" class="data row0 col0" >$80,000</td>
+                        <th id="T_a2642be2_1ab6_11eb_8b94_acde48001122level0_row0" class="row_heading level0 row0" rowspan=3>Debra Henley</th>
+                        <th id="T_a2642be2_1ab6_11eb_8b94_acde48001122level1_row0" class="row_heading level1 row0" >Craig Booker</th>
+                        <td id="T_a2642be2_1ab6_11eb_8b94_acde48001122row0_col0" class="data row0 col0" >$80,000</td>
             </tr>
             <tr>
-                                <th id="T_37d56954_1ab5_11eb_b14f_acde48001122level1_row1" class="row_heading level1 row1" >Daniel Hilton</th>
-                        <td id="T_37d56954_1ab5_11eb_b14f_acde48001122row1_col0" class="data row1 col0" >$115,000</td>
+                                <th id="T_a2642be2_1ab6_11eb_8b94_acde48001122level1_row1" class="row_heading level1 row1" >Daniel Hilton</th>
+                        <td id="T_a2642be2_1ab6_11eb_8b94_acde48001122row1_col0" class="data row1 col0" >$115,000</td>
             </tr>
             <tr>
-                                <th id="T_37d56954_1ab5_11eb_b14f_acde48001122level1_row2" class="row_heading level1 row2" >John Smith</th>
-                        <td id="T_37d56954_1ab5_11eb_b14f_acde48001122row2_col0" class="data row2 col0" >$40,000</td>
+                                <th id="T_a2642be2_1ab6_11eb_8b94_acde48001122level1_row2" class="row_heading level1 row2" >John Smith</th>
+                        <td id="T_a2642be2_1ab6_11eb_8b94_acde48001122row2_col0" class="data row2 col0" >$40,000</td>
             </tr>
             <tr>
-                        <th id="T_37d56954_1ab5_11eb_b14f_acde48001122level0_row3" class="row_heading level0 row3" rowspan=2>Fred Anderson</th>
-                        <th id="T_37d56954_1ab5_11eb_b14f_acde48001122level1_row3" class="row_heading level1 row3" >Cedric Moss</th>
-                        <td id="T_37d56954_1ab5_11eb_b14f_acde48001122row3_col0" class="data row3 col0" >$110,000</td>
+                        <th id="T_a2642be2_1ab6_11eb_8b94_acde48001122level0_row3" class="row_heading level0 row3" rowspan=2>Fred Anderson</th>
+                        <th id="T_a2642be2_1ab6_11eb_8b94_acde48001122level1_row3" class="row_heading level1 row3" >Cedric Moss</th>
+                        <td id="T_a2642be2_1ab6_11eb_8b94_acde48001122row3_col0" class="data row3 col0" >$110,000</td>
             </tr>
             <tr>
-                                <th id="T_37d56954_1ab5_11eb_b14f_acde48001122level1_row4" class="row_heading level1 row4" >Wendy Yule</th>
-                        <td id="T_37d56954_1ab5_11eb_b14f_acde48001122row4_col0" class="data row4 col0" >$177,000</td>
+                                <th id="T_a2642be2_1ab6_11eb_8b94_acde48001122level1_row4" class="row_heading level1 row4" >Wendy Yule</th>
+                        <td id="T_a2642be2_1ab6_11eb_8b94_acde48001122row4_col0" class="data row4 col0" >$177,000</td>
             </tr>
     </tbody></table></div></div>
 </div>
