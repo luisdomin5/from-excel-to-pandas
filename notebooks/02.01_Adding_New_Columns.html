@@ -456,12 +456,12 @@
 <div class="section" id="constant-value">
 <h2>Constant Value<a class="headerlink" href="#constant-value" title="Permalink to this headline">¶</a></h2>
 <p>The simplest way to add a column is to put a constant value. Since we know that this data is only for USA we can add a column with the value <em>USA</em> to a new column called <em>country</em>. We will be able to later merge this table with data from other countries and then this new column will be useful.</p>
-<p>For setting a value in a column we will use the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.assign.html">assign</a> function of Pandas.</p>
+<p>For setting a value in a column we will use the <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.assign.html">assign</a> function of Pandas. You will need to scroll all the way to the right of the output to see the new <em>country</em> column.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
     <span class="n">df</span>
-    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s2">&quot;USA&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">country_r</span><span class="o">=</span><span class="s2">&quot;USA&quot;</span><span class="p">)</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -505,7 +505,7 @@
       <th>2017-07</th>
       <th>2017-08</th>
       <th>2017-09</th>
-      <th>country</th>
+      <th>country_r</th>
     </tr>
   </thead>
   <tbody>
@@ -1246,6 +1246,7 @@
 </div></div></div>
 </div>
 <p>We will start with creating a new list of states that voted for a specific candidate in a specific electio. First, let’s use Trump in the 2016 elections.</p>
+<p>We are using here a few new functions such as <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.rename.html">rename</a>, <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.query.html">query</a> and <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/reference/api/pandas.DataFrame.iloc.html">iloc</a>, which we will discuss in more details in the next sections.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">red_candidate</span> <span class="o">=</span> <span class="s1">&#39;Trump&#39;</span>
@@ -1438,17 +1439,14 @@ Name: Abbreviation, dtype: object
     <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">is_red</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">State</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">red_state_abbrev</span><span class="p">))</span>
     <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;is_red&#39;</span><span class="p">)[</span><span class="s1">&#39;2017-09&#39;</span><span class="p">]</span>
     <span class="o">.</span><span class="n">mean</span><span class="p">()</span>
-<span class="p">)</span>
+    <span class="o">.</span><span class="n">plot</span>
+    <span class="o">.</span><span class="n">bar</span><span class="p">()</span>
+<span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>is_red
-False    226.389382
-True     105.153760
-Name: 2017-09, dtype: float64
-</pre></div>
-</div>
+<img alt="../_images/02.01_Adding_New_Columns_23_0.png" src="../_images/02.01_Adding_New_Columns_23_0.png" />
 </div>
 </div>
 </div>
