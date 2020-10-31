@@ -501,130 +501,6 @@
 </pre></div>
 </div>
 </div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">SysCallError</span><span class="g g-Whitespace">                              </span>Traceback (most recent call last)
-<span class="nn">~/miniconda3/lib/python3.8/site-packages/urllib3/contrib/pyopenssl.py</span> in <span class="ni">wrap_socket</span><span class="nt">(self, sock, server_side, do_handshake_on_connect, suppress_ragged_eofs, server_hostname)</span>
-<span class="g g-Whitespace">    </span><span class="mi">484</span>             <span class="k">try</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">485</span>                 <span class="n">cnx</span><span class="o">.</span><span class="n">do_handshake</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">486</span>             <span class="k">except</span> <span class="n">OpenSSL</span><span class="o">.</span><span class="n">SSL</span><span class="o">.</span><span class="n">WantReadError</span><span class="p">:</span>
-
-<span class="nn">~/miniconda3/lib/python3.8/site-packages/OpenSSL/SSL.py</span> in <span class="ni">do_handshake</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1933</span>         <span class="n">result</span> <span class="o">=</span> <span class="n">_lib</span><span class="o">.</span><span class="n">SSL_do_handshake</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ssl</span><span class="p">)</span>
-<span class="ne">-&gt; </span><span class="mi">1934</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_raise_ssl_error</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">_ssl</span><span class="p">,</span> <span class="n">result</span><span class="p">)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1935</span> 
-
-<span class="nn">~/miniconda3/lib/python3.8/site-packages/OpenSSL/SSL.py</span> in <span class="ni">_raise_ssl_error</span><span class="nt">(self, ssl, result)</span>
-<span class="g g-Whitespace">   </span><span class="mi">1662</span>                     <span class="k">if</span> <span class="n">errno</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">:</span>
-<span class="ne">-&gt; </span><span class="mi">1663</span>                         <span class="k">raise</span> <span class="n">SysCallError</span><span class="p">(</span><span class="n">errno</span><span class="p">,</span> <span class="n">errorcode</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">errno</span><span class="p">))</span>
-<span class="g g-Whitespace">   </span><span class="mi">1664</span>                 <span class="k">raise</span> <span class="n">SysCallError</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="s2">&quot;Unexpected EOF&quot;</span><span class="p">)</span>
-
-<span class="ne">SysCallError</span>: (54, &#39;ECONNRESET&#39;)
-
-<span class="n">During</span> <span class="n">handling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">above</span> <span class="n">exception</span><span class="p">,</span> <span class="n">another</span> <span class="n">exception</span> <span class="n">occurred</span><span class="p">:</span>
-
-<span class="ne">SSLError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
-<span class="nn">~/miniconda3/lib/python3.8/site-packages/urllib3/connectionpool.py</span> in <span class="ni">urlopen</span><span class="nt">(self, method, url, body, headers, retries, redirect, assert_same_host, timeout, pool_timeout, release_conn, chunked, body_pos, **response_kw)</span>
-<span class="g g-Whitespace">    </span><span class="mi">664</span>             <span class="c1"># Make the request on the httplib connection object.</span>
-<span class="ne">--&gt; </span><span class="mi">665</span>             <span class="n">httplib_response</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">_make_request</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">666</span>                 <span class="n">conn</span><span class="p">,</span>
-
-<span class="nn">~/miniconda3/lib/python3.8/site-packages/urllib3/connectionpool.py</span> in <span class="ni">_make_request</span><span class="nt">(self, conn, method, url, timeout, chunked, **httplib_request_kw)</span>
-<span class="g g-Whitespace">    </span><span class="mi">375</span>         <span class="k">try</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">376</span>             <span class="bp">self</span><span class="o">.</span><span class="n">_validate_conn</span><span class="p">(</span><span class="n">conn</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">377</span>         <span class="k">except</span> <span class="p">(</span><span class="n">SocketTimeout</span><span class="p">,</span> <span class="n">BaseSSLError</span><span class="p">)</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-
-<span class="nn">~/miniconda3/lib/python3.8/site-packages/urllib3/connectionpool.py</span> in <span class="ni">_validate_conn</span><span class="nt">(self, conn)</span>
-<span class="g g-Whitespace">    </span><span class="mi">993</span>         <span class="k">if</span> <span class="ow">not</span> <span class="nb">getattr</span><span class="p">(</span><span class="n">conn</span><span class="p">,</span> <span class="s2">&quot;sock&quot;</span><span class="p">,</span> <span class="kc">None</span><span class="p">):</span>  <span class="c1"># AppEngine might not have  `.sock`</span>
-<span class="ne">--&gt; </span><span class="mi">994</span>             <span class="n">conn</span><span class="o">.</span><span class="n">connect</span><span class="p">()</span>
-<span class="g g-Whitespace">    </span><span class="mi">995</span> 
-
-<span class="nn">~/miniconda3/lib/python3.8/site-packages/urllib3/connection.py</span> in <span class="ni">connect</span><span class="nt">(self)</span>
-<span class="g g-Whitespace">    </span><span class="mi">351</span> 
-<span class="ne">--&gt; </span><span class="mi">352</span>         <span class="bp">self</span><span class="o">.</span><span class="n">sock</span> <span class="o">=</span> <span class="n">ssl_wrap_socket</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">353</span>             <span class="n">sock</span><span class="o">=</span><span class="n">conn</span><span class="p">,</span>
-
-<span class="nn">~/miniconda3/lib/python3.8/site-packages/urllib3/util/ssl_.py</span> in <span class="ni">ssl_wrap_socket</span><span class="nt">(sock, keyfile, certfile, cert_reqs, ca_certs, server_hostname, ssl_version, ciphers, ssl_context, ca_cert_dir, key_password)</span>
-<span class="g g-Whitespace">    </span><span class="mi">369</span>         <span class="k">if</span> <span class="n">HAS_SNI</span> <span class="ow">and</span> <span class="n">server_hostname</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">370</span>             <span class="k">return</span> <span class="n">context</span><span class="o">.</span><span class="n">wrap_socket</span><span class="p">(</span><span class="n">sock</span><span class="p">,</span> <span class="n">server_hostname</span><span class="o">=</span><span class="n">server_hostname</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">371</span> 
-
-<span class="nn">~/miniconda3/lib/python3.8/site-packages/urllib3/contrib/pyopenssl.py</span> in <span class="ni">wrap_socket</span><span class="nt">(self, sock, server_side, do_handshake_on_connect, suppress_ragged_eofs, server_hostname)</span>
-<span class="g g-Whitespace">    </span><span class="mi">490</span>             <span class="k">except</span> <span class="n">OpenSSL</span><span class="o">.</span><span class="n">SSL</span><span class="o">.</span><span class="n">Error</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">491</span>                 <span class="k">raise</span> <span class="n">ssl</span><span class="o">.</span><span class="n">SSLError</span><span class="p">(</span><span class="s2">&quot;bad handshake: </span><span class="si">%r</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">e</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">492</span>             <span class="k">break</span>
-
-<span class="ne">SSLError</span>: (&quot;bad handshake: SysCallError(54, &#39;ECONNRESET&#39;)&quot;,)
-
-<span class="n">During</span> <span class="n">handling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">above</span> <span class="n">exception</span><span class="p">,</span> <span class="n">another</span> <span class="n">exception</span> <span class="n">occurred</span><span class="p">:</span>
-
-<span class="ne">MaxRetryError</span><span class="g g-Whitespace">                             </span>Traceback (most recent call last)
-<span class="nn">~/miniconda3/lib/python3.8/site-packages/requests/adapters.py</span> in <span class="ni">send</span><span class="nt">(self, request, stream, timeout, verify, cert, proxies)</span>
-<span class="g g-Whitespace">    </span><span class="mi">438</span>             <span class="k">if</span> <span class="ow">not</span> <span class="n">chunked</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">439</span>                 <span class="n">resp</span> <span class="o">=</span> <span class="n">conn</span><span class="o">.</span><span class="n">urlopen</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">440</span>                     <span class="n">method</span><span class="o">=</span><span class="n">request</span><span class="o">.</span><span class="n">method</span><span class="p">,</span>
-
-<span class="nn">~/miniconda3/lib/python3.8/site-packages/urllib3/connectionpool.py</span> in <span class="ni">urlopen</span><span class="nt">(self, method, url, body, headers, retries, redirect, assert_same_host, timeout, pool_timeout, release_conn, chunked, body_pos, **response_kw)</span>
-<span class="g g-Whitespace">    </span><span class="mi">718</span> 
-<span class="ne">--&gt; </span><span class="mi">719</span>             <span class="n">retries</span> <span class="o">=</span> <span class="n">retries</span><span class="o">.</span><span class="n">increment</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">720</span>                 <span class="n">method</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">error</span><span class="o">=</span><span class="n">e</span><span class="p">,</span> <span class="n">_pool</span><span class="o">=</span><span class="bp">self</span><span class="p">,</span> <span class="n">_stacktrace</span><span class="o">=</span><span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[</span><span class="mi">2</span><span class="p">]</span>
-
-<span class="nn">~/miniconda3/lib/python3.8/site-packages/urllib3/util/retry.py</span> in <span class="ni">increment</span><span class="nt">(self, method, url, response, error, _pool, _stacktrace)</span>
-<span class="g g-Whitespace">    </span><span class="mi">435</span>         <span class="k">if</span> <span class="n">new_retry</span><span class="o">.</span><span class="n">is_exhausted</span><span class="p">():</span>
-<span class="ne">--&gt; </span><span class="mi">436</span>             <span class="k">raise</span> <span class="n">MaxRetryError</span><span class="p">(</span><span class="n">_pool</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">error</span> <span class="ow">or</span> <span class="n">ResponseError</span><span class="p">(</span><span class="n">cause</span><span class="p">))</span>
-<span class="g g-Whitespace">    </span><span class="mi">437</span> 
-
-<span class="ne">MaxRetryError</span>: HTTPSConnectionPool(host=&#39;api.openbrewerydb.org&#39;, port=443): Max retries exceeded with url: /breweries?per_page=50&amp;page=10 (Caused by SSLError(SSLError(&quot;bad handshake: SysCallError(54, &#39;ECONNRESET&#39;)&quot;)))
-
-<span class="n">During</span> <span class="n">handling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">above</span> <span class="n">exception</span><span class="p">,</span> <span class="n">another</span> <span class="n">exception</span> <span class="n">occurred</span><span class="p">:</span>
-
-<span class="ne">SSLError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">4</span><span class="o">-</span><span class="mi">4</span><span class="n">c3bb1d9abaa</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1">#looping through and putting data to the list api_dataset</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">20</span><span class="p">):</span>
-<span class="ne">----&gt; </span><span class="mi">6</span>     <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span> <span class="o">+</span> <span class="sa">f</span><span class="s2">&quot;&amp;page=</span><span class="si">{</span><span class="n">page</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-<span class="g g-Whitespace">      </span><span class="mi">7</span>     <span class="n">api_dataset</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">response</span><span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">8</span> 
-
-<span class="nn">~/miniconda3/lib/python3.8/site-packages/requests/api.py</span> in <span class="ni">get</span><span class="nt">(url, params, **kwargs)</span>
-<span class="g g-Whitespace">     </span><span class="mi">74</span> 
-<span class="g g-Whitespace">     </span><span class="mi">75</span>     <span class="n">kwargs</span><span class="o">.</span><span class="n">setdefault</span><span class="p">(</span><span class="s1">&#39;allow_redirects&#39;</span><span class="p">,</span> <span class="kc">True</span><span class="p">)</span>
-<span class="ne">---&gt; </span><span class="mi">76</span>     <span class="k">return</span> <span class="n">request</span><span class="p">(</span><span class="s1">&#39;get&#39;</span><span class="p">,</span> <span class="n">url</span><span class="p">,</span> <span class="n">params</span><span class="o">=</span><span class="n">params</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">77</span> 
-<span class="g g-Whitespace">     </span><span class="mi">78</span> 
-
-<span class="nn">~/miniconda3/lib/python3.8/site-packages/requests/api.py</span> in <span class="ni">request</span><span class="nt">(method, url, **kwargs)</span>
-<span class="g g-Whitespace">     </span><span class="mi">59</span>     <span class="c1"># cases, and look like a memory leak in others.</span>
-<span class="g g-Whitespace">     </span><span class="mi">60</span>     <span class="k">with</span> <span class="n">sessions</span><span class="o">.</span><span class="n">Session</span><span class="p">()</span> <span class="k">as</span> <span class="n">session</span><span class="p">:</span>
-<span class="ne">---&gt; </span><span class="mi">61</span>         <span class="k">return</span> <span class="n">session</span><span class="o">.</span><span class="n">request</span><span class="p">(</span><span class="n">method</span><span class="o">=</span><span class="n">method</span><span class="p">,</span> <span class="n">url</span><span class="o">=</span><span class="n">url</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">62</span> 
-<span class="g g-Whitespace">     </span><span class="mi">63</span> 
-
-<span class="nn">~/miniconda3/lib/python3.8/site-packages/requests/sessions.py</span> in <span class="ni">request</span><span class="nt">(self, method, url, params, data, headers, cookies, files, auth, timeout, allow_redirects, proxies, hooks, stream, verify, cert, json)</span>
-<span class="g g-Whitespace">    </span><span class="mi">528</span>         <span class="p">}</span>
-<span class="g g-Whitespace">    </span><span class="mi">529</span>         <span class="n">send_kwargs</span><span class="o">.</span><span class="n">update</span><span class="p">(</span><span class="n">settings</span><span class="p">)</span>
-<span class="ne">--&gt; </span><span class="mi">530</span>         <span class="n">resp</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">prep</span><span class="p">,</span> <span class="o">**</span><span class="n">send_kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">531</span> 
-<span class="g g-Whitespace">    </span><span class="mi">532</span>         <span class="k">return</span> <span class="n">resp</span>
-
-<span class="nn">~/miniconda3/lib/python3.8/site-packages/requests/sessions.py</span> in <span class="ni">send</span><span class="nt">(self, request, **kwargs)</span>
-<span class="g g-Whitespace">    </span><span class="mi">641</span> 
-<span class="g g-Whitespace">    </span><span class="mi">642</span>         <span class="c1"># Send the request</span>
-<span class="ne">--&gt; </span><span class="mi">643</span>         <span class="n">r</span> <span class="o">=</span> <span class="n">adapter</span><span class="o">.</span><span class="n">send</span><span class="p">(</span><span class="n">request</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">644</span> 
-<span class="g g-Whitespace">    </span><span class="mi">645</span>         <span class="c1"># Total elapsed time of the request (approximately)</span>
-
-<span class="nn">~/miniconda3/lib/python3.8/site-packages/requests/adapters.py</span> in <span class="ni">send</span><span class="nt">(self, request, stream, timeout, verify, cert, proxies)</span>
-<span class="g g-Whitespace">    </span><span class="mi">512</span>             <span class="k">if</span> <span class="nb">isinstance</span><span class="p">(</span><span class="n">e</span><span class="o">.</span><span class="n">reason</span><span class="p">,</span> <span class="n">_SSLError</span><span class="p">):</span>
-<span class="g g-Whitespace">    </span><span class="mi">513</span>                 <span class="c1"># This branch is for urllib3 v1.22 and later.</span>
-<span class="ne">--&gt; </span><span class="mi">514</span>                 <span class="k">raise</span> <span class="n">SSLError</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">request</span><span class="o">=</span><span class="n">request</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">515</span> 
-<span class="g g-Whitespace">    </span><span class="mi">516</span>             <span class="k">raise</span> <span class="ne">ConnectionError</span><span class="p">(</span><span class="n">e</span><span class="p">,</span> <span class="n">request</span><span class="o">=</span><span class="n">request</span><span class="p">)</span>
-
-<span class="ne">SSLError</span>: HTTPSConnectionPool(host=&#39;api.openbrewerydb.org&#39;, port=443): Max retries exceeded with url: /breweries?per_page=50&amp;page=10 (Caused by SSLError(SSLError(&quot;bad handshake: SysCallError(54, &#39;ECONNRESET&#39;)&quot;)))
-</pre></div>
-</div>
-</div>
 </div>
 </div>
 <div class="section" id="counting-values">
@@ -790,7 +666,8 @@ dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/03.02_group_by_12_0.svg" src="../_images/03.02_group_by_12_0.svg" /></div>
+<img alt="../_images/03.02_group_by_12_0.png" src="../_images/03.02_group_by_12_0.png" />
+</div>
 </div>
 </div>
 <div class="section" id="more-advanced-aggregation-functions">
@@ -798,7 +675,7 @@ dtype: int64
 <p>Our data set doesn’t have many numeric field, and we should load a different data set to examine the more advanced aggregation options of <em>groupby</em>. We will use one of the famouse data sets used for learning to build machine learning models. The last column <em>annual_income</em> has only two values <em>&lt;=50K</em> and <em>&gt;50K</em>, and we want to try and predict based on the other parameters such as age, gender, years of education, etc. in which bucket each person lands.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adult_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">,</span><span class="s1">&#39;workclass&#39;</span><span class="p">,</span><span class="s1">&#39;fnlwgt&#39;</span><span class="p">,</span><span class="s1">&#39;education&#39;</span><span class="p">,</span><span class="s1">&#39;education_num&#39;</span><span class="p">,</span><span class="s1">&#39;marital_status&#39;</span><span class="p">,</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">adult_names</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;age&#39;</span><span class="p">,</span><span class="s1">&#39;workclass&#39;</span><span class="p">,</span><span class="s1">&#39;id&#39;</span><span class="p">,</span><span class="s1">&#39;education&#39;</span><span class="p">,</span><span class="s1">&#39;education_num&#39;</span><span class="p">,</span><span class="s1">&#39;marital_status&#39;</span><span class="p">,</span>
                 <span class="s1">&#39;occupation&#39;</span><span class="p">,</span> <span class="s1">&#39;relationship&#39;</span><span class="p">,</span><span class="s1">&#39;race&#39;</span><span class="p">,</span><span class="s1">&#39;gender&#39;</span><span class="p">,</span><span class="s1">&#39;capital_gain&#39;</span><span class="p">,</span>
               <span class="s1">&#39;capital_loss&#39;</span><span class="p">,</span><span class="s1">&#39;hours_per_week&#39;</span><span class="p">,</span><span class="s1">&#39;native_country&#39;</span><span class="p">,</span><span class="s1">&#39;annual_income&#39;</span><span class="p">]</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data&#39;</span><span class="p">,</span> 
@@ -828,7 +705,7 @@ dtype: int64
       <th></th>
       <th>age</th>
       <th>workclass</th>
-      <th>fnlwgt</th>
+      <th>id</th>
       <th>education</th>
       <th>education_num</th>
       <th>marital_status</th>
@@ -1101,7 +978,7 @@ dtype: int64
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
     <span class="n">df</span>
-    <span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;annual_income&#39;</span><span class="p">,</span><span class="s1">&#39;gender&#39;</span><span class="p">])[[</span><span class="s1">&#39;age&#39;</span><span class="p">]]</span>
+    <span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;annual_income&#39;</span><span class="p">,</span><span class="s1">&#39;gender&#39;</span><span class="p">])[[</span><span class="s1">&#39;id&#39;</span><span class="p">]]</span>
     <span class="o">.</span><span class="n">count</span><span class="p">()</span>
     <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
     <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span> <span class="o">/</span> <span class="nb">float</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">sum</span><span class="p">()))</span>
@@ -1113,24 +990,24 @@ dtype: int64
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><style  type="text/css" >
-</style><table id="T_b05d5906_1aef_11eb_90bb_acde48001122" ><thead>    <tr>        <th class="blank" ></th>        <th class="blank level0" ></th>        <th class="col_heading level0 col0" >age</th>    </tr>    <tr>        <th class="index_name level0" >annual_income</th>        <th class="index_name level1" >gender</th>        <th class="blank" ></th>    </tr></thead><tbody>
+</style><table id="T_47df9aa2_1b4d_11eb_9c2b_acde48001122" ><thead>    <tr>        <th class="blank" ></th>        <th class="blank level0" ></th>        <th class="col_heading level0 col0" >id</th>    </tr>    <tr>        <th class="index_name level0" >annual_income</th>        <th class="index_name level1" >gender</th>        <th class="blank" ></th>    </tr></thead><tbody>
                 <tr>
-                        <th id="T_b05d5906_1aef_11eb_90bb_acde48001122level0_row0" class="row_heading level0 row0" rowspan=2> <=50K</th>
-                        <th id="T_b05d5906_1aef_11eb_90bb_acde48001122level1_row0" class="row_heading level1 row0" > Female</th>
-                        <td id="T_b05d5906_1aef_11eb_90bb_acde48001122row0_col0" class="data row0 col0" >38.80%</td>
+                        <th id="T_47df9aa2_1b4d_11eb_9c2b_acde48001122level0_row0" class="row_heading level0 row0" rowspan=2> <=50K</th>
+                        <th id="T_47df9aa2_1b4d_11eb_9c2b_acde48001122level1_row0" class="row_heading level1 row0" > Female</th>
+                        <td id="T_47df9aa2_1b4d_11eb_9c2b_acde48001122row0_col0" class="data row0 col0" >38.80%</td>
             </tr>
             <tr>
-                                <th id="T_b05d5906_1aef_11eb_90bb_acde48001122level1_row1" class="row_heading level1 row1" > Male</th>
-                        <td id="T_b05d5906_1aef_11eb_90bb_acde48001122row1_col0" class="data row1 col0" >61.20%</td>
+                                <th id="T_47df9aa2_1b4d_11eb_9c2b_acde48001122level1_row1" class="row_heading level1 row1" > Male</th>
+                        <td id="T_47df9aa2_1b4d_11eb_9c2b_acde48001122row1_col0" class="data row1 col0" >61.20%</td>
             </tr>
             <tr>
-                        <th id="T_b05d5906_1aef_11eb_90bb_acde48001122level0_row2" class="row_heading level0 row2" rowspan=2> >50K</th>
-                        <th id="T_b05d5906_1aef_11eb_90bb_acde48001122level1_row2" class="row_heading level1 row2" > Female</th>
-                        <td id="T_b05d5906_1aef_11eb_90bb_acde48001122row2_col0" class="data row2 col0" >15.04%</td>
+                        <th id="T_47df9aa2_1b4d_11eb_9c2b_acde48001122level0_row2" class="row_heading level0 row2" rowspan=2> >50K</th>
+                        <th id="T_47df9aa2_1b4d_11eb_9c2b_acde48001122level1_row2" class="row_heading level1 row2" > Female</th>
+                        <td id="T_47df9aa2_1b4d_11eb_9c2b_acde48001122row2_col0" class="data row2 col0" >15.04%</td>
             </tr>
             <tr>
-                                <th id="T_b05d5906_1aef_11eb_90bb_acde48001122level1_row3" class="row_heading level1 row3" > Male</th>
-                        <td id="T_b05d5906_1aef_11eb_90bb_acde48001122row3_col0" class="data row3 col0" >84.96%</td>
+                                <th id="T_47df9aa2_1b4d_11eb_9c2b_acde48001122level1_row3" class="row_heading level1 row3" > Male</th>
+                        <td id="T_47df9aa2_1b4d_11eb_9c2b_acde48001122row3_col0" class="data row3 col0" >84.96%</td>
             </tr>
     </tbody></table></div></div>
 </div>
@@ -1138,6 +1015,7 @@ dtype: int64
 </div>
 <div class="section" id="advanced-group-functions">
 <h2>Advanced Group Functions<a class="headerlink" href="#advanced-group-functions" title="Permalink to this headline">¶</a></h2>
+<p>We saw before how to apply a function on each row in a dataframe table, but many times we want to apply a function on a group of rows based on a value of a column or a couple of columns.</p>
 <p>We can also take each of the groups and calculate more advanced functions such as Correlation. Let’s see if we find Correlation with in each group between years of education and the number of work per week (which shows some quality of hard work)</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1146,94 +1024,80 @@ dtype: int64
     <span class="o">.</span><span class="n">loc</span><span class="p">[:,[</span><span class="s1">&#39;annual_income&#39;</span><span class="p">,</span><span class="s1">&#39;gender&#39;</span><span class="p">,</span><span class="s1">&#39;education_num&#39;</span><span class="p">,</span><span class="s1">&#39;hours_per_week&#39;</span><span class="p">]]</span>
     <span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;annual_income&#39;</span><span class="p">,</span><span class="s1">&#39;gender&#39;</span><span class="p">])</span>
     <span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">style</span>
+    <span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{:.3}</span><span class="s1">&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">background_gradient</span><span class="p">(</span><span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">)</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th></th>
-      <th></th>
-      <th>education_num</th>
-      <th>hours_per_week</th>
-    </tr>
-    <tr>
-      <th>annual_income</th>
-      <th>gender</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th rowspan="4" valign="top">&lt;=50K</th>
-      <th rowspan="2" valign="top">Female</th>
-      <th>education_num</th>
-      <td>1.000000</td>
-      <td>0.150594</td>
-    </tr>
-    <tr>
-      <th>hours_per_week</th>
-      <td>0.150594</td>
-      <td>1.000000</td>
-    </tr>
-    <tr>
-      <th rowspan="2" valign="top">Male</th>
-      <th>education_num</th>
-      <td>1.000000</td>
-      <td>0.069004</td>
-    </tr>
-    <tr>
-      <th>hours_per_week</th>
-      <td>0.069004</td>
-      <td>1.000000</td>
-    </tr>
-    <tr>
-      <th rowspan="4" valign="top">&gt;50K</th>
-      <th rowspan="2" valign="top">Female</th>
-      <th>education_num</th>
-      <td>1.000000</td>
-      <td>0.186672</td>
-    </tr>
-    <tr>
-      <th>hours_per_week</th>
-      <td>0.186672</td>
-      <td>1.000000</td>
-    </tr>
-    <tr>
-      <th rowspan="2" valign="top">Male</th>
-      <th>education_num</th>
-      <td>1.000000</td>
-      <td>0.047681</td>
-    </tr>
-    <tr>
-      <th>hours_per_week</th>
-      <td>0.047681</td>
-      <td>1.000000</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
+<div class="output text_html"><style  type="text/css" >
+#T_47e2ca74_1b4d_11eb_9c2b_acde48001122row0_col0,#T_47e2ca74_1b4d_11eb_9c2b_acde48001122row1_col1,#T_47e2ca74_1b4d_11eb_9c2b_acde48001122row2_col0,#T_47e2ca74_1b4d_11eb_9c2b_acde48001122row3_col1,#T_47e2ca74_1b4d_11eb_9c2b_acde48001122row4_col0,#T_47e2ca74_1b4d_11eb_9c2b_acde48001122row5_col1,#T_47e2ca74_1b4d_11eb_9c2b_acde48001122row6_col0,#T_47e2ca74_1b4d_11eb_9c2b_acde48001122row7_col1{
+            background-color:  #b40426;
+            color:  #f1f1f1;
+        }#T_47e2ca74_1b4d_11eb_9c2b_acde48001122row0_col1,#T_47e2ca74_1b4d_11eb_9c2b_acde48001122row1_col0{
+            background-color:  #5b7ae5;
+            color:  #000000;
+        }#T_47e2ca74_1b4d_11eb_9c2b_acde48001122row2_col1,#T_47e2ca74_1b4d_11eb_9c2b_acde48001122row3_col0{
+            background-color:  #4055c8;
+            color:  #f1f1f1;
+        }#T_47e2ca74_1b4d_11eb_9c2b_acde48001122row4_col1,#T_47e2ca74_1b4d_11eb_9c2b_acde48001122row5_col0{
+            background-color:  #688aef;
+            color:  #000000;
+        }#T_47e2ca74_1b4d_11eb_9c2b_acde48001122row6_col1,#T_47e2ca74_1b4d_11eb_9c2b_acde48001122row7_col0{
+            background-color:  #3b4cc0;
+            color:  #f1f1f1;
+        }</style><table id="T_47e2ca74_1b4d_11eb_9c2b_acde48001122" ><thead>    <tr>        <th class="blank" ></th>        <th class="blank" ></th>        <th class="blank level0" ></th>        <th class="col_heading level0 col0" >education_num</th>        <th class="col_heading level0 col1" >hours_per_week</th>    </tr>    <tr>        <th class="index_name level0" >annual_income</th>        <th class="index_name level1" >gender</th>        <th class="index_name level2" ></th>        <th class="blank" ></th>        <th class="blank" ></th>    </tr></thead><tbody>
+                <tr>
+                        <th id="T_47e2ca74_1b4d_11eb_9c2b_acde48001122level0_row0" class="row_heading level0 row0" rowspan=4> <=50K</th>
+                        <th id="T_47e2ca74_1b4d_11eb_9c2b_acde48001122level1_row0" class="row_heading level1 row0" rowspan=2> Female</th>
+                        <th id="T_47e2ca74_1b4d_11eb_9c2b_acde48001122level2_row0" class="row_heading level2 row0" >education_num</th>
+                        <td id="T_47e2ca74_1b4d_11eb_9c2b_acde48001122row0_col0" class="data row0 col0" >1.0</td>
+                        <td id="T_47e2ca74_1b4d_11eb_9c2b_acde48001122row0_col1" class="data row0 col1" >0.151</td>
+            </tr>
+            <tr>
+                                        <th id="T_47e2ca74_1b4d_11eb_9c2b_acde48001122level2_row1" class="row_heading level2 row1" >hours_per_week</th>
+                        <td id="T_47e2ca74_1b4d_11eb_9c2b_acde48001122row1_col0" class="data row1 col0" >0.151</td>
+                        <td id="T_47e2ca74_1b4d_11eb_9c2b_acde48001122row1_col1" class="data row1 col1" >1.0</td>
+            </tr>
+            <tr>
+                                <th id="T_47e2ca74_1b4d_11eb_9c2b_acde48001122level1_row2" class="row_heading level1 row2" rowspan=2> Male</th>
+                        <th id="T_47e2ca74_1b4d_11eb_9c2b_acde48001122level2_row2" class="row_heading level2 row2" >education_num</th>
+                        <td id="T_47e2ca74_1b4d_11eb_9c2b_acde48001122row2_col0" class="data row2 col0" >1.0</td>
+                        <td id="T_47e2ca74_1b4d_11eb_9c2b_acde48001122row2_col1" class="data row2 col1" >0.069</td>
+            </tr>
+            <tr>
+                                        <th id="T_47e2ca74_1b4d_11eb_9c2b_acde48001122level2_row3" class="row_heading level2 row3" >hours_per_week</th>
+                        <td id="T_47e2ca74_1b4d_11eb_9c2b_acde48001122row3_col0" class="data row3 col0" >0.069</td>
+                        <td id="T_47e2ca74_1b4d_11eb_9c2b_acde48001122row3_col1" class="data row3 col1" >1.0</td>
+            </tr>
+            <tr>
+                        <th id="T_47e2ca74_1b4d_11eb_9c2b_acde48001122level0_row4" class="row_heading level0 row4" rowspan=4> >50K</th>
+                        <th id="T_47e2ca74_1b4d_11eb_9c2b_acde48001122level1_row4" class="row_heading level1 row4" rowspan=2> Female</th>
+                        <th id="T_47e2ca74_1b4d_11eb_9c2b_acde48001122level2_row4" class="row_heading level2 row4" >education_num</th>
+                        <td id="T_47e2ca74_1b4d_11eb_9c2b_acde48001122row4_col0" class="data row4 col0" >1.0</td>
+                        <td id="T_47e2ca74_1b4d_11eb_9c2b_acde48001122row4_col1" class="data row4 col1" >0.187</td>
+            </tr>
+            <tr>
+                                        <th id="T_47e2ca74_1b4d_11eb_9c2b_acde48001122level2_row5" class="row_heading level2 row5" >hours_per_week</th>
+                        <td id="T_47e2ca74_1b4d_11eb_9c2b_acde48001122row5_col0" class="data row5 col0" >0.187</td>
+                        <td id="T_47e2ca74_1b4d_11eb_9c2b_acde48001122row5_col1" class="data row5 col1" >1.0</td>
+            </tr>
+            <tr>
+                                <th id="T_47e2ca74_1b4d_11eb_9c2b_acde48001122level1_row6" class="row_heading level1 row6" rowspan=2> Male</th>
+                        <th id="T_47e2ca74_1b4d_11eb_9c2b_acde48001122level2_row6" class="row_heading level2 row6" >education_num</th>
+                        <td id="T_47e2ca74_1b4d_11eb_9c2b_acde48001122row6_col0" class="data row6 col0" >1.0</td>
+                        <td id="T_47e2ca74_1b4d_11eb_9c2b_acde48001122row6_col1" class="data row6 col1" >0.0477</td>
+            </tr>
+            <tr>
+                                        <th id="T_47e2ca74_1b4d_11eb_9c2b_acde48001122level2_row7" class="row_heading level2 row7" >hours_per_week</th>
+                        <td id="T_47e2ca74_1b4d_11eb_9c2b_acde48001122row7_col0" class="data row7 col0" >0.0477</td>
+                        <td id="T_47e2ca74_1b4d_11eb_9c2b_acde48001122row7_col1" class="data row7 col1" >1.0</td>
+            </tr>
+    </tbody></table></div></div>
 </div>
-<p>We can see that within each group the correlation of “hard work”, as we defined it before, is higher for the female than the male.</p>
+<p>We can see that within each group the correlation of “hard work”, as we defined it before, is higher for the female (0.151 and 0.187) than the male (0.069 and 0.0477).</p>
 </div>
 </div>
 
