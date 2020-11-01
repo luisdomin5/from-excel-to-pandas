@@ -26,11 +26,16 @@ The tutorial is based on a set of Jupyter notebooks that are demonstrating the v
     - Using custom functions
 
 - Grouping and Pivot Tables
-    - Using _groupby_
     - Using _pivot_table_ 
+    - Using _groupby_
 
 - Joining and Merging Tables and Lists
     - Using _join_
+
+- Adding Charts
+    - Using _plot_
+    - Using _plotly_ and _seaborn_
+    - Extending plots with _Matplotlib_
 
 ````{tip}
 Run the notebook in an interactive environment to better learn
