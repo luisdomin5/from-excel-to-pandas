@@ -1,18 +1,7 @@
 Traceback (most recent call last):
-  File "/Users/guy/miniconda3/lib/python3.8/site-packages/nbclient/client.py", line 604, in _async_poll_for_reply
-    msg = await ensure_async(self.kc.shell_channel.get_msg(timeout=new_timeout))
-  File "/Users/guy/miniconda3/lib/python3.8/site-packages/nbclient/util.py", line 85, in ensure_async
-    result = await obj
-  File "/Users/guy/miniconda3/lib/python3.8/site-packages/jupyter_client/asynchronous/channels.py", line 48, in get_msg
-    raise Empty
-_queue.Empty
-
-During handling of the above exception, another exception occurred:
-
-Traceback (most recent call last):
   File "/Users/guy/miniconda3/lib/python3.8/site-packages/jupyter_cache/executors/utils.py", line 51, in single_nb_execution
     executenb(
-  File "/Users/guy/miniconda3/lib/python3.8/site-packages/nbclient/client.py", line 1082, in execute
+  File "/Users/guy/miniconda3/lib/python3.8/site-packages/nbclient/client.py", line 1087, in execute
     return NotebookClient(nb=nb, resources=resources, km=km, **kwargs).execute()
   File "/Users/guy/miniconda3/lib/python3.8/site-packages/nbclient/util.py", line 74, in wrapped
     return just_run(coro(*args, **kwargs))
@@ -20,18 +9,196 @@ Traceback (most recent call last):
     return loop.run_until_complete(coro)
   File "/Users/guy/miniconda3/lib/python3.8/asyncio/base_events.py", line 616, in run_until_complete
     return future.result()
-  File "/Users/guy/miniconda3/lib/python3.8/site-packages/nbclient/client.py", line 535, in async_execute
+  File "/Users/guy/miniconda3/lib/python3.8/site-packages/nbclient/client.py", line 540, in async_execute
     await self.async_execute_cell(
-  File "/Users/guy/miniconda3/lib/python3.8/site-packages/nbclient/client.py", line 811, in async_execute_cell
-    exec_reply = await self.task_poll_for_reply
-  File "/Users/guy/miniconda3/lib/python3.8/site-packages/nbclient/client.py", line 628, in _async_poll_for_reply
-    await self._async_handle_timeout(timeout, cell)
-  File "/Users/guy/miniconda3/lib/python3.8/site-packages/nbclient/client.py", line 678, in _async_handle_timeout
-    raise CellTimeoutError.error_from_timeout_and_cell(
-nbclient.exceptions.CellTimeoutError: A cell timed out while it was being executed, after 30 seconds.
-The message was: Cell execution timed out.
-Here is a preview of the cell contents:
--------------------
-df = pd.read_csv('https://query.data.world/s/xrfy7fb7oq55gpzh6bvs6jtonv32lk')
--------------------
+  File "/Users/guy/miniconda3/lib/python3.8/site-packages/nbclient/client.py", line 832, in async_execute_cell
+    self._check_raise_for_error(cell, exec_reply)
+  File "/Users/guy/miniconda3/lib/python3.8/site-packages/nbclient/client.py", line 740, in _check_raise_for_error
+    raise CellExecutionError.from_cell_and_msg(cell, exec_reply['content'])
+nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
+------------------
+red_states = (
+    red_blue_states
+    .rename(columns={election_year:'election_year'})
+    .reset_index()
+    .query("election_year == @red_candidate")
+    .iloc[:,1]
+)
+red_states
+------------------
+
+[0;31m---------------------------------------------------------------------------[0m
+[0;31mKeyError[0m                                  Traceback (most recent call last)
+[0;32m~/miniconda3/lib/python3.8/site-packages/pandas/core/computation/scope.py[0m in [0;36mresolve[0;34m(self, key, is_local)[0m
+[1;32m    187[0m             [0;32mif[0m [0mself[0m[0;34m.[0m[0mhas_resolvers[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 188[0;31m                 [0;32mreturn[0m [0mself[0m[0;34m.[0m[0mresolvers[0m[0;34m[[0m[0mkey[0m[0;34m][0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    189[0m [0;34m[0m[0m
+
+[0;32m~/miniconda3/lib/python3.8/collections/__init__.py[0m in [0;36m__getitem__[0;34m(self, key)[0m
+[1;32m    897[0m                 [0;32mpass[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 898[0;31m         [0;32mreturn[0m [0mself[0m[0;34m.[0m[0m__missing__[0m[0;34m([0m[0mkey[0m[0;34m)[0m            [0;31m# support subclasses that define __missing__[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    899[0m [0;34m[0m[0m
+
+[0;32m~/miniconda3/lib/python3.8/collections/__init__.py[0m in [0;36m__missing__[0;34m(self, key)[0m
+[1;32m    889[0m     [0;32mdef[0m [0m__missing__[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mkey[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 890[0;31m         [0;32mraise[0m [0mKeyError[0m[0;34m([0m[0mkey[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    891[0m [0;34m[0m[0m
+
+[0;31mKeyError[0m: 'election_year'
+
+During handling of the above exception, another exception occurred:
+
+[0;31mKeyError[0m                                  Traceback (most recent call last)
+[0;32m~/miniconda3/lib/python3.8/site-packages/pandas/core/computation/scope.py[0m in [0;36mresolve[0;34m(self, key, is_local)[0m
+[1;32m    198[0m                 [0;31m# e.g., df[df > 0][0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 199[0;31m                 [0;32mreturn[0m [0mself[0m[0;34m.[0m[0mtemps[0m[0;34m[[0m[0mkey[0m[0;34m][0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    200[0m             [0;32mexcept[0m [0mKeyError[0m [0;32mas[0m [0merr[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mKeyError[0m: 'election_year'
+
+The above exception was the direct cause of the following exception:
+
+[0;31mUndefinedVariableError[0m                    Traceback (most recent call last)
+[0;32m<ipython-input-12-1b3e3c6efafa>[0m in [0;36m<module>[0;34m[0m
+[1;32m      1[0m red_states = (
+[0;32m----> 2[0;31m     [0mred_blue_states[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m      3[0m     [0;34m.[0m[0mrename[0m[0;34m([0m[0mcolumns[0m[0;34m=[0m[0;34m{[0m[0melection_year[0m[0;34m:[0m[0;34m'election_year'[0m[0;34m}[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      4[0m     [0;34m.[0m[0mreset_index[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m      5[0m     [0;34m.[0m[0mquery[0m[0;34m([0m[0;34m"election_year == @red_candidate"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/miniconda3/lib/python3.8/site-packages/pandas/core/frame.py[0m in [0;36mquery[0;34m(self, expr, inplace, **kwargs)[0m
+[1;32m   3338[0m         [0mkwargs[0m[0;34m[[0m[0;34m"level"[0m[0;34m][0m [0;34m=[0m [0mkwargs[0m[0;34m.[0m[0mpop[0m[0;34m([0m[0;34m"level"[0m[0;34m,[0m [0;36m0[0m[0;34m)[0m [0;34m+[0m [0;36m1[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   3339[0m         [0mkwargs[0m[0;34m[[0m[0;34m"target"[0m[0;34m][0m [0;34m=[0m [0;32mNone[0m[0;34m[0m[0;34m[0m[0m
+[0;32m-> 3340[0;31m         [0mres[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0meval[0m[0;34m([0m[0mexpr[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   3341[0m [0;34m[0m[0m
+[1;32m   3342[0m         [0;32mtry[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/miniconda3/lib/python3.8/site-packages/pandas/core/frame.py[0m in [0;36meval[0;34m(self, expr, inplace, **kwargs)[0m
+[1;32m   3468[0m         [0mkwargs[0m[0;34m[[0m[0;34m"resolvers"[0m[0;34m][0m [0;34m=[0m [0mkwargs[0m[0;34m.[0m[0mget[0m[0;34m([0m[0;34m"resolvers"[0m[0;34m,[0m [0;34m([0m[0;34m)[0m[0;34m)[0m [0;34m+[0m [0mtuple[0m[0;34m([0m[0mresolvers[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m   3469[0m [0;34m[0m[0m
+[0;32m-> 3470[0;31m         [0;32mreturn[0m [0m_eval[0m[0;34m([0m[0mexpr[0m[0;34m,[0m [0minplace[0m[0;34m=[0m[0minplace[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m   3471[0m [0;34m[0m[0m
+[1;32m   3472[0m     [0;32mdef[0m [0mselect_dtypes[0m[0;34m([0m[0mself[0m[0;34m,[0m [0minclude[0m[0;34m=[0m[0;32mNone[0m[0;34m,[0m [0mexclude[0m[0;34m=[0m[0;32mNone[0m[0;34m)[0m [0;34m->[0m [0;34m"DataFrame"[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/miniconda3/lib/python3.8/site-packages/pandas/core/computation/eval.py[0m in [0;36meval[0;34m(expr, parser, engine, truediv, local_dict, global_dict, resolvers, level, target, inplace)[0m
+[1;32m    339[0m         )
+[1;32m    340[0m [0;34m[0m[0m
+[0;32m--> 341[0;31m         [0mparsed_expr[0m [0;34m=[0m [0mExpr[0m[0;34m([0m[0mexpr[0m[0;34m,[0m [0mengine[0m[0;34m=[0m[0mengine[0m[0;34m,[0m [0mparser[0m[0;34m=[0m[0mparser[0m[0;34m,[0m [0menv[0m[0;34m=[0m[0menv[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    342[0m [0;34m[0m[0m
+[1;32m    343[0m         [0;31m# construct the engine and evaluate the parsed expression[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/miniconda3/lib/python3.8/site-packages/pandas/core/computation/expr.py[0m in [0;36m__init__[0;34m(self, expr, engine, parser, env, level)[0m
+[1;32m    785[0m         [0mself[0m[0;34m.[0m[0mparser[0m [0;34m=[0m [0mparser[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    786[0m         [0mself[0m[0;34m.[0m[0m_visitor[0m [0;34m=[0m [0m_parsers[0m[0;34m[[0m[0mparser[0m[0;34m][0m[0;34m([0m[0mself[0m[0;34m.[0m[0menv[0m[0;34m,[0m [0mself[0m[0;34m.[0m[0mengine[0m[0;34m,[0m [0mself[0m[0;34m.[0m[0mparser[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 787[0;31m         [0mself[0m[0;34m.[0m[0mterms[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0mparse[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    788[0m [0;34m[0m[0m
+[1;32m    789[0m     [0;34m@[0m[0mproperty[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/miniconda3/lib/python3.8/site-packages/pandas/core/computation/expr.py[0m in [0;36mparse[0;34m(self)[0m
+[1;32m    804[0m         [0mParse[0m [0man[0m [0mexpression[0m[0;34m.[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    805[0m         """
+[0;32m--> 806[0;31m         [0;32mreturn[0m [0mself[0m[0;34m.[0m[0m_visitor[0m[0;34m.[0m[0mvisit[0m[0;34m([0m[0mself[0m[0;34m.[0m[0mexpr[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    807[0m [0;34m[0m[0m
+[1;32m    808[0m     [0;34m@[0m[0mproperty[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/miniconda3/lib/python3.8/site-packages/pandas/core/computation/expr.py[0m in [0;36mvisit[0;34m(self, node, **kwargs)[0m
+[1;32m    396[0m         [0mmethod[0m [0;34m=[0m [0;34m"visit_"[0m [0;34m+[0m [0mtype[0m[0;34m([0m[0mnode[0m[0;34m)[0m[0;34m.[0m[0m__name__[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    397[0m         [0mvisitor[0m [0;34m=[0m [0mgetattr[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mmethod[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 398[0;31m         [0;32mreturn[0m [0mvisitor[0m[0;34m([0m[0mnode[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    399[0m [0;34m[0m[0m
+[1;32m    400[0m     [0;32mdef[0m [0mvisit_Module[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mnode[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/miniconda3/lib/python3.8/site-packages/pandas/core/computation/expr.py[0m in [0;36mvisit_Module[0;34m(self, node, **kwargs)[0m
+[1;32m    402[0m             [0;32mraise[0m [0mSyntaxError[0m[0;34m([0m[0;34m"only a single expression is allowed"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    403[0m         [0mexpr[0m [0;34m=[0m [0mnode[0m[0;34m.[0m[0mbody[0m[0;34m[[0m[0;36m0[0m[0;34m][0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 404[0;31m         [0;32mreturn[0m [0mself[0m[0;34m.[0m[0mvisit[0m[0;34m([0m[0mexpr[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    405[0m [0;34m[0m[0m
+[1;32m    406[0m     [0;32mdef[0m [0mvisit_Expr[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mnode[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/miniconda3/lib/python3.8/site-packages/pandas/core/computation/expr.py[0m in [0;36mvisit[0;34m(self, node, **kwargs)[0m
+[1;32m    396[0m         [0mmethod[0m [0;34m=[0m [0;34m"visit_"[0m [0;34m+[0m [0mtype[0m[0;34m([0m[0mnode[0m[0;34m)[0m[0;34m.[0m[0m__name__[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    397[0m         [0mvisitor[0m [0;34m=[0m [0mgetattr[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mmethod[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 398[0;31m         [0;32mreturn[0m [0mvisitor[0m[0;34m([0m[0mnode[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    399[0m [0;34m[0m[0m
+[1;32m    400[0m     [0;32mdef[0m [0mvisit_Module[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mnode[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/miniconda3/lib/python3.8/site-packages/pandas/core/computation/expr.py[0m in [0;36mvisit_Expr[0;34m(self, node, **kwargs)[0m
+[1;32m    405[0m [0;34m[0m[0m
+[1;32m    406[0m     [0;32mdef[0m [0mvisit_Expr[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mnode[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 407[0;31m         [0;32mreturn[0m [0mself[0m[0;34m.[0m[0mvisit[0m[0;34m([0m[0mnode[0m[0;34m.[0m[0mvalue[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    408[0m [0;34m[0m[0m
+[1;32m    409[0m     [0;32mdef[0m [0m_rewrite_membership_op[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mnode[0m[0;34m,[0m [0mleft[0m[0;34m,[0m [0mright[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/miniconda3/lib/python3.8/site-packages/pandas/core/computation/expr.py[0m in [0;36mvisit[0;34m(self, node, **kwargs)[0m
+[1;32m    396[0m         [0mmethod[0m [0;34m=[0m [0;34m"visit_"[0m [0;34m+[0m [0mtype[0m[0;34m([0m[0mnode[0m[0;34m)[0m[0;34m.[0m[0m__name__[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    397[0m         [0mvisitor[0m [0;34m=[0m [0mgetattr[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mmethod[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 398[0;31m         [0;32mreturn[0m [0mvisitor[0m[0;34m([0m[0mnode[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    399[0m [0;34m[0m[0m
+[1;32m    400[0m     [0;32mdef[0m [0mvisit_Module[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mnode[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/miniconda3/lib/python3.8/site-packages/pandas/core/computation/expr.py[0m in [0;36mvisit_Compare[0;34m(self, node, **kwargs)[0m
+[1;32m    697[0m             [0mop[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0mtranslate_In[0m[0;34m([0m[0mops[0m[0;34m[[0m[0;36m0[0m[0;34m][0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    698[0m             [0mbinop[0m [0;34m=[0m [0mast[0m[0;34m.[0m[0mBinOp[0m[0;34m([0m[0mop[0m[0;34m=[0m[0mop[0m[0;34m,[0m [0mleft[0m[0;34m=[0m[0mnode[0m[0;34m.[0m[0mleft[0m[0;34m,[0m [0mright[0m[0;34m=[0m[0mcomps[0m[0;34m[[0m[0;36m0[0m[0;34m][0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 699[0;31m             [0;32mreturn[0m [0mself[0m[0;34m.[0m[0mvisit[0m[0;34m([0m[0mbinop[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    700[0m [0;34m[0m[0m
+[1;32m    701[0m         [0;31m# recursive case: we have a chained comparison, a CMP b CMP c, etc.[0m[0;34m[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/miniconda3/lib/python3.8/site-packages/pandas/core/computation/expr.py[0m in [0;36mvisit[0;34m(self, node, **kwargs)[0m
+[1;32m    396[0m         [0mmethod[0m [0;34m=[0m [0;34m"visit_"[0m [0;34m+[0m [0mtype[0m[0;34m([0m[0mnode[0m[0;34m)[0m[0;34m.[0m[0m__name__[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    397[0m         [0mvisitor[0m [0;34m=[0m [0mgetattr[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mmethod[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 398[0;31m         [0;32mreturn[0m [0mvisitor[0m[0;34m([0m[0mnode[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    399[0m [0;34m[0m[0m
+[1;32m    400[0m     [0;32mdef[0m [0mvisit_Module[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mnode[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/miniconda3/lib/python3.8/site-packages/pandas/core/computation/expr.py[0m in [0;36mvisit_BinOp[0;34m(self, node, **kwargs)[0m
+[1;32m    518[0m [0;34m[0m[0m
+[1;32m    519[0m     [0;32mdef[0m [0mvisit_BinOp[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mnode[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 520[0;31m         [0mop[0m[0;34m,[0m [0mop_class[0m[0;34m,[0m [0mleft[0m[0;34m,[0m [0mright[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0m_maybe_transform_eq_ne[0m[0;34m([0m[0mnode[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    521[0m         [0mleft[0m[0;34m,[0m [0mright[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0m_maybe_downcast_constants[0m[0;34m([0m[0mleft[0m[0;34m,[0m [0mright[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    522[0m         [0;32mreturn[0m [0mself[0m[0;34m.[0m[0m_maybe_evaluate_binop[0m[0;34m([0m[0mop[0m[0;34m,[0m [0mop_class[0m[0;34m,[0m [0mleft[0m[0;34m,[0m [0mright[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/miniconda3/lib/python3.8/site-packages/pandas/core/computation/expr.py[0m in [0;36m_maybe_transform_eq_ne[0;34m(self, node, left, right)[0m
+[1;32m    437[0m     [0;32mdef[0m [0m_maybe_transform_eq_ne[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mnode[0m[0;34m,[0m [0mleft[0m[0;34m=[0m[0;32mNone[0m[0;34m,[0m [0mright[0m[0;34m=[0m[0;32mNone[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    438[0m         [0;32mif[0m [0mleft[0m [0;32mis[0m [0;32mNone[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 439[0;31m             [0mleft[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0mvisit[0m[0;34m([0m[0mnode[0m[0;34m.[0m[0mleft[0m[0;34m,[0m [0mside[0m[0;34m=[0m[0;34m"left"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    440[0m         [0;32mif[0m [0mright[0m [0;32mis[0m [0;32mNone[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    441[0m             [0mright[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0mvisit[0m[0;34m([0m[0mnode[0m[0;34m.[0m[0mright[0m[0;34m,[0m [0mside[0m[0;34m=[0m[0;34m"right"[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/miniconda3/lib/python3.8/site-packages/pandas/core/computation/expr.py[0m in [0;36mvisit[0;34m(self, node, **kwargs)[0m
+[1;32m    396[0m         [0mmethod[0m [0;34m=[0m [0;34m"visit_"[0m [0;34m+[0m [0mtype[0m[0;34m([0m[0mnode[0m[0;34m)[0m[0;34m.[0m[0m__name__[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    397[0m         [0mvisitor[0m [0;34m=[0m [0mgetattr[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mmethod[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 398[0;31m         [0;32mreturn[0m [0mvisitor[0m[0;34m([0m[0mnode[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    399[0m [0;34m[0m[0m
+[1;32m    400[0m     [0;32mdef[0m [0mvisit_Module[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mnode[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/miniconda3/lib/python3.8/site-packages/pandas/core/computation/expr.py[0m in [0;36mvisit_Name[0;34m(self, node, **kwargs)[0m
+[1;32m    531[0m [0;34m[0m[0m
+[1;32m    532[0m     [0;32mdef[0m [0mvisit_Name[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mnode[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 533[0;31m         [0;32mreturn[0m [0mself[0m[0;34m.[0m[0mterm_type[0m[0;34m([0m[0mnode[0m[0;34m.[0m[0mid[0m[0;34m,[0m [0mself[0m[0;34m.[0m[0menv[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    534[0m [0;34m[0m[0m
+[1;32m    535[0m     [0;32mdef[0m [0mvisit_NameConstant[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mnode[0m[0;34m,[0m [0;34m**[0m[0mkwargs[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;32m~/miniconda3/lib/python3.8/site-packages/pandas/core/computation/ops.py[0m in [0;36m__init__[0;34m(self, name, env, side, encoding)[0m
+[1;32m     82[0m         [0mtname[0m [0;34m=[0m [0mstr[0m[0;34m([0m[0mname[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     83[0m         [0mself[0m[0;34m.[0m[0mis_local[0m [0;34m=[0m [0mtname[0m[0;34m.[0m[0mstartswith[0m[0;34m([0m[0m_LOCAL_TAG[0m[0;34m)[0m [0;32mor[0m [0mtname[0m [0;32min[0m [0m_DEFAULT_GLOBALS[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 84[0;31m         [0mself[0m[0;34m.[0m[0m_value[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0m_resolve_name[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m     85[0m         [0mself[0m[0;34m.[0m[0mencoding[0m [0;34m=[0m [0mencoding[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     86[0m [0;34m[0m[0m
+
+[0;32m~/miniconda3/lib/python3.8/site-packages/pandas/core/computation/ops.py[0m in [0;36m_resolve_name[0;34m(self)[0m
+[1;32m     99[0m [0;34m[0m[0m
+[1;32m    100[0m     [0;32mdef[0m [0m_resolve_name[0m[0;34m([0m[0mself[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+[0;32m--> 101[0;31m         [0mres[0m [0;34m=[0m [0mself[0m[0;34m.[0m[0menv[0m[0;34m.[0m[0mresolve[0m[0;34m([0m[0mself[0m[0;34m.[0m[0mlocal_name[0m[0;34m,[0m [0mis_local[0m[0;34m=[0m[0mself[0m[0;34m.[0m[0mis_local[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    102[0m         [0mself[0m[0;34m.[0m[0mupdate[0m[0;34m([0m[0mres[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    103[0m [0;34m[0m[0m
+
+[0;32m~/miniconda3/lib/python3.8/site-packages/pandas/core/computation/scope.py[0m in [0;36mresolve[0;34m(self, key, is_local)[0m
+[1;32m    202[0m                 [0;32mfrom[0m [0mpandas[0m[0;34m.[0m[0mcore[0m[0;34m.[0m[0mcomputation[0m[0;34m.[0m[0mops[0m [0;32mimport[0m [0mUndefinedVariableError[0m[0;34m[0m[0;34m[0m[0m
+[1;32m    203[0m [0;34m[0m[0m
+[0;32m--> 204[0;31m                 [0;32mraise[0m [0mUndefinedVariableError[0m[0;34m([0m[0mkey[0m[0;34m,[0m [0mis_local[0m[0;34m)[0m [0;32mfrom[0m [0merr[0m[0;34m[0m[0;34m[0m[0m
+[0m[1;32m    205[0m [0;34m[0m[0m
+[1;32m    206[0m     [0;32mdef[0m [0mswapkey[0m[0;34m([0m[0mself[0m[0;34m,[0m [0mold_key[0m[0;34m:[0m [0mstr[0m[0;34m,[0m [0mnew_key[0m[0;34m:[0m [0mstr[0m[0;34m,[0m [0mnew_value[0m[0;34m=[0m[0;32mNone[0m[0;34m)[0m[0;34m:[0m[0;34m[0m[0;34m[0m[0m
+
+[0;31mUndefinedVariableError[0m: name 'election_year' is not defined
+UndefinedVariableError: name 'election_year' is not defined
 

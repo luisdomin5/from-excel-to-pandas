@@ -252,6 +252,18 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#function-equivalent">
+   Function Equivalent
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#more-textual-functions">
+     More Textual Functions
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#using-lambda">
    Using Lambda
   </a>
@@ -789,6 +801,551 @@
 </div></div></div>
 </div>
 </div>
+<div class="section" id="function-equivalent">
+<h2>Function Equivalent<a class="headerlink" href="#function-equivalent" title="Permalink to this headline">¶</a></h2>
+<p>Most of the functions that you are used to use in Excel have a direct Equivalent in Pands.</p>
+<p>For example: <code class="docutils literal notranslate"><span class="pre">=TRIM('cell</span> <span class="pre">for</span> <span class="pre">trimming')</span></code> can be replaced by <em>strip</em>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">df</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">trimmed</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">City</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+    <span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>RegionID</th>
+      <th>RegionName</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Metro</th>
+      <th>CountyName</th>
+      <th>SizeRank</th>
+      <th>1996-04</th>
+      <th>1996-05</th>
+      <th>1996-06</th>
+      <th>...</th>
+      <th>2017-01</th>
+      <th>2017-02</th>
+      <th>2017-03</th>
+      <th>2017-04</th>
+      <th>2017-05</th>
+      <th>2017-06</th>
+      <th>2017-07</th>
+      <th>2017-08</th>
+      <th>2017-09</th>
+      <th>trimmed</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>61639</td>
+      <td>10025</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>New York</td>
+      <td>New York</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>1290</td>
+      <td>1277</td>
+      <td>1272</td>
+      <td>1271</td>
+      <td>1277</td>
+      <td>1281</td>
+      <td>1279</td>
+      <td>1274</td>
+      <td>1270</td>
+      <td>New York</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>84654</td>
+      <td>60657</td>
+      <td>Chicago</td>
+      <td>IL</td>
+      <td>Chicago</td>
+      <td>Cook</td>
+      <td>2</td>
+      <td>134.0</td>
+      <td>134.0</td>
+      <td>133.0</td>
+      <td>...</td>
+      <td>294</td>
+      <td>296</td>
+      <td>295</td>
+      <td>293</td>
+      <td>294</td>
+      <td>294</td>
+      <td>294</td>
+      <td>294</td>
+      <td>295</td>
+      <td>Chicago</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>61637</td>
+      <td>10023</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>New York</td>
+      <td>New York</td>
+      <td>3</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>1597</td>
+      <td>1580</td>
+      <td>1567</td>
+      <td>1569</td>
+      <td>1570</td>
+      <td>1560</td>
+      <td>1543</td>
+      <td>1529</td>
+      <td>1521</td>
+      <td>New York</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>84616</td>
+      <td>60614</td>
+      <td>Chicago</td>
+      <td>IL</td>
+      <td>Chicago</td>
+      <td>Cook</td>
+      <td>4</td>
+      <td>149.0</td>
+      <td>150.0</td>
+      <td>150.0</td>
+      <td>...</td>
+      <td>333</td>
+      <td>333</td>
+      <td>331</td>
+      <td>330</td>
+      <td>330</td>
+      <td>329</td>
+      <td>328</td>
+      <td>329</td>
+      <td>329</td>
+      <td>Chicago</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>93144</td>
+      <td>79936</td>
+      <td>El Paso</td>
+      <td>TX</td>
+      <td>El Paso</td>
+      <td>El Paso</td>
+      <td>5</td>
+      <td>50.0</td>
+      <td>51.0</td>
+      <td>50.0</td>
+      <td>...</td>
+      <td>81</td>
+      <td>81</td>
+      <td>81</td>
+      <td>81</td>
+      <td>81</td>
+      <td>82</td>
+      <td>82</td>
+      <td>82</td>
+      <td>82</td>
+      <td>El Paso</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 266 columns</p>
+</div></div></div>
+</div>
+<p>or to remove spaces between words, you will need to run ‘Find and Replace’ option in Excel and in Pandas we can use the <em>replace</em> function (note the last column that was added to the Dataframe):</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">df</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">no_space</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">City</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>RegionID</th>
+      <th>RegionName</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Metro</th>
+      <th>CountyName</th>
+      <th>SizeRank</th>
+      <th>1996-04</th>
+      <th>1996-05</th>
+      <th>1996-06</th>
+      <th>...</th>
+      <th>2017-01</th>
+      <th>2017-02</th>
+      <th>2017-03</th>
+      <th>2017-04</th>
+      <th>2017-05</th>
+      <th>2017-06</th>
+      <th>2017-07</th>
+      <th>2017-08</th>
+      <th>2017-09</th>
+      <th>no_space</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>61639</td>
+      <td>10025</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>New York</td>
+      <td>New York</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>1290</td>
+      <td>1277</td>
+      <td>1272</td>
+      <td>1271</td>
+      <td>1277</td>
+      <td>1281</td>
+      <td>1279</td>
+      <td>1274</td>
+      <td>1270</td>
+      <td>NewYork</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>84654</td>
+      <td>60657</td>
+      <td>Chicago</td>
+      <td>IL</td>
+      <td>Chicago</td>
+      <td>Cook</td>
+      <td>2</td>
+      <td>134.0</td>
+      <td>134.0</td>
+      <td>133.0</td>
+      <td>...</td>
+      <td>294</td>
+      <td>296</td>
+      <td>295</td>
+      <td>293</td>
+      <td>294</td>
+      <td>294</td>
+      <td>294</td>
+      <td>294</td>
+      <td>295</td>
+      <td>Chicago</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>61637</td>
+      <td>10023</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>New York</td>
+      <td>New York</td>
+      <td>3</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>1597</td>
+      <td>1580</td>
+      <td>1567</td>
+      <td>1569</td>
+      <td>1570</td>
+      <td>1560</td>
+      <td>1543</td>
+      <td>1529</td>
+      <td>1521</td>
+      <td>NewYork</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>84616</td>
+      <td>60614</td>
+      <td>Chicago</td>
+      <td>IL</td>
+      <td>Chicago</td>
+      <td>Cook</td>
+      <td>4</td>
+      <td>149.0</td>
+      <td>150.0</td>
+      <td>150.0</td>
+      <td>...</td>
+      <td>333</td>
+      <td>333</td>
+      <td>331</td>
+      <td>330</td>
+      <td>330</td>
+      <td>329</td>
+      <td>328</td>
+      <td>329</td>
+      <td>329</td>
+      <td>Chicago</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>93144</td>
+      <td>79936</td>
+      <td>El Paso</td>
+      <td>TX</td>
+      <td>El Paso</td>
+      <td>El Paso</td>
+      <td>5</td>
+      <td>50.0</td>
+      <td>51.0</td>
+      <td>50.0</td>
+      <td>...</td>
+      <td>81</td>
+      <td>81</td>
+      <td>81</td>
+      <td>81</td>
+      <td>81</td>
+      <td>82</td>
+      <td>82</td>
+      <td>82</td>
+      <td>82</td>
+      <td>ElPaso</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 266 columns</p>
+</div></div></div>
+</div>
+<div class="section" id="more-textual-functions">
+<h3>More Textual Functions<a class="headerlink" href="#more-textual-functions" title="Permalink to this headline">¶</a></h3>
+<p>Another commonly used Excel functions are LEFT and RIGHT (<code class="docutils literal notranslate"><span class="pre">=LEFT(Cell,</span> <span class="pre">number</span> <span class="pre">of</span> <span class="pre">digits)</span></code>). In Pandas, we can use the ‘<code class="docutils literal notranslate"><span class="pre">:</span></code>’, which is used for <em>until</em> or <em>from</em>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">df</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">left_city</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">City</span><span class="o">.</span><span class="n">str</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span> <span class="c1"># until the 5th character</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">right_city</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">City</span><span class="o">.</span><span class="n">str</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">:])</span> <span class="c1"># from the 5th characters from the end (=right)</span>
+    <span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>RegionID</th>
+      <th>RegionName</th>
+      <th>City</th>
+      <th>State</th>
+      <th>Metro</th>
+      <th>CountyName</th>
+      <th>SizeRank</th>
+      <th>1996-04</th>
+      <th>1996-05</th>
+      <th>1996-06</th>
+      <th>...</th>
+      <th>2017-02</th>
+      <th>2017-03</th>
+      <th>2017-04</th>
+      <th>2017-05</th>
+      <th>2017-06</th>
+      <th>2017-07</th>
+      <th>2017-08</th>
+      <th>2017-09</th>
+      <th>left_city</th>
+      <th>right_city</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>61639</td>
+      <td>10025</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>New York</td>
+      <td>New York</td>
+      <td>1</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>1277</td>
+      <td>1272</td>
+      <td>1271</td>
+      <td>1277</td>
+      <td>1281</td>
+      <td>1279</td>
+      <td>1274</td>
+      <td>1270</td>
+      <td>New Y</td>
+      <td>York</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>84654</td>
+      <td>60657</td>
+      <td>Chicago</td>
+      <td>IL</td>
+      <td>Chicago</td>
+      <td>Cook</td>
+      <td>2</td>
+      <td>134.0</td>
+      <td>134.0</td>
+      <td>133.0</td>
+      <td>...</td>
+      <td>296</td>
+      <td>295</td>
+      <td>293</td>
+      <td>294</td>
+      <td>294</td>
+      <td>294</td>
+      <td>294</td>
+      <td>295</td>
+      <td>Chica</td>
+      <td>icago</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>61637</td>
+      <td>10023</td>
+      <td>New York</td>
+      <td>NY</td>
+      <td>New York</td>
+      <td>New York</td>
+      <td>3</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>...</td>
+      <td>1580</td>
+      <td>1567</td>
+      <td>1569</td>
+      <td>1570</td>
+      <td>1560</td>
+      <td>1543</td>
+      <td>1529</td>
+      <td>1521</td>
+      <td>New Y</td>
+      <td>York</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>84616</td>
+      <td>60614</td>
+      <td>Chicago</td>
+      <td>IL</td>
+      <td>Chicago</td>
+      <td>Cook</td>
+      <td>4</td>
+      <td>149.0</td>
+      <td>150.0</td>
+      <td>150.0</td>
+      <td>...</td>
+      <td>333</td>
+      <td>331</td>
+      <td>330</td>
+      <td>330</td>
+      <td>329</td>
+      <td>328</td>
+      <td>329</td>
+      <td>329</td>
+      <td>Chica</td>
+      <td>icago</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>93144</td>
+      <td>79936</td>
+      <td>El Paso</td>
+      <td>TX</td>
+      <td>El Paso</td>
+      <td>El Paso</td>
+      <td>5</td>
+      <td>50.0</td>
+      <td>51.0</td>
+      <td>50.0</td>
+      <td>...</td>
+      <td>81</td>
+      <td>81</td>
+      <td>81</td>
+      <td>81</td>
+      <td>82</td>
+      <td>82</td>
+      <td>82</td>
+      <td>82</td>
+      <td>El Pa</td>
+      <td>Paso</td>
+    </tr>
+  </tbody>
+</table>
+<p>5 rows × 267 columns</p>
+</div></div></div>
+</div>
+</div>
+</div>
 <div class="section" id="using-lambda">
 <h2>Using Lambda<a class="headerlink" href="#using-lambda" title="Permalink to this headline">¶</a></h2>
 <p>Lambda is a bit confusing at first glance, however, it is used to define a the function that we want to apply on a each row or columns of the table. For example, let’s define two new columns: one that is calculating the quantile of the region compare to all the regions, and one that is checking if the state is one of [‘NY’,’NJ’]</p>
@@ -1147,13 +1704,13 @@
         vertical-align: top;
     }
 
-    .dataframe thead th {
-        text-align: right;
+    .dataframe thead tr th {
+        text-align: left;
     }
 </style>
 <table border="1" class="dataframe">
   <thead>
-    <tr style="text-align: right;">
+    <tr>
       <th></th>
       <th>Year</th>
       <th>1972</th>
@@ -1168,6 +1725,26 @@
       <th>2008</th>
       <th>2012</th>
       <th>2016</th>
+      <th>2020</th>
+      <th>Unnamed: 14_level_0</th>
+    </tr>
+    <tr>
+      <th></th>
+      <th>Democratic Republican (lighter shading indicates win ≤5%)  Winner did not receive a majority of the popular vote  Winner did not receive a majority of the popular vote and lost the popular vote  Winner chosen by the House of Representatives  Electoral votes invalidated</th>
+      <th>Democratic Republican (lighter shading indicates win ≤5%)  Winner did not receive a majority of the popular vote  Winner did not receive a majority of the popular vote and lost the popular vote  Winner chosen by the House of Representatives  Electoral votes invalidated</th>
+      <th>Democratic Republican (lighter shading indicates win ≤5%)  Winner did not receive a majority of the popular vote  Winner did not receive a majority of the popular vote and lost the popular vote  Winner chosen by the House of Representatives  Electoral votes invalidated</th>
+      <th>Democratic Republican (lighter shading indicates win ≤5%)  Winner did not receive a majority of the popular vote  Winner did not receive a majority of the popular vote and lost the popular vote  Winner chosen by the House of Representatives  Electoral votes invalidated</th>
+      <th>Democratic Republican (lighter shading indicates win ≤5%)  Winner did not receive a majority of the popular vote  Winner did not receive a majority of the popular vote and lost the popular vote  Winner chosen by the House of Representatives  Electoral votes invalidated</th>
+      <th>Democratic Republican (lighter shading indicates win ≤5%)  Winner did not receive a majority of the popular vote  Winner did not receive a majority of the popular vote and lost the popular vote  Winner chosen by the House of Representatives  Electoral votes invalidated</th>
+      <th>Democratic Republican (lighter shading indicates win ≤5%)  Winner did not receive a majority of the popular vote  Winner did not receive a majority of the popular vote and lost the popular vote  Winner chosen by the House of Representatives  Electoral votes invalidated</th>
+      <th>Democratic Republican (lighter shading indicates win ≤5%)  Winner did not receive a majority of the popular vote  Winner did not receive a majority of the popular vote and lost the popular vote  Winner chosen by the House of Representatives  Electoral votes invalidated</th>
+      <th>Democratic Republican (lighter shading indicates win ≤5%)  Winner did not receive a majority of the popular vote  Winner did not receive a majority of the popular vote and lost the popular vote  Winner chosen by the House of Representatives  Electoral votes invalidated</th>
+      <th>Democratic Republican (lighter shading indicates win ≤5%)  Winner did not receive a majority of the popular vote  Winner did not receive a majority of the popular vote and lost the popular vote  Winner chosen by the House of Representatives  Electoral votes invalidated</th>
+      <th>Democratic Republican (lighter shading indicates win ≤5%)  Winner did not receive a majority of the popular vote  Winner did not receive a majority of the popular vote and lost the popular vote  Winner chosen by the House of Representatives  Electoral votes invalidated</th>
+      <th>Democratic Republican (lighter shading indicates win ≤5%)  Winner did not receive a majority of the popular vote  Winner did not receive a majority of the popular vote and lost the popular vote  Winner chosen by the House of Representatives  Electoral votes invalidated</th>
+      <th>Democratic Republican (lighter shading indicates win ≤5%)  Winner did not receive a majority of the popular vote  Winner did not receive a majority of the popular vote and lost the popular vote  Winner chosen by the House of Representatives  Electoral votes invalidated</th>
+      <th>Democratic Republican (lighter shading indicates win ≤5%)  Winner did not receive a majority of the popular vote  Winner did not receive a majority of the popular vote and lost the popular vote  Winner chosen by the House of Representatives  Electoral votes invalidated</th>
+      <th>Unnamed: 14_level_1</th>
     </tr>
   </thead>
   <tbody>
@@ -1186,6 +1763,8 @@
       <td>Barack Obama</td>
       <td>Barack Obama</td>
       <td>Hillary Clinton</td>
+      <td>Joe Biden</td>
+      <td>NaN</td>
     </tr>
     <tr>
       <th>1</th>
@@ -1202,6 +1781,8 @@
       <td>John McCain</td>
       <td>Mitt Romney</td>
       <td>Donald Trump</td>
+      <td>Donald Trump</td>
+      <td>NaN</td>
     </tr>
     <tr>
       <th>2</th>
@@ -1211,13 +1792,15 @@
       <td>Reagan</td>
       <td>Reagan</td>
       <td>Bush</td>
-      <td>B. Clinton</td>
+      <td>Clinton</td>
       <td>Clinton</td>
       <td>Gore</td>
       <td>Bush</td>
       <td>Obama</td>
       <td>Obama</td>
-      <td>H. Clinton</td>
+      <td>Clinton</td>
+      <td>Biden</td>
+      <td>NaN</td>
     </tr>
     <tr>
       <th>3</th>
@@ -1234,6 +1817,8 @@
       <td>McCain</td>
       <td>Romney</td>
       <td>Trump</td>
+      <td>Trump</td>
+      <td>NaN</td>
     </tr>
     <tr>
       <th>4</th>
@@ -1250,6 +1835,8 @@
       <td>McCain</td>
       <td>Romney</td>
       <td>Trump</td>
+      <td>Trump</td>
+      <td>NaN</td>
     </tr>
   </tbody>
 </table>
@@ -1279,36 +1866,179 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>3            Alabama
-4             Alaska
-5            Arizona
-6           Arkansas
-12           Florida
-13           Georgia
-15             Idaho
-17           Indiana
-18              Iowa
-19            Kansas
-20          Kentucky
-21         Louisiana
-27          Michigan
-29       Mississippi
-30          Missouri
-31           Montana
-39    North Carolina
-40      North Dakota
-41              Ohio
-42          Oklahoma
-44      Pennsylvania
-46    South Carolina
-47      South Dakota
-48         Tennessee
-49             Texas
-50              Utah
-54     West Virginia
-55         Wisconsin
-56           Wyoming
-Name: Year, dtype: object
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="nn">~/miniconda3/lib/python3.8/site-packages/pandas/core/computation/scope.py</span> in <span class="ni">resolve</span><span class="nt">(self, key, is_local)</span>
+<span class="g g-Whitespace">    </span><span class="mi">187</span>             <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">has_resolvers</span><span class="p">:</span>
+<span class="ne">--&gt; </span><span class="mi">188</span>                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">resolvers</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">189</span> 
+
+<span class="nn">~/miniconda3/lib/python3.8/collections/__init__.py</span> in <span class="ni">__getitem__</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">    </span><span class="mi">897</span>                 <span class="k">pass</span>
+<span class="ne">--&gt; </span><span class="mi">898</span>         <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="fm">__missing__</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>            <span class="c1"># support subclasses that define __missing__</span>
+<span class="g g-Whitespace">    </span><span class="mi">899</span> 
+
+<span class="nn">~/miniconda3/lib/python3.8/collections/__init__.py</span> in <span class="ni">__missing__</span><span class="nt">(self, key)</span>
+<span class="g g-Whitespace">    </span><span class="mi">889</span>     <span class="k">def</span> <span class="fm">__missing__</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">key</span><span class="p">):</span>
+<span class="ne">--&gt; </span><span class="mi">890</span>         <span class="k">raise</span> <span class="ne">KeyError</span><span class="p">(</span><span class="n">key</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">891</span> 
+
+<span class="ne">KeyError</span>: &#39;election_year&#39;
+
+<span class="n">During</span> <span class="n">handling</span> <span class="n">of</span> <span class="n">the</span> <span class="n">above</span> <span class="n">exception</span><span class="p">,</span> <span class="n">another</span> <span class="n">exception</span> <span class="n">occurred</span><span class="p">:</span>
+
+<span class="ne">KeyError</span><span class="g g-Whitespace">                                  </span>Traceback (most recent call last)
+<span class="nn">~/miniconda3/lib/python3.8/site-packages/pandas/core/computation/scope.py</span> in <span class="ni">resolve</span><span class="nt">(self, key, is_local)</span>
+<span class="g g-Whitespace">    </span><span class="mi">198</span>                 <span class="c1"># e.g., df[df &gt; 0]</span>
+<span class="ne">--&gt; </span><span class="mi">199</span>                 <span class="k">return</span> <span class="bp">self</span><span class="o">.</span><span class="n">temps</span><span class="p">[</span><span class="n">key</span><span class="p">]</span>
+<span class="g g-Whitespace">    </span><span class="mi">200</span>             <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">err</span><span class="p">:</span>
+
+<span class="ne">KeyError</span>: &#39;election_year&#39;
+
+<span class="n">The</span> <span class="n">above</span> <span class="n">exception</span> <span class="n">was</span> <span class="n">the</span> <span class="n">direct</span> <span class="n">cause</span> <span class="n">of</span> <span class="n">the</span> <span class="n">following</span> <span class="n">exception</span><span class="p">:</span>
+
+<span class="ne">UndefinedVariableError</span><span class="g g-Whitespace">                    </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">12</span><span class="o">-</span><span class="mi">1</span><span class="n">b3e3c6efafa</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">red_states</span> <span class="o">=</span> <span class="p">(</span>
+<span class="ne">----&gt; </span><span class="mi">2</span>     <span class="n">red_blue_states</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span>     <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="n">election_year</span><span class="p">:</span><span class="s1">&#39;election_year&#39;</span><span class="p">})</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span>     <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span>     <span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;election_year == @red_candidate&quot;</span><span class="p">)</span>
+
+<span class="nn">~/miniconda3/lib/python3.8/site-packages/pandas/core/frame.py</span> in <span class="ni">query</span><span class="nt">(self, expr, inplace, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3338</span>         <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;level&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">pop</span><span class="p">(</span><span class="s2">&quot;level&quot;</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span> <span class="o">+</span> <span class="mi">1</span>
+<span class="g g-Whitespace">   </span><span class="mi">3339</span>         <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;target&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="ne">-&gt; </span><span class="mi">3340</span>         <span class="n">res</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3341</span> 
+<span class="g g-Whitespace">   </span><span class="mi">3342</span>         <span class="k">try</span><span class="p">:</span>
+
+<span class="nn">~/miniconda3/lib/python3.8/site-packages/pandas/core/frame.py</span> in <span class="ni">eval</span><span class="nt">(self, expr, inplace, **kwargs)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3468</span>         <span class="n">kwargs</span><span class="p">[</span><span class="s2">&quot;resolvers&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">kwargs</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;resolvers&quot;</span><span class="p">,</span> <span class="p">())</span> <span class="o">+</span> <span class="nb">tuple</span><span class="p">(</span><span class="n">resolvers</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3469</span> 
+<span class="ne">-&gt; </span><span class="mi">3470</span>         <span class="k">return</span> <span class="n">_eval</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">inplace</span><span class="o">=</span><span class="n">inplace</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">)</span>
+<span class="g g-Whitespace">   </span><span class="mi">3471</span> 
+<span class="g g-Whitespace">   </span><span class="mi">3472</span>     <span class="k">def</span> <span class="nf">select_dtypes</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">include</span><span class="o">=</span><span class="kc">None</span><span class="p">,</span> <span class="n">exclude</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="s2">&quot;DataFrame&quot;</span><span class="p">:</span>
+
+<span class="nn">~/miniconda3/lib/python3.8/site-packages/pandas/core/computation/eval.py</span> in <span class="ni">eval</span><span class="nt">(expr, parser, engine, truediv, local_dict, global_dict, resolvers, level, target, inplace)</span>
+<span class="g g-Whitespace">    </span><span class="mi">339</span>         <span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">340</span> 
+<span class="ne">--&gt; </span><span class="mi">341</span>         <span class="n">parsed_expr</span> <span class="o">=</span> <span class="n">Expr</span><span class="p">(</span><span class="n">expr</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="n">engine</span><span class="p">,</span> <span class="n">parser</span><span class="o">=</span><span class="n">parser</span><span class="p">,</span> <span class="n">env</span><span class="o">=</span><span class="n">env</span><span class="p">)</span>
+<span class="g g-Whitespace">    </span><span class="mi">342</span> 
+<span class="g g-Whitespace">    </span><span class="mi">343</span>         <span class="c1"># construct the engine and evaluate the parsed expression</span>
+
+<span class="nn">~/miniconda3/lib/python3.8/site-packages/pandas/core/computation/expr.py</span> in <span class="ni">__init__</span><span class="nt">(self, expr, engine, parser, env, level)</span>
+<span class="g g-Whitespace">    </span><span class="mi">785</span>         <span class="bp">self</span><span class="o">.</span><span class="n">parser</span> <span class="o">=</span> <span class="n">parser</span>
+<span class="g g-Whitespace">    </span><span class="mi">786</span>         <span class="bp">self</span><span class="o">.</span><span class="n">_visitor</span> <span class="o">=</span> <span class="n">_parsers</span><span class="p">[</span><span class="n">parser</span><span class="p">](</span><span class="bp">self</span><span class="o">.</span><span class="n">env</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">engine</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">parser</span><span class="p">)</span>
+<span class="ne">--&gt; </span><span class="mi">787</span>         <span class="bp">self</span><span class="o">.</span><span class="n">terms</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">parse</span><span class="p">()</span>
+<span class="g g-Whitespace">    </span><span class="mi">788</span> 
+<span class="g g-Whitespace">    </span><span class="mi">789</span>     <span class="nd">@property</span>
+
+<span class="nn">~/miniconda3/lib/python3.8/site-packages/pandas/core/computation/expr.py</span> in <span class="ni">parse</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">    </span><span class="mi">804</span>         <span class="n">Parse</span> <span class="n">an</span> <span class="n">expression</span><span class="o">.</span>
+<span class="g g-Whitespace">    </span><span class="mi">805</span>         <span class="s2">&quot;&quot;&quot;</span>
+<span class="ne">--&gt; </span><span class="mi">806</span><span class="s2">         return self._visitor.visit(self.expr)</span>
+<span class="g g-Whitespace">    </span><span class="mi">807</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">808</span><span class="s2">     @property</span>
+
+<span class="nn">~/miniconda3/lib/python3.8/site-packages/pandas/core/computation/expr.py</span> in <span class="ni">visit</span><span class="nt">(self, node, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">396</span><span class="s2">         method = &quot;visit_&quot; + type(node).__name__</span>
+<span class="g g-Whitespace">    </span><span class="mi">397</span><span class="s2">         visitor = getattr(self, method)</span>
+<span class="ne">--&gt; </span><span class="mi">398</span><span class="s2">         return visitor(node, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">399</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">400</span><span class="s2">     def visit_Module(self, node, **kwargs):</span>
+
+<span class="nn">~/miniconda3/lib/python3.8/site-packages/pandas/core/computation/expr.py</span> in <span class="ni">visit_Module</span><span class="nt">(self, node, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">402</span><span class="s2">             raise SyntaxError(&quot;only a single expression is allowed&quot;)</span>
+<span class="g g-Whitespace">    </span><span class="mi">403</span><span class="s2">         expr = node.body[0]</span>
+<span class="ne">--&gt; </span><span class="mi">404</span><span class="s2">         return self.visit(expr, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">405</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">406</span><span class="s2">     def visit_Expr(self, node, **kwargs):</span>
+
+<span class="nn">~/miniconda3/lib/python3.8/site-packages/pandas/core/computation/expr.py</span> in <span class="ni">visit</span><span class="nt">(self, node, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">396</span><span class="s2">         method = &quot;visit_&quot; + type(node).__name__</span>
+<span class="g g-Whitespace">    </span><span class="mi">397</span><span class="s2">         visitor = getattr(self, method)</span>
+<span class="ne">--&gt; </span><span class="mi">398</span><span class="s2">         return visitor(node, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">399</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">400</span><span class="s2">     def visit_Module(self, node, **kwargs):</span>
+
+<span class="nn">~/miniconda3/lib/python3.8/site-packages/pandas/core/computation/expr.py</span> in <span class="ni">visit_Expr</span><span class="nt">(self, node, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">405</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">406</span><span class="s2">     def visit_Expr(self, node, **kwargs):</span>
+<span class="ne">--&gt; </span><span class="mi">407</span><span class="s2">         return self.visit(node.value, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">408</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">409</span><span class="s2">     def _rewrite_membership_op(self, node, left, right):</span>
+
+<span class="nn">~/miniconda3/lib/python3.8/site-packages/pandas/core/computation/expr.py</span> in <span class="ni">visit</span><span class="nt">(self, node, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">396</span><span class="s2">         method = &quot;visit_&quot; + type(node).__name__</span>
+<span class="g g-Whitespace">    </span><span class="mi">397</span><span class="s2">         visitor = getattr(self, method)</span>
+<span class="ne">--&gt; </span><span class="mi">398</span><span class="s2">         return visitor(node, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">399</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">400</span><span class="s2">     def visit_Module(self, node, **kwargs):</span>
+
+<span class="nn">~/miniconda3/lib/python3.8/site-packages/pandas/core/computation/expr.py</span> in <span class="ni">visit_Compare</span><span class="nt">(self, node, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">697</span><span class="s2">             op = self.translate_In(ops[0])</span>
+<span class="g g-Whitespace">    </span><span class="mi">698</span><span class="s2">             binop = ast.BinOp(op=op, left=node.left, right=comps[0])</span>
+<span class="ne">--&gt; </span><span class="mi">699</span><span class="s2">             return self.visit(binop)</span>
+<span class="g g-Whitespace">    </span><span class="mi">700</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">701</span><span class="s2">         # recursive case: we have a chained comparison, a CMP b CMP c, etc.</span>
+
+<span class="nn">~/miniconda3/lib/python3.8/site-packages/pandas/core/computation/expr.py</span> in <span class="ni">visit</span><span class="nt">(self, node, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">396</span><span class="s2">         method = &quot;visit_&quot; + type(node).__name__</span>
+<span class="g g-Whitespace">    </span><span class="mi">397</span><span class="s2">         visitor = getattr(self, method)</span>
+<span class="ne">--&gt; </span><span class="mi">398</span><span class="s2">         return visitor(node, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">399</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">400</span><span class="s2">     def visit_Module(self, node, **kwargs):</span>
+
+<span class="nn">~/miniconda3/lib/python3.8/site-packages/pandas/core/computation/expr.py</span> in <span class="ni">visit_BinOp</span><span class="nt">(self, node, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">518</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">519</span><span class="s2">     def visit_BinOp(self, node, **kwargs):</span>
+<span class="ne">--&gt; </span><span class="mi">520</span><span class="s2">         op, op_class, left, right = self._maybe_transform_eq_ne(node)</span>
+<span class="g g-Whitespace">    </span><span class="mi">521</span><span class="s2">         left, right = self._maybe_downcast_constants(left, right)</span>
+<span class="g g-Whitespace">    </span><span class="mi">522</span><span class="s2">         return self._maybe_evaluate_binop(op, op_class, left, right)</span>
+
+<span class="nn">~/miniconda3/lib/python3.8/site-packages/pandas/core/computation/expr.py</span> in <span class="ni">_maybe_transform_eq_ne</span><span class="nt">(self, node, left, right)</span>
+<span class="g g-Whitespace">    </span><span class="mi">437</span><span class="s2">     def _maybe_transform_eq_ne(self, node, left=None, right=None):</span>
+<span class="g g-Whitespace">    </span><span class="mi">438</span><span class="s2">         if left is None:</span>
+<span class="ne">--&gt; </span><span class="mi">439</span><span class="s2">             left = self.visit(node.left, side=&quot;left&quot;)</span>
+<span class="g g-Whitespace">    </span><span class="mi">440</span><span class="s2">         if right is None:</span>
+<span class="g g-Whitespace">    </span><span class="mi">441</span><span class="s2">             right = self.visit(node.right, side=&quot;right&quot;)</span>
+
+<span class="nn">~/miniconda3/lib/python3.8/site-packages/pandas/core/computation/expr.py</span> in <span class="ni">visit</span><span class="nt">(self, node, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">396</span><span class="s2">         method = &quot;visit_&quot; + type(node).__name__</span>
+<span class="g g-Whitespace">    </span><span class="mi">397</span><span class="s2">         visitor = getattr(self, method)</span>
+<span class="ne">--&gt; </span><span class="mi">398</span><span class="s2">         return visitor(node, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">399</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">400</span><span class="s2">     def visit_Module(self, node, **kwargs):</span>
+
+<span class="nn">~/miniconda3/lib/python3.8/site-packages/pandas/core/computation/expr.py</span> in <span class="ni">visit_Name</span><span class="nt">(self, node, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">531</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">532</span><span class="s2">     def visit_Name(self, node, **kwargs):</span>
+<span class="ne">--&gt; </span><span class="mi">533</span><span class="s2">         return self.term_type(node.id, self.env, **kwargs)</span>
+<span class="g g-Whitespace">    </span><span class="mi">534</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">535</span><span class="s2">     def visit_NameConstant(self, node, **kwargs):</span>
+
+<span class="nn">~/miniconda3/lib/python3.8/site-packages/pandas/core/computation/ops.py</span> in <span class="ni">__init__</span><span class="nt">(self, name, env, side, encoding)</span>
+<span class="g g-Whitespace">     </span><span class="mi">82</span><span class="s2">         tname = str(name)</span>
+<span class="g g-Whitespace">     </span><span class="mi">83</span><span class="s2">         self.is_local = tname.startswith(_LOCAL_TAG) or tname in _DEFAULT_GLOBALS</span>
+<span class="ne">---&gt; </span><span class="mi">84</span><span class="s2">         self._value = self._resolve_name()</span>
+<span class="g g-Whitespace">     </span><span class="mi">85</span><span class="s2">         self.encoding = encoding</span>
+<span class="g g-Whitespace">     </span><span class="mi">86</span><span class="s2"> </span>
+
+<span class="nn">~/miniconda3/lib/python3.8/site-packages/pandas/core/computation/ops.py</span> in <span class="ni">_resolve_name</span><span class="nt">(self)</span>
+<span class="g g-Whitespace">     </span><span class="mi">99</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">100</span><span class="s2">     def _resolve_name(self):</span>
+<span class="ne">--&gt; </span><span class="mi">101</span><span class="s2">         res = self.env.resolve(self.local_name, is_local=self.is_local)</span>
+<span class="g g-Whitespace">    </span><span class="mi">102</span><span class="s2">         self.update(res)</span>
+<span class="g g-Whitespace">    </span><span class="mi">103</span><span class="s2"> </span>
+
+<span class="nn">~/miniconda3/lib/python3.8/site-packages/pandas/core/computation/scope.py</span> in <span class="ni">resolve</span><span class="nt">(self, key, is_local)</span>
+<span class="g g-Whitespace">    </span><span class="mi">202</span><span class="s2">                 from pandas.core.computation.ops import UndefinedVariableError</span>
+<span class="g g-Whitespace">    </span><span class="mi">203</span><span class="s2"> </span>
+<span class="ne">--&gt; </span><span class="mi">204</span><span class="s2">                 raise UndefinedVariableError(key, is_local) from err</span>
+<span class="g g-Whitespace">    </span><span class="mi">205</span><span class="s2"> </span>
+<span class="g g-Whitespace">    </span><span class="mi">206</span><span class="s2">     def swapkey(self, old_key: str, new_key: str, new_value=None):</span>
+
+<span class="ne">UndefinedVariableError</span>: name &#39;election_year&#39; is not defined
 </pre></div>
 </div>
 </div>
@@ -1456,8 +2186,7 @@ Name: Abbreviation, dtype: object
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/02.01_Adding_New_Columns_23_0.png" src="../_images/02.01_Adding_New_Columns_23_0.png" />
-</div>
+<img alt="../_images/02.01_Adding_New_Columns_29_0.svg" src="../_images/02.01_Adding_New_Columns_29_0.svg" /></div>
 </div>
 </div>
 </div>
