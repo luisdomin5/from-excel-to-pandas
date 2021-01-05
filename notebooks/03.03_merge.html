@@ -283,6 +283,11 @@
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#loading-the-main-data">
+   Loading the main data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#joining-the-tables">
    Joining the tables
   </a>
@@ -314,8 +319,8 @@
 </div>
 <div class="section" id="loading-lookup-data">
 <h2>Loading lookup data<a class="headerlink" href="#loading-lookup-data" title="Permalink to this headline">¶</a></h2>
-<p>For this example, we will take one of the common lookup data, zip code. The loopup is not trivial as there are a few tousands of values and a simple Excel file will struggle to do it efficently and quickly.</p>
-<p>We will now start with loading the loopup data from <a class="reference external" href="https://simplemaps.com/data/us-zips">Simple Maps</a></p>
+<p>For this example, we will take one of the common lookup data, zip code. The loopup is not trivial as there are a few tousands (more than 33,000 as you can see below) of values and a simple Excel file will struggle to do it efficently and quickly.</p>
+<p>We will start with loading the loopup data from <a class="reference external" href="https://simplemaps.com/data/us-zips">Simple Maps</a>, which I’ve downloaded to a public S3 bucket.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://mlguy-public.s3-eu-west-1.amazonaws.com/excel2pandas/chapter3/simplemaps_uszips_basicv1/uszips.csv&#39;</span>
@@ -341,27 +346,290 @@
     <span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">StringIO</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">))</span>
 <span class="p">)</span>
 
-<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<span class="n">zip_lookup</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">3</span><span class="o">-</span><span class="mi">99611</span><span class="n">dc0ff32</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="p">)</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span> 
-<span class="ne">----&gt; </span><span class="mi">6</span> <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
 
-<span class="ne">NameError</span>: name &#39;df&#39; is not defined
-</pre></div>
-</div>
-</div>
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>zip</th>
+      <th>lat</th>
+      <th>lng</th>
+      <th>city</th>
+      <th>state_id</th>
+      <th>state_name</th>
+      <th>zcta</th>
+      <th>parent_zcta</th>
+      <th>population</th>
+      <th>density</th>
+      <th>county_fips</th>
+      <th>county_name</th>
+      <th>county_weights</th>
+      <th>county_names_all</th>
+      <th>county_fips_all</th>
+      <th>imprecise</th>
+      <th>military</th>
+      <th>timezone</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>601</td>
+      <td>18.18004</td>
+      <td>-66.75218</td>
+      <td>Adjuntas</td>
+      <td>PR</td>
+      <td>Puerto Rico</td>
+      <td>True</td>
+      <td>NaN</td>
+      <td>17242</td>
+      <td>111.4</td>
+      <td>72001</td>
+      <td>Adjuntas</td>
+      <td>{'72001':99.43,'72141':0.57}</td>
+      <td>Adjuntas|Utuado</td>
+      <td>72001|72141</td>
+      <td>False</td>
+      <td>False</td>
+      <td>America/Puerto_Rico</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>602</td>
+      <td>18.36073</td>
+      <td>-67.17517</td>
+      <td>Aguada</td>
+      <td>PR</td>
+      <td>Puerto Rico</td>
+      <td>True</td>
+      <td>NaN</td>
+      <td>38442</td>
+      <td>523.5</td>
+      <td>72003</td>
+      <td>Aguada</td>
+      <td>{'72003':100}</td>
+      <td>Aguada</td>
+      <td>72003</td>
+      <td>False</td>
+      <td>False</td>
+      <td>America/Puerto_Rico</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>603</td>
+      <td>18.45439</td>
+      <td>-67.12202</td>
+      <td>Aguadilla</td>
+      <td>PR</td>
+      <td>Puerto Rico</td>
+      <td>True</td>
+      <td>NaN</td>
+      <td>48814</td>
+      <td>667.9</td>
+      <td>72005</td>
+      <td>Aguadilla</td>
+      <td>{'72005':100}</td>
+      <td>Aguadilla</td>
+      <td>72005</td>
+      <td>False</td>
+      <td>False</td>
+      <td>America/Puerto_Rico</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>606</td>
+      <td>18.16724</td>
+      <td>-66.93828</td>
+      <td>Maricao</td>
+      <td>PR</td>
+      <td>Puerto Rico</td>
+      <td>True</td>
+      <td>NaN</td>
+      <td>6437</td>
+      <td>60.4</td>
+      <td>72093</td>
+      <td>Maricao</td>
+      <td>{'72093':94.88,'72121':1.35,'72153':3.78}</td>
+      <td>Maricao|Yauco|Sabana Grande</td>
+      <td>72093|72153|72121</td>
+      <td>False</td>
+      <td>False</td>
+      <td>America/Puerto_Rico</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>610</td>
+      <td>18.29032</td>
+      <td>-67.12243</td>
+      <td>Anasco</td>
+      <td>PR</td>
+      <td>Puerto Rico</td>
+      <td>True</td>
+      <td>NaN</td>
+      <td>27073</td>
+      <td>312.0</td>
+      <td>72011</td>
+      <td>AÃ±asco</td>
+      <td>{'72003':0.55,'72011':99.45}</td>
+      <td>AÃ±asco|Aguada</td>
+      <td>72011|72003</td>
+      <td>False</td>
+      <td>False</td>
+      <td>America/Puerto_Rico</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>33092</th>
+      <td>99923</td>
+      <td>55.97796</td>
+      <td>-130.03671</td>
+      <td>Hyder</td>
+      <td>AK</td>
+      <td>Alaska</td>
+      <td>True</td>
+      <td>NaN</td>
+      <td>15</td>
+      <td>2.1</td>
+      <td>2198</td>
+      <td>Prince of Wales-Hyder</td>
+      <td>{'02198':100}</td>
+      <td>Prince of Wales-Hyder</td>
+      <td>02198</td>
+      <td>False</td>
+      <td>False</td>
+      <td>America/Sitka</td>
+    </tr>
+    <tr>
+      <th>33093</th>
+      <td>99925</td>
+      <td>55.55767</td>
+      <td>-132.97627</td>
+      <td>Klawock</td>
+      <td>AK</td>
+      <td>Alaska</td>
+      <td>True</td>
+      <td>NaN</td>
+      <td>927</td>
+      <td>5.7</td>
+      <td>2198</td>
+      <td>Prince of Wales-Hyder</td>
+      <td>{'02198':100}</td>
+      <td>Prince of Wales-Hyder</td>
+      <td>02198</td>
+      <td>False</td>
+      <td>False</td>
+      <td>America/Sitka</td>
+    </tr>
+    <tr>
+      <th>33094</th>
+      <td>99926</td>
+      <td>55.12617</td>
+      <td>-131.48928</td>
+      <td>Metlakatla</td>
+      <td>AK</td>
+      <td>Alaska</td>
+      <td>True</td>
+      <td>NaN</td>
+      <td>1635</td>
+      <td>4.2</td>
+      <td>2198</td>
+      <td>Prince of Wales-Hyder</td>
+      <td>{'02198':100}</td>
+      <td>Prince of Wales-Hyder</td>
+      <td>02198</td>
+      <td>False</td>
+      <td>False</td>
+      <td>America/Metlakatla</td>
+    </tr>
+    <tr>
+      <th>33095</th>
+      <td>99927</td>
+      <td>56.25100</td>
+      <td>-133.37571</td>
+      <td>Point Baker</td>
+      <td>AK</td>
+      <td>Alaska</td>
+      <td>True</td>
+      <td>NaN</td>
+      <td>38</td>
+      <td>0.2</td>
+      <td>2198</td>
+      <td>Prince of Wales-Hyder</td>
+      <td>{'02198':100}</td>
+      <td>Prince of Wales-Hyder</td>
+      <td>02198</td>
+      <td>False</td>
+      <td>False</td>
+      <td>America/Sitka</td>
+    </tr>
+    <tr>
+      <th>33096</th>
+      <td>99929</td>
+      <td>56.36950</td>
+      <td>-131.93648</td>
+      <td>Wrangell</td>
+      <td>AK</td>
+      <td>Alaska</td>
+      <td>True</td>
+      <td>NaN</td>
+      <td>2484</td>
+      <td>0.4</td>
+      <td>2275</td>
+      <td>Wrangell</td>
+      <td>{'02275':100}</td>
+      <td>Wrangell</td>
+      <td>02275</td>
+      <td>False</td>
+      <td>False</td>
+      <td>America/Sitka</td>
+    </tr>
+  </tbody>
+</table>
+<p>33097 rows × 18 columns</p>
+</div></div></div>
 </div>
 </div>
 <div class="section" id="lookup-data-exploration">
 <h2>Lookup Data Exploration<a class="headerlink" href="#lookup-data-exploration" title="Permalink to this headline">¶</a></h2>
-<p>The table above shows us the type of data that we can get from enrichment based on the zip code, including city, state, latitude, longitude, population and density.</p>
+<p>The table above shows us the type of data that we can get from enrichment based on the zip code, including city, state, latitude, longitude, population count and density.</p>
 <p>We can explore the values that we have in this table, before we start to use it for enrichment.</p>
 </div>
 <div class="section" id="counting-values">
@@ -440,80 +708,6 @@ dtype: int64
 <div class="section" id="sorting-values">
 <h2>Sorting Values<a class="headerlink" href="#sorting-values" title="Permalink to this headline">¶</a></h2>
 <p>To sort the values is also simple with <em>sort_value()</em> function, and see the population size of each state (based on the zip code lookup data).</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
-    <span class="n">zip_lookup</span>
-    <span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;zip == 86403&#39;</span><span class="p">)</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_html"><div>
-<style scoped>
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>zip</th>
-      <th>lat</th>
-      <th>lng</th>
-      <th>city</th>
-      <th>state_id</th>
-      <th>state_name</th>
-      <th>zcta</th>
-      <th>parent_zcta</th>
-      <th>population</th>
-      <th>density</th>
-      <th>county_fips</th>
-      <th>county_name</th>
-      <th>county_weights</th>
-      <th>county_names_all</th>
-      <th>county_fips_all</th>
-      <th>imprecise</th>
-      <th>military</th>
-      <th>timezone</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>29406</th>
-      <td>86403</td>
-      <td>34.48144</td>
-      <td>-114.34829</td>
-      <td>Lake Havasu City</td>
-      <td>AZ</td>
-      <td>Arizona</td>
-      <td>True</td>
-      <td>NaN</td>
-      <td>18119</td>
-      <td>608.9</td>
-      <td>4015</td>
-      <td>Mohave</td>
-      <td>{'04015':100}</td>
-      <td>Mohave</td>
-      <td>04015</td>
-      <td>False</td>
-      <td>False</td>
-      <td>America/Los_Angeles</td>
-    </tr>
-  </tbody>
-</table>
-</div></div></div>
-</div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">us_population_distribution</span> <span class="o">=</span> <span class="p">(</span>
@@ -600,8 +794,13 @@ Name: population, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/03.03_merge_12_0.svg" src="../_images/03.03_merge_12_0.svg" /></div>
+<img alt="../_images/03.03_merge_11_0.png" src="../_images/03.03_merge_11_0.png" />
 </div>
+</div>
+</div>
+<div class="section" id="loading-the-main-data">
+<h2>Loading the main data<a class="headerlink" href="#loading-the-main-data" title="Permalink to this headline">¶</a></h2>
+<p>We will take the data about brewries in the US that we used in one of the previous lessson, and enrich it with the data from the zip codes table. We will load it from the local file after we retried the data from the API before.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">breweries_data</span><span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/us_breweries.csv&#39;</span><span class="p">)</span>
@@ -758,7 +957,7 @@ Name: population, dtype: int64
 </table>
 </div></div></div>
 </div>
-<p>We can see that the postal code is sometimes in the longer format compare to the zip codes that we have in our lookup table. We will convert them to the shorter format by taking the first 5 characters ([:5]) of the string of the postal_code column.</p>
+<p>We can see that the postal code is sometimes in the longer format (for example, <em>35222-1932</em>) compare to the zip codes that we have in our lookup table (for example, 35222). We will convert them to the shorter format by taking the first 5 characters ([:5]) of the string of the postal_code column.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">breweries_data_with_zip</span> <span class="o">=</span> <span class="p">(</span>
