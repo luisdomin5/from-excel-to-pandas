@@ -258,8 +258,8 @@
         <nav id="bd-toc-nav">
             <ul class="nav section-nav flex-column">
  <li class="toc-h2 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#loading-data">
-   Loading data
+  <a class="reference internal nav-link" href="#loading-lookup-data">
+   Loading lookup data
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -280,6 +280,11 @@
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#visualization-of-the-data">
    Visualization of the data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#joining-the-tables">
+   Joining the tables
   </a>
  </li>
 </ul>
@@ -307,9 +312,10 @@
 </div>
 </div>
 </div>
-<div class="section" id="loading-data">
-<h2>Loading data<a class="headerlink" href="#loading-data" title="Permalink to this headline">¶</a></h2>
-<p>We will now start with another data from API from <a class="reference external" href="https://simplemaps.com/data/us-zips">Simple Maps</a></p>
+<div class="section" id="loading-lookup-data">
+<h2>Loading lookup data<a class="headerlink" href="#loading-lookup-data" title="Permalink to this headline">¶</a></h2>
+<p>For this example, we will take one of the common lookup data, zip code. The loopup is not trivial as there are a few tousands of values and a simple Excel file will struggle to do it efficently and quickly.</p>
+<p>We will now start with loading the loopup data from <a class="reference external" href="https://simplemaps.com/data/us-zips">Simple Maps</a></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://mlguy-public.s3-eu-west-1.amazonaws.com/excel2pandas/chapter3/simplemaps_uszips_basicv1/uszips.csv&#39;</span>
@@ -330,12 +336,116 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="p">(</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">zip_lookup</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">pd</span>
     <span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">StringIO</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">))</span>
 <span class="p">)</span>
 
 <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">3</span><span class="o">-</span><span class="mi">99611</span><span class="n">dc0ff32</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> 
+<span class="ne">----&gt; </span><span class="mi">6</span> <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="ne">NameError</span>: name &#39;df&#39; is not defined
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="lookup-data-exploration">
+<h2>Lookup Data Exploration<a class="headerlink" href="#lookup-data-exploration" title="Permalink to this headline">¶</a></h2>
+<p>The table above shows us the type of data that we can get from enrichment based on the zip code, including city, state, latitude, longitude, population and density.</p>
+<p>We can explore the values that we have in this table, before we start to use it for enrichment.</p>
+</div>
+<div class="section" id="counting-values">
+<h2>Counting Values<a class="headerlink" href="#counting-values" title="Permalink to this headline">¶</a></h2>
+<p>The simplest aggregation function for each group is the <em>size</em>. How many zip codes do we have in each state?</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">zip_lookup</span>
+    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;state_name&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">size</span><span class="p">()</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>state_name
+Alabama                  642
+Alaska                   238
+Arizona                  405
+Arkansas                 591
+California              1761
+Colorado                 525
+Connecticut              282
+Delaware                  67
+District of Columbia      52
+Florida                  981
+Georgia                  735
+Hawaii                    94
+Idaho                    277
+Illinois                1383
+Indiana                  775
+Iowa                     934
+Kansas                   697
+Kentucky                 767
+Louisiana                515
+Maine                    432
+Maryland                 468
+Massachusetts            537
+Michigan                 986
+Minnesota                884
+Mississippi              423
+Missouri                1022
+Montana                  361
+Nebraska                 581
+Nevada                   175
+New Hampshire            248
+New Jersey               595
+New Mexico               368
+New York                1794
+North Carolina           808
+North Dakota             383
+Ohio                    1195
+Oklahoma                 648
+Oregon                   417
+Pennsylvania            1795
+Puerto Rico              131
+Rhode Island              77
+South Carolina           424
+South Dakota             371
+Tennessee                628
+Texas                   1935
+Utah                     287
+Vermont                  255
+Virginia                 896
+Washington               596
+West Virginia            706
+Wisconsin                772
+Wyoming                  178
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="section" id="sorting-values">
+<h2>Sorting Values<a class="headerlink" href="#sorting-values" title="Permalink to this headline">¶</a></h2>
+<p>To sort the values is also simple with <em>sort_value()</em> function, and see the population size of each state (based on the zip code lookup data).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">zip_lookup</span>
+    <span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;zip == 86403&#39;</span><span class="p">)</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -380,200 +490,35 @@
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
-      <td>601</td>
-      <td>18.18004</td>
-      <td>-66.75218</td>
-      <td>Adjuntas</td>
-      <td>PR</td>
-      <td>Puerto Rico</td>
+      <th>29406</th>
+      <td>86403</td>
+      <td>34.48144</td>
+      <td>-114.34829</td>
+      <td>Lake Havasu City</td>
+      <td>AZ</td>
+      <td>Arizona</td>
       <td>True</td>
       <td>NaN</td>
-      <td>17242</td>
-      <td>111.4</td>
-      <td>72001</td>
-      <td>Adjuntas</td>
-      <td>{'72001':99.43,'72141':0.57}</td>
-      <td>Adjuntas|Utuado</td>
-      <td>72001|72141</td>
+      <td>18119</td>
+      <td>608.9</td>
+      <td>4015</td>
+      <td>Mohave</td>
+      <td>{'04015':100}</td>
+      <td>Mohave</td>
+      <td>04015</td>
       <td>False</td>
       <td>False</td>
-      <td>America/Puerto_Rico</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>602</td>
-      <td>18.36073</td>
-      <td>-67.17517</td>
-      <td>Aguada</td>
-      <td>PR</td>
-      <td>Puerto Rico</td>
-      <td>True</td>
-      <td>NaN</td>
-      <td>38442</td>
-      <td>523.5</td>
-      <td>72003</td>
-      <td>Aguada</td>
-      <td>{'72003':100}</td>
-      <td>Aguada</td>
-      <td>72003</td>
-      <td>False</td>
-      <td>False</td>
-      <td>America/Puerto_Rico</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>603</td>
-      <td>18.45439</td>
-      <td>-67.12202</td>
-      <td>Aguadilla</td>
-      <td>PR</td>
-      <td>Puerto Rico</td>
-      <td>True</td>
-      <td>NaN</td>
-      <td>48814</td>
-      <td>667.9</td>
-      <td>72005</td>
-      <td>Aguadilla</td>
-      <td>{'72005':100}</td>
-      <td>Aguadilla</td>
-      <td>72005</td>
-      <td>False</td>
-      <td>False</td>
-      <td>America/Puerto_Rico</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>606</td>
-      <td>18.16724</td>
-      <td>-66.93828</td>
-      <td>Maricao</td>
-      <td>PR</td>
-      <td>Puerto Rico</td>
-      <td>True</td>
-      <td>NaN</td>
-      <td>6437</td>
-      <td>60.4</td>
-      <td>72093</td>
-      <td>Maricao</td>
-      <td>{'72093':94.88,'72121':1.35,'72153':3.78}</td>
-      <td>Maricao|Yauco|Sabana Grande</td>
-      <td>72093|72153|72121</td>
-      <td>False</td>
-      <td>False</td>
-      <td>America/Puerto_Rico</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>610</td>
-      <td>18.29032</td>
-      <td>-67.12243</td>
-      <td>Anasco</td>
-      <td>PR</td>
-      <td>Puerto Rico</td>
-      <td>True</td>
-      <td>NaN</td>
-      <td>27073</td>
-      <td>312.0</td>
-      <td>72011</td>
-      <td>AÃ±asco</td>
-      <td>{'72003':0.55,'72011':99.45}</td>
-      <td>AÃ±asco|Aguada</td>
-      <td>72011|72003</td>
-      <td>False</td>
-      <td>False</td>
-      <td>America/Puerto_Rico</td>
+      <td>America/Los_Angeles</td>
     </tr>
   </tbody>
 </table>
 </div></div></div>
 </div>
-</div>
-<div class="section" id="lookup-data-exploration">
-<h2>Lookup Data Exploration<a class="headerlink" href="#lookup-data-exploration" title="Permalink to this headline">¶</a></h2>
-<p>We have loaded the zip code Lookup data for the US. Let’s see what data do we have here.</p>
-</div>
-<div class="section" id="counting-values">
-<h2>Counting Values<a class="headerlink" href="#counting-values" title="Permalink to this headline">¶</a></h2>
-<p>The simplest aggregation function for each group is the <em>size</em>. How many breweries do we have in each state?</p>
-<div class="cell docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
-    <span class="n">df</span>
-    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;state_id&#39;</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">size</span><span class="p">()</span>
-<span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>state_id
-AK     238
-AL     642
-AR     591
-AZ     405
-CA    1761
-CO     525
-CT     282
-DC      52
-DE      67
-FL     981
-GA     735
-HI      94
-IA     934
-ID     277
-IL    1383
-IN     775
-KS     697
-KY     767
-LA     515
-MA     537
-MD     468
-ME     432
-MI     986
-MN     884
-MO    1022
-MS     423
-MT     361
-NC     808
-ND     383
-NE     581
-NH     248
-NJ     595
-NM     368
-NV     175
-NY    1794
-OH    1195
-OK     648
-OR     417
-PA    1795
-PR     131
-RI      77
-SC     424
-SD     371
-TN     628
-TX    1935
-UT     287
-VA     896
-VT     255
-WA     596
-WI     772
-WV     706
-WY     178
-dtype: int64
-</pre></div>
-</div>
-</div>
-</div>
-</div>
-<div class="section" id="sorting-values">
-<h2>Sorting Values<a class="headerlink" href="#sorting-values" title="Permalink to this headline">¶</a></h2>
-<p>To sort the values is also simple with <em>sort_value()</em> function</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">us_population_distribution</span> <span class="o">=</span> <span class="p">(</span>
-    <span class="n">df</span>
-    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;state_id&#39;</span><span class="p">)[</span><span class="s1">&#39;population&#39;</span><span class="p">]</span>
+    <span class="n">zip_lookup</span>
+    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;state_name&#39;</span><span class="p">)[</span><span class="s1">&#39;population&#39;</span><span class="p">]</span>
     <span class="o">.</span><span class="n">sum</span><span class="p">()</span>
     <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="p">)</span>
@@ -583,59 +528,59 @@ dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>state_id
-CA    39140219
-TX    27884135
-FL    20594164
-NY    19618323
-IL    12821487
-PA    12790950
-OH    11639989
-GA    10297534
-NC    10155624
-MI     9957465
-NJ     8881845
-VA     8414042
-WA     7280023
-AZ     6949259
-MA     6830133
-TN     6644470
-IN     6637220
-MO     6090358
-MD     6003435
-WI     5777892
-CO     5531233
-MN     5527473
-SC     4955925
-AL     4864630
-LA     4663243
-KY     4446667
-OR     4081732
-OK     3918473
-CT     3581504
-PR     3384779
-IA     3133061
-UT     3043806
-AR     2990472
-MS     2988710
-NV     2923171
-KS     2908448
-NM     2089570
-NE     1904901
-WV     1828786
-ID     1687214
-HI     1422019
-NH     1343673
-ME     1332721
-RI     1056611
-MT     1042359
-DE      949495
-SD      864012
-ND      751250
-AK      737979
-DC      684390
-VT      624977
-WY      582091
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>state_name
+California              39140219
+Texas                   27884135
+Florida                 20594164
+New York                19618323
+Illinois                12821487
+Pennsylvania            12790950
+Ohio                    11639989
+Georgia                 10297534
+North Carolina          10155624
+Michigan                 9957465
+New Jersey               8881845
+Virginia                 8414042
+Washington               7280023
+Arizona                  6949259
+Massachusetts            6830133
+Tennessee                6644470
+Indiana                  6637220
+Missouri                 6090358
+Maryland                 6003435
+Wisconsin                5777892
+Colorado                 5531233
+Minnesota                5527473
+South Carolina           4955925
+Alabama                  4864630
+Louisiana                4663243
+Kentucky                 4446667
+Oregon                   4081732
+Oklahoma                 3918473
+Connecticut              3581504
+Puerto Rico              3384779
+Iowa                     3133061
+Utah                     3043806
+Arkansas                 2990472
+Mississippi              2988710
+Nevada                   2923171
+Kansas                   2908448
+New Mexico               2089570
+Nebraska                 1904901
+West Virginia            1828786
+Idaho                    1687214
+Hawaii                   1422019
+New Hampshire            1343673
+Maine                    1332721
+Rhode Island             1056611
+Montana                  1042359
+Delaware                  949495
+South Dakota              864012
+North Dakota              751250
+Alaska                    737979
+District of Columbia      684390
+Vermont                   624977
+Wyoming                   582091
 Name: population, dtype: int64
 </pre></div>
 </div>
@@ -655,8 +600,851 @@ Name: population, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/03.03_merge_11_0.png" src="../_images/03.03_merge_11_0.png" />
+<img alt="../_images/03.03_merge_12_0.svg" src="../_images/03.03_merge_12_0.svg" /></div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">breweries_data</span><span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;../data/us_breweries.csv&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">breweries_data</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>name</th>
+      <th>brewery_type</th>
+      <th>street</th>
+      <th>address_2</th>
+      <th>address_3</th>
+      <th>city</th>
+      <th>state</th>
+      <th>county_province</th>
+      <th>postal_code</th>
+      <th>country</th>
+      <th>longitude</th>
+      <th>latitude</th>
+      <th>phone</th>
+      <th>website_url</th>
+      <th>updated_at</th>
+      <th>created_at</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2</td>
+      <td>Avondale Brewing Co</td>
+      <td>micro</td>
+      <td>201 41st St S</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Birmingham</td>
+      <td>Alabama</td>
+      <td>NaN</td>
+      <td>35222-1932</td>
+      <td>United States</td>
+      <td>-86.774322</td>
+      <td>33.524521</td>
+      <td>2.057775e+09</td>
+      <td>http://www.avondalebrewing.com</td>
+      <td>2018-08-23T23:19:57.825Z</td>
+      <td>2018-07-24T01:32:47.255Z</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>44</td>
+      <td>Trim Tab Brewing</td>
+      <td>micro</td>
+      <td>2721 5th Ave S</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Birmingham</td>
+      <td>Alabama</td>
+      <td>NaN</td>
+      <td>35233-3401</td>
+      <td>United States</td>
+      <td>-86.791400</td>
+      <td>33.512849</td>
+      <td>2.057031e+09</td>
+      <td>http://www.trimtabbrewing.com</td>
+      <td>2018-08-23T23:20:31.423Z</td>
+      <td>2018-07-24T01:32:47.815Z</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>46</td>
+      <td>Yellowhammer Brewery</td>
+      <td>micro</td>
+      <td>2600 Clinton Ave W</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Huntsville</td>
+      <td>Alabama</td>
+      <td>NaN</td>
+      <td>35805-3046</td>
+      <td>United States</td>
+      <td>-86.593201</td>
+      <td>34.727752</td>
+      <td>2.569756e+09</td>
+      <td>http://www.yellowhammerbrewery.com</td>
+      <td>2018-08-23T23:20:33.102Z</td>
+      <td>2018-07-24T01:32:47.838Z</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>55</td>
+      <td>Bearpaw River Brewing Co</td>
+      <td>micro</td>
+      <td>4605 E Palmer Wasilla Hwy</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Wasilla</td>
+      <td>Alaska</td>
+      <td>NaN</td>
+      <td>99654-7679</td>
+      <td>United States</td>
+      <td>-149.412710</td>
+      <td>61.575269</td>
+      <td>NaN</td>
+      <td>http://bearpawriverbrewing.com</td>
+      <td>2018-08-23T23:20:40.743Z</td>
+      <td>2018-07-24T01:32:47.967Z</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>76</td>
+      <td>King Street Brewing Co</td>
+      <td>micro</td>
+      <td>9050 King Street</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Anchorage</td>
+      <td>Alaska</td>
+      <td>NaN</td>
+      <td>99515</td>
+      <td>United States</td>
+      <td>-149.879076</td>
+      <td>61.138489</td>
+      <td>9.073365e+09</td>
+      <td>http://www.kingstreetbrewing.com</td>
+      <td>2018-08-23T23:20:57.179Z</td>
+      <td>2018-07-24T01:32:48.301Z</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>We can see that the postal code is sometimes in the longer format compare to the zip codes that we have in our lookup table. We will convert them to the shorter format by taking the first 5 characters ([:5]) of the string of the postal_code column.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">breweries_data_with_zip</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">breweries_data</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">zip_code</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">postal_code</span><span class="o">.</span><span class="n">str</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">breweries_data_with_zip</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>name</th>
+      <th>brewery_type</th>
+      <th>street</th>
+      <th>address_2</th>
+      <th>address_3</th>
+      <th>city</th>
+      <th>state</th>
+      <th>county_province</th>
+      <th>postal_code</th>
+      <th>country</th>
+      <th>longitude</th>
+      <th>latitude</th>
+      <th>phone</th>
+      <th>website_url</th>
+      <th>updated_at</th>
+      <th>created_at</th>
+      <th>zip_code</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2</td>
+      <td>Avondale Brewing Co</td>
+      <td>micro</td>
+      <td>201 41st St S</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Birmingham</td>
+      <td>Alabama</td>
+      <td>NaN</td>
+      <td>35222-1932</td>
+      <td>United States</td>
+      <td>-86.774322</td>
+      <td>33.524521</td>
+      <td>2.057775e+09</td>
+      <td>http://www.avondalebrewing.com</td>
+      <td>2018-08-23T23:19:57.825Z</td>
+      <td>2018-07-24T01:32:47.255Z</td>
+      <td>35222</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>44</td>
+      <td>Trim Tab Brewing</td>
+      <td>micro</td>
+      <td>2721 5th Ave S</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Birmingham</td>
+      <td>Alabama</td>
+      <td>NaN</td>
+      <td>35233-3401</td>
+      <td>United States</td>
+      <td>-86.791400</td>
+      <td>33.512849</td>
+      <td>2.057031e+09</td>
+      <td>http://www.trimtabbrewing.com</td>
+      <td>2018-08-23T23:20:31.423Z</td>
+      <td>2018-07-24T01:32:47.815Z</td>
+      <td>35233</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>46</td>
+      <td>Yellowhammer Brewery</td>
+      <td>micro</td>
+      <td>2600 Clinton Ave W</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Huntsville</td>
+      <td>Alabama</td>
+      <td>NaN</td>
+      <td>35805-3046</td>
+      <td>United States</td>
+      <td>-86.593201</td>
+      <td>34.727752</td>
+      <td>2.569756e+09</td>
+      <td>http://www.yellowhammerbrewery.com</td>
+      <td>2018-08-23T23:20:33.102Z</td>
+      <td>2018-07-24T01:32:47.838Z</td>
+      <td>35805</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>55</td>
+      <td>Bearpaw River Brewing Co</td>
+      <td>micro</td>
+      <td>4605 E Palmer Wasilla Hwy</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Wasilla</td>
+      <td>Alaska</td>
+      <td>NaN</td>
+      <td>99654-7679</td>
+      <td>United States</td>
+      <td>-149.412710</td>
+      <td>61.575269</td>
+      <td>NaN</td>
+      <td>http://bearpawriverbrewing.com</td>
+      <td>2018-08-23T23:20:40.743Z</td>
+      <td>2018-07-24T01:32:47.967Z</td>
+      <td>99654</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>76</td>
+      <td>King Street Brewing Co</td>
+      <td>micro</td>
+      <td>9050 King Street</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Anchorage</td>
+      <td>Alaska</td>
+      <td>NaN</td>
+      <td>99515</td>
+      <td>United States</td>
+      <td>-149.879076</td>
+      <td>61.138489</td>
+      <td>9.073365e+09</td>
+      <td>http://www.kingstreetbrewing.com</td>
+      <td>2018-08-23T23:20:57.179Z</td>
+      <td>2018-07-24T01:32:48.301Z</td>
+      <td>99515</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="joining-the-tables">
+<h2>Joining the tables<a class="headerlink" href="#joining-the-tables" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">zip_lookup_as_string</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">zip_lookup</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">zip_code</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">zip</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">enriched_breweries_data</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">breweries_data_with_zip</span>
+    <span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">zip_lookup_as_string</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;zip_code&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
+<span class="n">enriched_breweries_data</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>id</th>
+      <th>name</th>
+      <th>brewery_type</th>
+      <th>street</th>
+      <th>address_2</th>
+      <th>address_3</th>
+      <th>city_x</th>
+      <th>state</th>
+      <th>county_province</th>
+      <th>postal_code</th>
+      <th>country</th>
+      <th>longitude</th>
+      <th>latitude</th>
+      <th>phone</th>
+      <th>website_url</th>
+      <th>updated_at</th>
+      <th>created_at</th>
+      <th>zip_code</th>
+      <th>zip</th>
+      <th>lat</th>
+      <th>lng</th>
+      <th>city_y</th>
+      <th>state_id</th>
+      <th>state_name</th>
+      <th>zcta</th>
+      <th>parent_zcta</th>
+      <th>population</th>
+      <th>density</th>
+      <th>county_fips</th>
+      <th>county_name</th>
+      <th>county_weights</th>
+      <th>county_names_all</th>
+      <th>county_fips_all</th>
+      <th>imprecise</th>
+      <th>military</th>
+      <th>timezone</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2</td>
+      <td>Avondale Brewing Co</td>
+      <td>micro</td>
+      <td>201 41st St S</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Birmingham</td>
+      <td>Alabama</td>
+      <td>NaN</td>
+      <td>35222-1932</td>
+      <td>United States</td>
+      <td>-86.774322</td>
+      <td>33.524521</td>
+      <td>2.057775e+09</td>
+      <td>http://www.avondalebrewing.com</td>
+      <td>2018-08-23T23:19:57.825Z</td>
+      <td>2018-07-24T01:32:47.255Z</td>
+      <td>35222</td>
+      <td>35222.0</td>
+      <td>33.52409</td>
+      <td>-86.77025</td>
+      <td>Birmingham</td>
+      <td>AL</td>
+      <td>Alabama</td>
+      <td>True</td>
+      <td>NaN</td>
+      <td>9033.0</td>
+      <td>815.8</td>
+      <td>1073.0</td>
+      <td>Jefferson</td>
+      <td>{'01073':100}</td>
+      <td>Jefferson</td>
+      <td>01073</td>
+      <td>False</td>
+      <td>False</td>
+      <td>America/Chicago</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>44</td>
+      <td>Trim Tab Brewing</td>
+      <td>micro</td>
+      <td>2721 5th Ave S</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Birmingham</td>
+      <td>Alabama</td>
+      <td>NaN</td>
+      <td>35233-3401</td>
+      <td>United States</td>
+      <td>-86.791400</td>
+      <td>33.512849</td>
+      <td>2.057031e+09</td>
+      <td>http://www.trimtabbrewing.com</td>
+      <td>2018-08-23T23:20:31.423Z</td>
+      <td>2018-07-24T01:32:47.815Z</td>
+      <td>35233</td>
+      <td>35233.0</td>
+      <td>33.50876</td>
+      <td>-86.80194</td>
+      <td>Birmingham</td>
+      <td>AL</td>
+      <td>Alabama</td>
+      <td>True</td>
+      <td>NaN</td>
+      <td>1715.0</td>
+      <td>300.7</td>
+      <td>1073.0</td>
+      <td>Jefferson</td>
+      <td>{'01073':100}</td>
+      <td>Jefferson</td>
+      <td>01073</td>
+      <td>False</td>
+      <td>False</td>
+      <td>America/Chicago</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>46</td>
+      <td>Yellowhammer Brewery</td>
+      <td>micro</td>
+      <td>2600 Clinton Ave W</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Huntsville</td>
+      <td>Alabama</td>
+      <td>NaN</td>
+      <td>35805-3046</td>
+      <td>United States</td>
+      <td>-86.593201</td>
+      <td>34.727752</td>
+      <td>2.569756e+09</td>
+      <td>http://www.yellowhammerbrewery.com</td>
+      <td>2018-08-23T23:20:33.102Z</td>
+      <td>2018-07-24T01:32:47.838Z</td>
+      <td>35805</td>
+      <td>35805.0</td>
+      <td>34.70858</td>
+      <td>-86.62125</td>
+      <td>Huntsville</td>
+      <td>AL</td>
+      <td>Alabama</td>
+      <td>True</td>
+      <td>NaN</td>
+      <td>21200.0</td>
+      <td>949.7</td>
+      <td>1089.0</td>
+      <td>Madison</td>
+      <td>{'01089':100}</td>
+      <td>Madison</td>
+      <td>01089</td>
+      <td>False</td>
+      <td>False</td>
+      <td>America/Chicago</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>55</td>
+      <td>Bearpaw River Brewing Co</td>
+      <td>micro</td>
+      <td>4605 E Palmer Wasilla Hwy</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Wasilla</td>
+      <td>Alaska</td>
+      <td>NaN</td>
+      <td>99654-7679</td>
+      <td>United States</td>
+      <td>-149.412710</td>
+      <td>61.575269</td>
+      <td>NaN</td>
+      <td>http://bearpawriverbrewing.com</td>
+      <td>2018-08-23T23:20:40.743Z</td>
+      <td>2018-07-24T01:32:47.967Z</td>
+      <td>99654</td>
+      <td>99654.0</td>
+      <td>61.45483</td>
+      <td>-149.90045</td>
+      <td>Wasilla</td>
+      <td>AK</td>
+      <td>Alaska</td>
+      <td>True</td>
+      <td>NaN</td>
+      <td>62135.0</td>
+      <td>40.4</td>
+      <td>2170.0</td>
+      <td>Matanuska-Susitna</td>
+      <td>{'02170':100}</td>
+      <td>Matanuska-Susitna</td>
+      <td>02170</td>
+      <td>False</td>
+      <td>False</td>
+      <td>America/Anchorage</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>76</td>
+      <td>King Street Brewing Co</td>
+      <td>micro</td>
+      <td>9050 King Street</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Anchorage</td>
+      <td>Alaska</td>
+      <td>NaN</td>
+      <td>99515</td>
+      <td>United States</td>
+      <td>-149.879076</td>
+      <td>61.138489</td>
+      <td>9.073365e+09</td>
+      <td>http://www.kingstreetbrewing.com</td>
+      <td>2018-08-23T23:20:57.179Z</td>
+      <td>2018-07-24T01:32:48.301Z</td>
+      <td>99515</td>
+      <td>99515.0</td>
+      <td>61.11739</td>
+      <td>-149.88889</td>
+      <td>Anchorage</td>
+      <td>AK</td>
+      <td>Alaska</td>
+      <td>True</td>
+      <td>NaN</td>
+      <td>23402.0</td>
+      <td>818.8</td>
+      <td>2020.0</td>
+      <td>Anchorage</td>
+      <td>{'02020':100}</td>
+      <td>Anchorage</td>
+      <td>02020</td>
+      <td>False</td>
+      <td>False</td>
+      <td>America/Anchorage</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>945</th>
+      <td>195</td>
+      <td>Sonoran Brewing</td>
+      <td>contract</td>
+      <td>3002 E Washington St</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Phoenix</td>
+      <td>Arizona</td>
+      <td>NaN</td>
+      <td>85034-1518</td>
+      <td>United States</td>
+      <td>-111.980574</td>
+      <td>33.447533</td>
+      <td>6.025109e+09</td>
+      <td>http://www.sonoranbrewing.com</td>
+      <td>2018-08-23T23:22:39.673Z</td>
+      <td>2018-07-24T01:32:49.957Z</td>
+      <td>85034</td>
+      <td>85034.0</td>
+      <td>33.43489</td>
+      <td>-112.02005</td>
+      <td>Phoenix</td>
+      <td>AZ</td>
+      <td>Arizona</td>
+      <td>True</td>
+      <td>NaN</td>
+      <td>4772.0</td>
+      <td>188.7</td>
+      <td>4013.0</td>
+      <td>Maricopa</td>
+      <td>{'04013':100}</td>
+      <td>Maricopa</td>
+      <td>04013</td>
+      <td>False</td>
+      <td>False</td>
+      <td>America/Phoenix</td>
+    </tr>
+    <tr>
+      <th>946</th>
+      <td>196</td>
+      <td>State 48 Barrel and Lager House</td>
+      <td>planning</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Scottsdale</td>
+      <td>Arizona</td>
+      <td>NaN</td>
+      <td>85260-1924</td>
+      <td>United States</td>
+      <td>-111.899237</td>
+      <td>33.509121</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2018-08-23T23:22:40.070Z</td>
+      <td>2018-07-24T01:32:49.969Z</td>
+      <td>85260</td>
+      <td>85260.0</td>
+      <td>33.60958</td>
+      <td>-111.89157</td>
+      <td>Scottsdale</td>
+      <td>AZ</td>
+      <td>Arizona</td>
+      <td>True</td>
+      <td>NaN</td>
+      <td>38934.0</td>
+      <td>959.4</td>
+      <td>4013.0</td>
+      <td>Maricopa</td>
+      <td>{'04013':100}</td>
+      <td>Maricopa</td>
+      <td>04013</td>
+      <td>False</td>
+      <td>False</td>
+      <td>America/Phoenix</td>
+    </tr>
+    <tr>
+      <th>947</th>
+      <td>197</td>
+      <td>State 48 Brewery</td>
+      <td>planning</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Phoenix</td>
+      <td>Arizona</td>
+      <td>NaN</td>
+      <td>85003-1626</td>
+      <td>United States</td>
+      <td>-112.077346</td>
+      <td>33.448587</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2018-08-23T23:22:40.558Z</td>
+      <td>2018-07-24T01:32:49.981Z</td>
+      <td>85003</td>
+      <td>85003.0</td>
+      <td>33.45076</td>
+      <td>-112.07836</td>
+      <td>Phoenix</td>
+      <td>AZ</td>
+      <td>Arizona</td>
+      <td>True</td>
+      <td>NaN</td>
+      <td>8419.0</td>
+      <td>1953.9</td>
+      <td>4013.0</td>
+      <td>Maricopa</td>
+      <td>{'04013':100}</td>
+      <td>Maricopa</td>
+      <td>04013</td>
+      <td>False</td>
+      <td>False</td>
+      <td>America/Phoenix</td>
+    </tr>
+    <tr>
+      <th>948</th>
+      <td>199</td>
+      <td>Sun Up Brewing Co.</td>
+      <td>brewpub</td>
+      <td>322 E Camelback Rd</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Phoenix</td>
+      <td>Arizona</td>
+      <td>NaN</td>
+      <td>85012-1614</td>
+      <td>United States</td>
+      <td>-112.068777</td>
+      <td>33.509509</td>
+      <td>6.026709e+09</td>
+      <td>http://sunup.beer</td>
+      <td>2018-08-23T23:22:42.395Z</td>
+      <td>2018-07-24T01:32:50.036Z</td>
+      <td>85012</td>
+      <td>85012.0</td>
+      <td>33.50731</td>
+      <td>-112.07035</td>
+      <td>Phoenix</td>
+      <td>AZ</td>
+      <td>Arizona</td>
+      <td>True</td>
+      <td>NaN</td>
+      <td>7012.0</td>
+      <td>1124.4</td>
+      <td>4013.0</td>
+      <td>Maricopa</td>
+      <td>{'04013':100}</td>
+      <td>Maricopa</td>
+      <td>04013</td>
+      <td>False</td>
+      <td>False</td>
+      <td>America/Phoenix</td>
+    </tr>
+    <tr>
+      <th>949</th>
+      <td>200</td>
+      <td>Sun Up Brewing Company 330</td>
+      <td>planning</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>Phoenix</td>
+      <td>Arizona</td>
+      <td>NaN</td>
+      <td>85012</td>
+      <td>United States</td>
+      <td>-112.077346</td>
+      <td>33.448587</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>2018-08-23T23:22:42.843Z</td>
+      <td>2018-07-24T01:32:50.050Z</td>
+      <td>85012</td>
+      <td>85012.0</td>
+      <td>33.50731</td>
+      <td>-112.07035</td>
+      <td>Phoenix</td>
+      <td>AZ</td>
+      <td>Arizona</td>
+      <td>True</td>
+      <td>NaN</td>
+      <td>7012.0</td>
+      <td>1124.4</td>
+      <td>4013.0</td>
+      <td>Maricopa</td>
+      <td>{'04013':100}</td>
+      <td>Maricopa</td>
+      <td>04013</td>
+      <td>False</td>
+      <td>False</td>
+      <td>America/Phoenix</td>
+    </tr>
+  </tbody>
+</table>
+<p>950 rows × 36 columns</p>
+</div></div></div>
 </div>
 </div>
 </div>
