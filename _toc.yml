@@ -16,3 +16,6 @@
   chapters:
   - file: notebooks/03.01_pivot_tables.ipynb
   - file: notebooks/03.02_group_by.ipynb
+- part: Table Enrichment with Merge
+  chapters:
+  - file: notebooks/03.03_merge.ipynb
