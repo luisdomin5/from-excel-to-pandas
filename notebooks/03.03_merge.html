@@ -927,6 +927,7 @@ Name: population, dtype: int64
 </div>
 <div class="section" id="joining-the-tables">
 <h2>Joining the tables<a class="headerlink" href="#joining-the-tables" title="Permalink to this headline">¶</a></h2>
+<p>The joining of the table is based on a joined key. In this case we want to use the 5-digits zip code as the lookup or join key. In the previous step with shorten the longer zip codes to the shorter 5 digits format, and now we will make sure that the lookup table also have it in the same format. First we need to convert the numeric value into string (<em>astype(str)</em>), and then we will pad it with zero is the number is shorter than 5 digits (<em>zfill(5)</em>).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">zip_lookup_as_string</span> <span class="o">=</span> <span class="p">(</span>
@@ -937,6 +938,7 @@ Name: population, dtype: int64
 </div>
 </div>
 </div>
+<p>The join itself is simple. You start with the table that you want to enrich and using <em>merge</em>, you are joining it with the second table. In the example below both tables have a column with the same name (<em>zip_code</em>), and we use it using the <em>on</em> argument. Lastly, we want to have all breweries, even if we don’t find the zip code in the lookup table. Therefore, we are using <em>LEFT</em> join using the <em>how</em> argument.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">enriched_breweries_data</span> <span class="o">=</span> <span class="p">(</span>
@@ -947,6 +949,8 @@ Name: population, dtype: int64
 </div>
 </div>
 </div>
+<p>We have now many more columns as all the columns of both tables are joined to the enriched table. We will ask the Jupyter notebook to show us all the columns by removing the default maximum number of columns to display.</p>
+<p>In the table below we can see all the columns. If the same column name is found in both tables and it wasn’t the column that was used for the join or merge, the column of first (“left”) table will be appended with x (<em>city_x</em>, for example), and the column of the second (“right”) table will be appended with y (<em>city_y</em>, for example).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
@@ -1444,6 +1448,138 @@ Name: population, dtype: int64
   </tbody>
 </table>
 <p>950 rows × 36 columns</p>
+</div></div></div>
+</div>
+<p>Now, that we have the enriched table, we can analyze the joined data and explore the different counties across the US, count their number of breweries, and check statistics about their population. It can help us decide where we should travel too, or where we should open the next brewry.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">enriched_breweries_data</span>
+    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;county_name&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">agg</span><span class="p">(</span>
+        <span class="n">state</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;state_id&#39;</span><span class="p">,</span> <span class="s1">&#39;min&#39;</span><span class="p">),</span> 
+        <span class="n">brewry_count</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">),</span>
+        <span class="n">population_sum</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;population&#39;</span><span class="p">,</span> <span class="s1">&#39;sum&#39;</span><span class="p">),</span>
+        <span class="n">density_average</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;density&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;population_sum&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>state</th>
+      <th>brewry_count</th>
+      <th>population_sum</th>
+      <th>density_average</th>
+    </tr>
+    <tr>
+      <th>county_name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Maricopa</th>
+      <td>AZ</td>
+      <td>54</td>
+      <td>2245381.0</td>
+      <td>1384.942593</td>
+    </tr>
+    <tr>
+      <th>Pima</th>
+      <td>AZ</td>
+      <td>17</td>
+      <td>710693.0</td>
+      <td>1314.441176</td>
+    </tr>
+    <tr>
+      <th>San Diego</th>
+      <td>CA</td>
+      <td>16</td>
+      <td>618653.0</td>
+      <td>1358.225000</td>
+    </tr>
+    <tr>
+      <th>Coconino</th>
+      <td>AZ</td>
+      <td>11</td>
+      <td>404415.0</td>
+      <td>15.054545</td>
+    </tr>
+    <tr>
+      <th>Cook</th>
+      <td>IL</td>
+      <td>7</td>
+      <td>352586.0</td>
+      <td>3234.442857</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>Humboldt</th>
+      <td>CA</td>
+      <td>1</td>
+      <td>772.0</td>
+      <td>12.400000</td>
+    </tr>
+    <tr>
+      <th>Chemung</th>
+      <td>NY</td>
+      <td>1</td>
+      <td>749.0</td>
+      <td>21.000000</td>
+    </tr>
+    <tr>
+      <th>Runnels</th>
+      <td>TX</td>
+      <td>1</td>
+      <td>522.0</td>
+      <td>2.400000</td>
+    </tr>
+    <tr>
+      <th>San Juan</th>
+      <td>CO</td>
+      <td>1</td>
+      <td>516.0</td>
+      <td>0.800000</td>
+    </tr>
+    <tr>
+      <th>Alamance</th>
+      <td>NC</td>
+      <td>1</td>
+      <td>41.0</td>
+      <td>819.900000</td>
+    </tr>
+  </tbody>
+</table>
+<p>367 rows × 4 columns</p>
 </div></div></div>
 </div>
 </div>
