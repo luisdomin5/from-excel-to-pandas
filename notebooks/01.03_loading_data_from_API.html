@@ -283,6 +283,11 @@
    Loading from complex API
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#extracting-the-relevant-data">
+   Extracting the relevant data
+  </a>
+ </li>
 </ul>
 
         </nav>
@@ -1224,11 +1229,50 @@
 <h2>Loading from complex API<a class="headerlink" href="#loading-from-complex-api" title="Permalink to this headline">¶</a></h2>
 <p>Many times pages will be more complex and we can still extract the relevant data.</p>
 <p>Let’s get some stock data from https://www.alphavantage.co</p>
+<p>This web service is providing useful investment information using an API, however, like many other API providers, it requires an API key to identify the request (and sometimes chanrge for it).</p>
+<p>To allow secure execution of such API call, we will how to install a new python module and how to use it. The next cell is installing the module from https://ipython-secrets.readthedocs.io/en/latest/</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">api_key</span> <span class="o">=</span> <span class="s1">&#39;17YU786TMTC6DAN8&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">ipython</span><span class="o">-</span><span class="n">secrets</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: ipython-secrets in /Users/guy/miniconda3/lib/python3.8/site-packages (1.1.1)
+Requirement already satisfied: keyring in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-secrets) (21.8.0)
+Requirement already satisfied: ipython in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-secrets) (7.18.1)
+Requirement already satisfied: jedi&gt;=0.10 in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (0.17.2)
+Requirement already satisfied: pygments in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (2.7.1)
+Requirement already satisfied: appnope; sys_platform == &quot;darwin&quot; in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (0.1.0)
+Requirement already satisfied: pexpect&gt;4.3; sys_platform != &quot;win32&quot; in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (4.8.0)
+Requirement already satisfied: traitlets&gt;=4.2 in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (5.0.5)
+Requirement already satisfied: pickleshare in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (0.7.5)
+Requirement already satisfied: prompt-toolkit!=3.0.0,!=3.0.1,&lt;3.1.0,&gt;=2.0.0 in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (3.0.8)
+Requirement already satisfied: decorator in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (4.4.2)
+Requirement already satisfied: backcall in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (0.2.0)
+Requirement already satisfied: setuptools&gt;=18.5 in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (46.4.0.post20200518)
+Requirement already satisfied: parso&lt;0.8.0,&gt;=0.7.0 in /Users/guy/miniconda3/lib/python3.8/site-packages (from jedi&gt;=0.10-&gt;ipython-&gt;ipython-secrets) (0.7.1)
+Requirement already satisfied: ptyprocess&gt;=0.5 in /Users/guy/miniconda3/lib/python3.8/site-packages (from pexpect&gt;4.3; sys_platform != &quot;win32&quot;-&gt;ipython-&gt;ipython-secrets) (0.6.0)
+Requirement already satisfied: ipython-genutils in /Users/guy/miniconda3/lib/python3.8/site-packages (from traitlets&gt;=4.2-&gt;ipython-&gt;ipython-secrets) (0.2.0)
+Requirement already satisfied: wcwidth in /Users/guy/miniconda3/lib/python3.8/site-packages (from prompt-toolkit!=3.0.0,!=3.0.1,&lt;3.1.0,&gt;=2.0.0-&gt;ipython-&gt;ipython-secrets) (0.2.5)
+Note: you may need to restart the kernel to use updated packages.
+</pre></div>
+</div>
+</div>
+</div>
+<p>Once we have the module to handle secrets installed, we can import it to the notebook and use it. The module will pop up the request for the user to enter the API key, which you can get from https://www.alphavantage.co/support/#api-key. Next time you will execute the cell and the whole notebook, the API key will be retrieved from the keyring of the machine running the notebook.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">ipython_secrets</span> <span class="kn">import</span> <span class="o">*</span>
 
-<span class="n">request_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&amp;symbol=MSFT&amp;interval=1min&amp;apikey=</span><span class="si">{</span><span class="n">api_key</span><span class="si">}</span><span class="s1">&#39;</span>
+<span class="n">ALPHAVANTAGE_API_KEY</span> <span class="o">=</span> <span class="n">get_secret</span><span class="p">(</span><span class="s1">&#39;ALPHAVANTAGE_API_KEY&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">request_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&amp;symbol=MSFT&amp;interval=1min&amp;apikey=</span><span class="si">{</span><span class="n">ALPHAVANTAGE_API_KEY</span><span class="si">}</span><span class="s1">&#39;</span>
 </pre></div>
 </div>
 </div>
@@ -1330,6 +1374,10 @@
 <p>106 rows × 2 columns</p>
 </div></div></div>
 </div>
+</div>
+<div class="section" id="extracting-the-relevant-data">
+<h2>Extracting the relevant data<a class="headerlink" href="#extracting-the-relevant-data" title="Permalink to this headline">¶</a></h2>
+<p>We see that the data that we are looking for (open, close, high and low prices and volume in each minute) is available in a column of the dataframe table. We will filter the table to include only the rows with the prices data and split it to separated columns.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">json_series</span> <span class="o">=</span> <span class="p">(</span>
