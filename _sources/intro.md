@@ -30,7 +30,7 @@ The tutorial is based on a set of Jupyter notebooks that are demonstrating the v
     - Using _groupby_
 
 - Joining and Merging Tables and Lists
-    - Using _join_
+    - Using _merge_
 
 - Adding Charts
     - Using _plot_

@@ -675,11 +675,9 @@
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_views</span><span class="p">(</span><span class="n">company</span><span class="p">):</span>
     <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/all-agents/</span><span class="si">{</span><span class="n">company</span><span class="o">.</span><span class="n">iat</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">/daily/2020090100/2020093000&#39;</span>
     <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
-    <span class="nb">print</span><span class="p">(</span><span class="n">company</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">json_normalize</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">(),</span> <span class="s1">&#39;items&#39;</span><span class="p">)</span>
     <span class="k">except</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Failed&#39;</span><span class="p">)</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
     
     <span class="k">return</span> <span class="n">df</span>
@@ -695,411 +693,6 @@
     <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Company&#39;</span><span class="p">)[[</span><span class="s1">&#39;Company&#39;</span><span class="p">]]</span>
     <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">get_views</span><span class="p">)</span>
 <span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   Company
-11   ANSYS
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>         Company
-14  ASML Holding
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               Company
-0  Activision Blizzard
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      Company
-1  Adobe Inc.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                  Company
-2  Advanced Micro Devices
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                   Company
-3  Alexion Pharmaceuticals
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>            Company
-4  Align Technology
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                   Company
-5  Alphabet Inc. (Class A)
-Failed
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                   Company
-6  Alphabet Inc. (Class C)
-Failed
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      Company
-7  Amazon.com
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                   Company
-8  American Electric Power
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  Company
-9   Amgen
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>           Company
-10  Analog Devices
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>       Company
-12  Apple Inc.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                    Company
-13  Applied Materials, Inc.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>      Company
-15  Atlassian
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     Company
-16  Autodesk
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                            Company
-17  Automatic Data Processing, Inc.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   Company
-18   Baidu
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   Company
-19  Biogen
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>             Company
-20  Booking Holdings
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>          Company
-21  Broadcom Inc.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   Company
-23     CDW
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>            Company
-33  CSX Corporation
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                   Company
-22  Cadence Design Systems
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               Company
-24  Cerner Corporation
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                         Company
-25  Charter Communications, Inc.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                   Company
-26  Check Point Software Technologies Ltd.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               Company
-27  Cintas Corporation
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>          Company
-28  Cisco Systems
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                                       Company
-29  Cognizant Technology Solutions Corporation
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                Company
-30  Comcast Corporation
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   Company
-31  Copart
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                         Company
-32  Costco Wholesale Corporation
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   Company
-34  DexCom
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     Company
-35  DocuSign
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>              Company
-36  Dollar Tree, Inc.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>            Company
-38  Electronic Arts
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               Company
-39  Exelon Corporation
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>           Company
-40  Facebook, Inc.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>             Company
-41  Fastenal Company
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>         Company
-42  Fiserv, Inc.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                      Company
-43  Fox Corporation (Class A)
-Failed
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                      Company
-44  Fox Corporation (Class B)
-Failed
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                  Company
-45  Gilead Sciences, Inc.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               Company
-46  IDEXX Laboratories
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>           Company
-47  Illumina, Inc.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               Company
-48  Incyte Corporation
-Failed
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>              Company
-49  Intel Corporation
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   Company
-50  Intuit
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               Company
-51  Intuitive Surgical
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   Company
-52  JD.com
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>            Company
-54  KLA Corporation
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                  Company
-53  Keurig Dr Pepper Inc.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>           Company
-55  Kraft Heinz Co
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>         Company
-56  Lam Research
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                Company
-57  Lululemon Athletica
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                   Company
-58  Marriott International
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                     Company
-59  Marvell Technology Group
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>        Company
-60  Match Group
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                      Company
-61  Maxim Integrated Products
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>         Company
-62  MercadoLibre
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                 Company
-63  Microchip Technology
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                    Company
-64  Micron Technology, Inc.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                  Company
-65  Microsoft Corporation
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    Company
-66  Moderna
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                   Company
-67  Mondelēz International
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                         Company
-68  Monster Beverage Corporation
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                    Company
-72  NXP Semiconductors N.V.
-Failed
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>          Company
-69  NetEase, Inc.
-Failed
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>    Company
-70  Netflix
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>               Company
-71  Nvidia Corporation
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                      Company
-73  O&#39;Reilly Automotive, Inc.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>       Company
-74  Okta, Inc.
-Failed
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>        Company
-75  PACCAR Inc.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   Company
-77  PayPal
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>          Company
-76  Paychex, Inc.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                Company
-78  Peloton Interactive
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>          Company
-79  PepsiCo, Inc.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>           Company
-80  Pinduoduo Inc.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     Company
-81  QUALCOMM
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                      Company
-82  Regeneron Pharmaceuticals
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>              Company
-83  Ross Stores, Inc.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>        Company
-84  Seagen Inc.
-Failed
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                    Company
-85  Sirius XM Holdings Inc.
-Failed
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                     Company
-86  Skyworks Solutions, Inc.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>   Company
-87  Splunk
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                  Company
-88  Starbucks Corporation
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>           Company
-89  Synopsys, Inc.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>        Company
-90  T-Mobile US
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>        Company
-91  Tesla, Inc.
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>              Company
-92  Texas Instruments
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>           Company
-93  Trip.com Group
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>     Company
-94  Verisign
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>             Company
-95  Verisk Analytics
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                   Company
-96  Vertex Pharmaceuticals
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>                          Company
-97  Walgreen Boots Alliance, Inc.
-Failed
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>          Company
-98  Workday, Inc.
 </pre></div>
 </div>
 </div>
@@ -1616,7 +1209,7 @@ Failed
     <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">timestamp</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">timestamp</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%Y%m</span><span class="si">%d</span><span class="s1">%H&#39;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">))</span>
     <span class="o">.</span><span class="n">plot</span>
     <span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;timestamp&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;views&#39;</span><span class="p">])</span>
-<span class="p">)</span>
+<span class="p">);</span>
 </pre></div>
 </div>
 </div>
@@ -1635,7 +1228,7 @@ Failed
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">api_key</span> <span class="o">=</span> <span class="s1">&#39;17YU786TMTC6DAN8&#39;</span>
 
-<span class="n">request_url</span> <span class="o">=</span> <span class="s1">&#39;https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&amp;symbol=MSFT&amp;interval=1min&amp;apikey=17YU786TMTC6DAN8&#39;</span>
+<span class="n">request_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&amp;symbol=MSFT&amp;interval=1min&amp;apikey=</span><span class="si">{</span><span class="n">api_key</span><span class="si">}</span><span class="s1">&#39;</span>
 </pre></div>
 </div>
 </div>
@@ -1689,7 +1282,7 @@ Failed
     </tr>
     <tr>
       <th>3. Last Refreshed</th>
-      <td>2020-10-12 20:00:00</td>
+      <td>2021-01-05 20:00:00</td>
       <td>NaN</td>
     </tr>
     <tr>
@@ -1708,29 +1301,29 @@ Failed
       <td>...</td>
     </tr>
     <tr>
-      <th>2020-10-12 16:17:00</th>
+      <th>2021-01-05 15:45:00</th>
       <td>NaN</td>
-      <td>{'1. open': '221.5800', '2. high': '221.5800',...</td>
+      <td>{'1. open': '217.6200', '2. high': '217.7500',...</td>
     </tr>
     <tr>
-      <th>2020-10-12 16:16:00</th>
+      <th>2021-01-05 15:44:00</th>
       <td>NaN</td>
-      <td>{'1. open': '221.7498', '2. high': '221.7498',...</td>
+      <td>{'1. open': '217.4181', '2. high': '217.6100',...</td>
     </tr>
     <tr>
-      <th>2020-10-12 16:15:00</th>
+      <th>2021-01-05 15:43:00</th>
       <td>NaN</td>
-      <td>{'1. open': '221.5500', '2. high': '221.7400',...</td>
+      <td>{'1. open': '217.2550', '2. high': '217.4100',...</td>
     </tr>
     <tr>
-      <th>2020-10-12 16:14:00</th>
+      <th>2021-01-05 15:42:00</th>
       <td>NaN</td>
-      <td>{'1. open': '221.5700', '2. high': '221.5800',...</td>
+      <td>{'1. open': '217.2000', '2. high': '217.2750',...</td>
     </tr>
     <tr>
-      <th>2020-10-12 16:13:00</th>
+      <th>2021-01-05 15:41:00</th>
       <td>NaN</td>
-      <td>{'1. open': '221.5000', '2. high': '221.5700',...</td>
+      <td>{'1. open': '217.1500', '2. high': '217.2000',...</td>
     </tr>
   </tbody>
 </table>
@@ -1739,47 +1332,20 @@ Failed
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_url</span><span class="p">)</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">json_normalize</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">(),</span> <span class="s1">&#39;Time Series (1min)&#39;</span><span class="p">)</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">75</span><span class="o">-</span><span class="mi">0</span><span class="n">eda768a9f10</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">request_url</span><span class="p">)</span>
-<span class="ne">----&gt; </span><span class="mi">2</span> <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">json_normalize</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">(),</span> <span class="s1">&#39;Time Series (1min)&#39;</span><span class="p">)</span>
-
-<span class="nn">~/Library/Python/3.8/lib/python/site-packages/pandas/io/json/_normalize.py</span> in <span class="ni">_json_normalize</span><span class="nt">(data, record_path, meta, meta_prefix, record_prefix, errors, sep, max_level)</span>
-<span class="g g-Whitespace">    </span><span class="mi">334</span>                 <span class="n">records</span><span class="o">.</span><span class="n">extend</span><span class="p">(</span><span class="n">recs</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">335</span> 
-<span class="ne">--&gt; </span><span class="mi">336</span>     <span class="n">_recursive_extract</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">record_path</span><span class="p">,</span> <span class="p">{},</span> <span class="n">level</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="g g-Whitespace">    </span><span class="mi">337</span> 
-<span class="g g-Whitespace">    </span><span class="mi">338</span>     <span class="n">result</span> <span class="o">=</span> <span class="n">DataFrame</span><span class="p">(</span><span class="n">records</span><span class="p">)</span>
-
-<span class="nn">~/Library/Python/3.8/lib/python/site-packages/pandas/io/json/_normalize.py</span> in <span class="ni">_recursive_extract</span><span class="nt">(data, path, seen_meta, level)</span>
-<span class="g g-Whitespace">    </span><span class="mi">307</span>         <span class="k">else</span><span class="p">:</span>
-<span class="g g-Whitespace">    </span><span class="mi">308</span>             <span class="k">for</span> <span class="n">obj</span> <span class="ow">in</span> <span class="n">data</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">309</span>                 <span class="n">recs</span> <span class="o">=</span> <span class="n">_pull_records</span><span class="p">(</span><span class="n">obj</span><span class="p">,</span> <span class="n">path</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="g g-Whitespace">    </span><span class="mi">310</span>                 <span class="n">recs</span> <span class="o">=</span> <span class="p">[</span>
-<span class="g g-Whitespace">    </span><span class="mi">311</span>                     <span class="n">nested_to_record</span><span class="p">(</span><span class="n">r</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="n">sep</span><span class="p">,</span> <span class="n">max_level</span><span class="o">=</span><span class="n">max_level</span><span class="p">)</span>
-
-<span class="nn">~/Library/Python/3.8/lib/python/site-packages/pandas/io/json/_normalize.py</span> in <span class="ni">_pull_records</span><span class="nt">(js, spec)</span>
-<span class="g g-Whitespace">    </span><span class="mi">254</span>                 <span class="n">result</span> <span class="o">=</span> <span class="p">[]</span>
-<span class="g g-Whitespace">    </span><span class="mi">255</span>             <span class="k">else</span><span class="p">:</span>
-<span class="ne">--&gt; </span><span class="mi">256</span>                 <span class="k">raise</span> <span class="ne">TypeError</span><span class="p">(</span>
-<span class="g g-Whitespace">    </span><span class="mi">257</span>                     <span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">js</span><span class="si">}</span><span class="s2"> has non list value </span><span class="si">{</span><span class="n">result</span><span class="si">}</span><span class="s2"> for path </span><span class="si">{</span><span class="n">spec</span><span class="si">}</span><span class="s2">. &quot;</span>
-<span class="g g-Whitespace">    </span><span class="mi">258</span>                     <span class="s2">&quot;Must be list or null.&quot;</span>
-
-<span class="ne">TypeError</span>: {&#39;Meta Data&#39;: {&#39;1. Information&#39;: &#39;Intraday (1min) open, high, low, close prices and volume&#39;, &#39;2. Symbol&#39;: &#39;MSFT&#39;, &#39;3. Last Refreshed&#39;: &#39;2020-10-12 20:00:00&#39;, &#39;4. Interval&#39;: &#39;1min&#39;, &#39;5. Output Size&#39;: &#39;Compact&#39;, &#39;6. Time Zone&#39;: &#39;US/Eastern&#39;}, &#39;Time Series (1min)&#39;: {&#39;2020-10-12 20:00:00&#39;: {&#39;1. open&#39;: &#39;221.5600&#39;, &#39;2. high&#39;: &#39;221.5600&#39;, &#39;3. low&#39;: &#39;221.5600&#39;, &#39;4. close&#39;: &#39;221.5600&#39;, &#39;5. volume&#39;: &#39;613&#39;}, &#39;2020-10-12 19:59:00&#39;: {&#39;1. open&#39;: &#39;221.5500&#39;, &#39;2. high&#39;: &#39;221.5500&#39;, &#39;3. low&#39;: &#39;221.5500&#39;, &#39;4. close&#39;: &#39;221.5500&#39;, &#39;5. volume&#39;: &#39;974&#39;}, &#39;2020-10-12 19:57:00&#39;: {&#39;1. open&#39;: &#39;221.5600&#39;, &#39;2. high&#39;: &#39;221.5600&#39;, &#39;3. low&#39;: &#39;221.5600&#39;, &#39;4. close&#39;: &#39;221.5600&#39;, &#39;5. volume&#39;: &#39;191&#39;}, &#39;2020-10-12 19:54:00&#39;: {&#39;1. open&#39;: &#39;221.7000&#39;, &#39;2. high&#39;: &#39;221.7000&#39;, &#39;3. low&#39;: &#39;221.6700&#39;, &#39;4. close&#39;: &#39;221.6700&#39;, &#39;5. volume&#39;: &#39;1651&#39;}, &#39;2020-10-12 19:51:00&#39;: {&#39;1. open&#39;: &#39;221.7100&#39;, &#39;2. high&#39;: &#39;221.7100&#39;, &#39;3. low&#39;: &#39;221.7100&#39;, &#39;4. close&#39;: &#39;221.7100&#39;, &#39;5. volume&#39;: &#39;156&#39;}, &#39;2020-10-12 19:50:00&#39;: {&#39;1. open&#39;: &#39;221.7400&#39;, &#39;2. high&#39;: &#39;221.7400&#39;, &#39;3. low&#39;: &#39;221.7400&#39;, &#39;4. close&#39;: &#39;221.7400&#39;, &#39;5. volume&#39;: &#39;1012&#39;}, &#39;2020-10-12 19:45:00&#39;: {&#39;1. open&#39;: &#39;221.7000&#39;, &#39;2. high&#39;: &#39;221.7000&#39;, &#39;3. low&#39;: &#39;221.7000&#39;, &#39;4. close&#39;: &#39;221.7000&#39;, &#39;5. volume&#39;: &#39;944&#39;}, &#39;2020-10-12 19:40:00&#39;: {&#39;1. open&#39;: &#39;221.7000&#39;, &#39;2. high&#39;: &#39;221.7000&#39;, &#39;3. low&#39;: &#39;221.7000&#39;, &#39;4. close&#39;: &#39;221.7000&#39;, &#39;5. volume&#39;: &#39;2276&#39;}, &#39;2020-10-12 19:39:00&#39;: {&#39;1. open&#39;: &#39;221.6900&#39;, &#39;2. high&#39;: &#39;221.6900&#39;, &#39;3. low&#39;: &#39;221.6900&#39;, &#39;4. close&#39;: &#39;221.6900&#39;, &#39;5. volume&#39;: &#39;372&#39;}, &#39;2020-10-12 19:37:00&#39;: {&#39;1. open&#39;: &#39;221.7300&#39;, &#39;2. high&#39;: &#39;221.7300&#39;, &#39;3. low&#39;: &#39;221.5400&#39;, &#39;4. close&#39;: &#39;221.5400&#39;, &#39;5. volume&#39;: &#39;401&#39;}, &#39;2020-10-12 19:35:00&#39;: {&#39;1. open&#39;: &#39;221.5500&#39;, &#39;2. high&#39;: &#39;221.5500&#39;, &#39;3. low&#39;: &#39;221.5500&#39;, &#39;4. close&#39;: &#39;221.5500&#39;, &#39;5. volume&#39;: &#39;140&#39;}, &#39;2020-10-12 19:34:00&#39;: {&#39;1. open&#39;: &#39;221.5200&#39;, &#39;2. high&#39;: &#39;221.5200&#39;, &#39;3. low&#39;: &#39;221.5200&#39;, &#39;4. close&#39;: &#39;221.5200&#39;, &#39;5. volume&#39;: &#39;216&#39;}, &#39;2020-10-12 19:28:00&#39;: {&#39;1. open&#39;: &#39;221.6100&#39;, &#39;2. high&#39;: &#39;221.6100&#39;, &#39;3. low&#39;: &#39;221.6100&#39;, &#39;4. close&#39;: &#39;221.6100&#39;, &#39;5. volume&#39;: &#39;805&#39;}, &#39;2020-10-12 19:23:00&#39;: {&#39;1. open&#39;: &#39;221.6100&#39;, &#39;2. high&#39;: &#39;221.6100&#39;, &#39;3. low&#39;: &#39;221.6100&#39;, &#39;4. close&#39;: &#39;221.6100&#39;, &#39;5. volume&#39;: &#39;144&#39;}, &#39;2020-10-12 19:19:00&#39;: {&#39;1. open&#39;: &#39;221.7900&#39;, &#39;2. high&#39;: &#39;221.7900&#39;, &#39;3. low&#39;: &#39;221.7900&#39;, &#39;4. close&#39;: &#39;221.7900&#39;, &#39;5. volume&#39;: &#39;227&#39;}, &#39;2020-10-12 19:18:00&#39;: {&#39;1. open&#39;: &#39;221.6900&#39;, &#39;2. high&#39;: &#39;221.7500&#39;, &#39;3. low&#39;: &#39;221.6900&#39;, &#39;4. close&#39;: &#39;221.7500&#39;, &#39;5. volume&#39;: &#39;5962&#39;}, &#39;2020-10-12 19:16:00&#39;: {&#39;1. open&#39;: &#39;221.5700&#39;, &#39;2. high&#39;: &#39;221.5700&#39;, &#39;3. low&#39;: &#39;221.5700&#39;, &#39;4. close&#39;: &#39;221.5700&#39;, &#39;5. volume&#39;: &#39;561&#39;}, &#39;2020-10-12 19:15:00&#39;: {&#39;1. open&#39;: &#39;221.5500&#39;, &#39;2. high&#39;: &#39;221.5500&#39;, &#39;3. low&#39;: &#39;221.5500&#39;, &#39;4. close&#39;: &#39;221.5500&#39;, &#39;5. volume&#39;: &#39;289&#39;}, &#39;2020-10-12 19:06:00&#39;: {&#39;1. open&#39;: &#39;221.4100&#39;, &#39;2. high&#39;: &#39;221.4100&#39;, &#39;3. low&#39;: &#39;221.4100&#39;, &#39;4. close&#39;: &#39;221.4100&#39;, &#39;5. volume&#39;: &#39;170&#39;}, &#39;2020-10-12 19:04:00&#39;: {&#39;1. open&#39;: &#39;221.5700&#39;, &#39;2. high&#39;: &#39;221.5700&#39;, &#39;3. low&#39;: &#39;221.5700&#39;, &#39;4. close&#39;: &#39;221.5700&#39;, &#39;5. volume&#39;: &#39;100&#39;}, &#39;2020-10-12 19:03:00&#39;: {&#39;1. open&#39;: &#39;221.5800&#39;, &#39;2. high&#39;: &#39;221.5800&#39;, &#39;3. low&#39;: &#39;221.5800&#39;, &#39;4. close&#39;: &#39;221.5800&#39;, &#39;5. volume&#39;: &#39;686&#39;}, &#39;2020-10-12 19:02:00&#39;: {&#39;1. open&#39;: &#39;221.5000&#39;, &#39;2. high&#39;: &#39;221.5800&#39;, &#39;3. low&#39;: &#39;221.5000&#39;, &#39;4. close&#39;: &#39;221.5800&#39;, &#39;5. volume&#39;: &#39;612&#39;}, &#39;2020-10-12 18:58:00&#39;: {&#39;1. open&#39;: &#39;221.4200&#39;, &#39;2. high&#39;: &#39;221.4200&#39;, &#39;3. low&#39;: &#39;221.3000&#39;, &#39;4. close&#39;: &#39;221.3000&#39;, &#39;5. volume&#39;: &#39;620&#39;}, &#39;2020-10-12 18:47:00&#39;: {&#39;1. open&#39;: &#39;221.5000&#39;, &#39;2. high&#39;: &#39;221.5000&#39;, &#39;3. low&#39;: &#39;221.5000&#39;, &#39;4. close&#39;: &#39;221.5000&#39;, &#39;5. volume&#39;: &#39;202&#39;}, &#39;2020-10-12 18:46:00&#39;: {&#39;1. open&#39;: &#39;221.4500&#39;, &#39;2. high&#39;: &#39;221.4500&#39;, &#39;3. low&#39;: &#39;221.4500&#39;, &#39;4. close&#39;: &#39;221.4500&#39;, &#39;5. volume&#39;: &#39;135&#39;}, &#39;2020-10-12 18:41:00&#39;: {&#39;1. open&#39;: &#39;221.4500&#39;, &#39;2. high&#39;: &#39;221.4500&#39;, &#39;3. low&#39;: &#39;221.4500&#39;, &#39;4. close&#39;: &#39;221.4500&#39;, &#39;5. volume&#39;: &#39;195&#39;}, &#39;2020-10-12 18:38:00&#39;: {&#39;1. open&#39;: &#39;221.3300&#39;, &#39;2. high&#39;: &#39;221.3300&#39;, &#39;3. low&#39;: &#39;221.3300&#39;, &#39;4. close&#39;: &#39;221.3300&#39;, &#39;5. volume&#39;: &#39;249&#39;}, &#39;2020-10-12 18:37:00&#39;: {&#39;1. open&#39;: &#39;221.3500&#39;, &#39;2. high&#39;: &#39;221.3500&#39;, &#39;3. low&#39;: &#39;221.3500&#39;, &#39;4. close&#39;: &#39;221.3500&#39;, &#39;5. volume&#39;: &#39;386&#39;}, &#39;2020-10-12 18:35:00&#39;: {&#39;1. open&#39;: &#39;221.4200&#39;, &#39;2. high&#39;: &#39;221.4200&#39;, &#39;3. low&#39;: &#39;221.3500&#39;, &#39;4. close&#39;: &#39;221.3500&#39;, &#39;5. volume&#39;: &#39;925&#39;}, &#39;2020-10-12 18:34:00&#39;: {&#39;1. open&#39;: &#39;221.4400&#39;, &#39;2. high&#39;: &#39;221.6100&#39;, &#39;3. low&#39;: &#39;221.4100&#39;, &#39;4. close&#39;: &#39;221.6100&#39;, &#39;5. volume&#39;: &#39;667&#39;}, &#39;2020-10-12 18:30:00&#39;: {&#39;1. open&#39;: &#39;221.5000&#39;, &#39;2. high&#39;: &#39;221.5200&#39;, &#39;3. low&#39;: &#39;221.5000&#39;, &#39;4. close&#39;: &#39;221.5200&#39;, &#39;5. volume&#39;: &#39;710&#39;}, &#39;2020-10-12 18:28:00&#39;: {&#39;1. open&#39;: &#39;221.5000&#39;, &#39;2. high&#39;: &#39;221.5000&#39;, &#39;3. low&#39;: &#39;221.5000&#39;, &#39;4. close&#39;: &#39;221.5000&#39;, &#39;5. volume&#39;: &#39;180&#39;}, &#39;2020-10-12 18:26:00&#39;: {&#39;1. open&#39;: &#39;221.5300&#39;, &#39;2. high&#39;: &#39;221.5300&#39;, &#39;3. low&#39;: &#39;221.4000&#39;, &#39;4. close&#39;: &#39;221.4000&#39;, &#39;5. volume&#39;: &#39;1744&#39;}, &#39;2020-10-12 18:16:00&#39;: {&#39;1. open&#39;: &#39;221.5500&#39;, &#39;2. high&#39;: &#39;221.5500&#39;, &#39;3. low&#39;: &#39;221.5500&#39;, &#39;4. close&#39;: &#39;221.5500&#39;, &#39;5. volume&#39;: &#39;190&#39;}, &#39;2020-10-12 18:13:00&#39;: {&#39;1. open&#39;: &#39;221.6900&#39;, &#39;2. high&#39;: &#39;221.6900&#39;, &#39;3. low&#39;: &#39;221.6900&#39;, &#39;4. close&#39;: &#39;221.6900&#39;, &#39;5. volume&#39;: &#39;525&#39;}, &#39;2020-10-12 18:10:00&#39;: {&#39;1. open&#39;: &#39;221.5300&#39;, &#39;2. high&#39;: &#39;221.5300&#39;, &#39;3. low&#39;: &#39;221.5300&#39;, &#39;4. close&#39;: &#39;221.5300&#39;, &#39;5. volume&#39;: &#39;184&#39;}, &#39;2020-10-12 18:07:00&#39;: {&#39;1. open&#39;: &#39;221.6500&#39;, &#39;2. high&#39;: &#39;221.6500&#39;, &#39;3. low&#39;: &#39;221.6500&#39;, &#39;4. close&#39;: &#39;221.6500&#39;, &#39;5. volume&#39;: &#39;264&#39;}, &#39;2020-10-12 18:05:00&#39;: {&#39;1. open&#39;: &#39;221.6500&#39;, &#39;2. high&#39;: &#39;221.7000&#39;, &#39;3. low&#39;: &#39;221.6500&#39;, &#39;4. close&#39;: &#39;221.7000&#39;, &#39;5. volume&#39;: &#39;2902&#39;}, &#39;2020-10-12 18:04:00&#39;: {&#39;1. open&#39;: &#39;221.6000&#39;, &#39;2. high&#39;: &#39;221.6500&#39;, &#39;3. low&#39;: &#39;221.6000&#39;, &#39;4. close&#39;: &#39;221.6500&#39;, &#39;5. volume&#39;: &#39;1626&#39;}, &#39;2020-10-12 18:03:00&#39;: {&#39;1. open&#39;: &#39;221.5000&#39;, &#39;2. high&#39;: &#39;221.5000&#39;, &#39;3. low&#39;: &#39;221.5000&#39;, &#39;4. close&#39;: &#39;221.5000&#39;, &#39;5. volume&#39;: &#39;505&#39;}, &#39;2020-10-12 18:02:00&#39;: {&#39;1. open&#39;: &#39;221.3400&#39;, &#39;2. high&#39;: &#39;221.3400&#39;, &#39;3. low&#39;: &#39;221.3400&#39;, &#39;4. close&#39;: &#39;221.3400&#39;, &#39;5. volume&#39;: &#39;195&#39;}, &#39;2020-10-12 18:01:00&#39;: {&#39;1. open&#39;: &#39;221.4000&#39;, &#39;2. high&#39;: &#39;221.4500&#39;, &#39;3. low&#39;: &#39;221.2100&#39;, &#39;4. close&#39;: &#39;221.4500&#39;, &#39;5. volume&#39;: &#39;4322&#39;}, &#39;2020-10-12 18:00:00&#39;: {&#39;1. open&#39;: &#39;221.4500&#39;, &#39;2. high&#39;: &#39;221.4500&#39;, &#39;3. low&#39;: &#39;221.4500&#39;, &#39;4. close&#39;: &#39;221.4500&#39;, &#39;5. volume&#39;: &#39;525&#39;}, &#39;2020-10-12 17:53:00&#39;: {&#39;1. open&#39;: &#39;221.3500&#39;, &#39;2. high&#39;: &#39;221.3500&#39;, &#39;3. low&#39;: &#39;221.3500&#39;, &#39;4. close&#39;: &#39;221.3500&#39;, &#39;5. volume&#39;: &#39;474&#39;}, &#39;2020-10-12 17:51:00&#39;: {&#39;1. open&#39;: &#39;221.3700&#39;, &#39;2. high&#39;: &#39;221.3700&#39;, &#39;3. low&#39;: &#39;221.3700&#39;, &#39;4. close&#39;: &#39;221.3700&#39;, &#39;5. volume&#39;: &#39;324&#39;}, &#39;2020-10-12 17:46:00&#39;: {&#39;1. open&#39;: &#39;221.3700&#39;, &#39;2. high&#39;: &#39;221.3700&#39;, &#39;3. low&#39;: &#39;221.3700&#39;, &#39;4. close&#39;: &#39;221.3700&#39;, &#39;5. volume&#39;: &#39;152&#39;}, &#39;2020-10-12 17:37:00&#39;: {&#39;1. open&#39;: &#39;221.3100&#39;, &#39;2. high&#39;: &#39;221.3100&#39;, &#39;3. low&#39;: &#39;221.3100&#39;, &#39;4. close&#39;: &#39;221.3100&#39;, &#39;5. volume&#39;: &#39;144&#39;}, &#39;2020-10-12 17:35:00&#39;: {&#39;1. open&#39;: &#39;221.4600&#39;, &#39;2. high&#39;: &#39;221.4600&#39;, &#39;3. low&#39;: &#39;221.4600&#39;, &#39;4. close&#39;: &#39;221.4600&#39;, &#39;5. volume&#39;: &#39;276&#39;}, &#39;2020-10-12 17:34:00&#39;: {&#39;1. open&#39;: &#39;221.2900&#39;, &#39;2. high&#39;: &#39;221.4000&#39;, &#39;3. low&#39;: &#39;221.2900&#39;, &#39;4. close&#39;: &#39;221.4000&#39;, &#39;5. volume&#39;: &#39;962&#39;}, &#39;2020-10-12 17:31:00&#39;: {&#39;1. open&#39;: &#39;221.4400&#39;, &#39;2. high&#39;: &#39;221.4400&#39;, &#39;3. low&#39;: &#39;221.2900&#39;, &#39;4. close&#39;: &#39;221.2900&#39;, &#39;5. volume&#39;: &#39;456&#39;}, &#39;2020-10-12 17:30:00&#39;: {&#39;1. open&#39;: &#39;221.2987&#39;, &#39;2. high&#39;: &#39;221.2987&#39;, &#39;3. low&#39;: &#39;221.2987&#39;, &#39;4. close&#39;: &#39;221.2987&#39;, &#39;5. volume&#39;: &#39;382&#39;}, &#39;2020-10-12 17:28:00&#39;: {&#39;1. open&#39;: &#39;221.3100&#39;, &#39;2. high&#39;: &#39;221.3100&#39;, &#39;3. low&#39;: &#39;221.3100&#39;, &#39;4. close&#39;: &#39;221.3100&#39;, &#39;5. volume&#39;: &#39;648&#39;}, &#39;2020-10-12 17:26:00&#39;: {&#39;1. open&#39;: &#39;221.4400&#39;, &#39;2. high&#39;: &#39;221.4400&#39;, &#39;3. low&#39;: &#39;221.4400&#39;, &#39;4. close&#39;: &#39;221.4400&#39;, &#39;5. volume&#39;: &#39;336&#39;}, &#39;2020-10-12 17:25:00&#39;: {&#39;1. open&#39;: &#39;221.2783&#39;, &#39;2. high&#39;: &#39;221.2783&#39;, &#39;3. low&#39;: &#39;221.2783&#39;, &#39;4. close&#39;: &#39;221.2783&#39;, &#39;5. volume&#39;: &#39;432&#39;}, &#39;2020-10-12 17:19:00&#39;: {&#39;1. open&#39;: &#39;221.4200&#39;, &#39;2. high&#39;: &#39;221.4200&#39;, &#39;3. low&#39;: &#39;221.4200&#39;, &#39;4. close&#39;: &#39;221.4200&#39;, &#39;5. volume&#39;: &#39;226&#39;}, &#39;2020-10-12 17:18:00&#39;: {&#39;1. open&#39;: &#39;221.4400&#39;, &#39;2. high&#39;: &#39;221.4400&#39;, &#39;3. low&#39;: &#39;221.4400&#39;, &#39;4. close&#39;: &#39;221.4400&#39;, &#39;5. volume&#39;: &#39;674&#39;}, &#39;2020-10-12 17:17:00&#39;: {&#39;1. open&#39;: &#39;221.4500&#39;, &#39;2. high&#39;: &#39;221.4500&#39;, &#39;3. low&#39;: &#39;221.4500&#39;, &#39;4. close&#39;: &#39;221.4500&#39;, &#39;5. volume&#39;: &#39;310&#39;}, &#39;2020-10-12 17:15:00&#39;: {&#39;1. open&#39;: &#39;221.3800&#39;, &#39;2. high&#39;: &#39;221.4500&#39;, &#39;3. low&#39;: &#39;221.3800&#39;, &#39;4. close&#39;: &#39;221.4500&#39;, &#39;5. volume&#39;: &#39;804&#39;}, &#39;2020-10-12 17:13:00&#39;: {&#39;1. open&#39;: &#39;221.2600&#39;, &#39;2. high&#39;: &#39;221.2600&#39;, &#39;3. low&#39;: &#39;221.2600&#39;, &#39;4. close&#39;: &#39;221.2600&#39;, &#39;5. volume&#39;: &#39;138&#39;}, &#39;2020-10-12 17:12:00&#39;: {&#39;1. open&#39;: &#39;221.2686&#39;, &#39;2. high&#39;: &#39;221.4495&#39;, &#39;3. low&#39;: &#39;221.2686&#39;, &#39;4. close&#39;: &#39;221.3000&#39;, &#39;5. volume&#39;: &#39;2217&#39;}, &#39;2020-10-12 17:10:00&#39;: {&#39;1. open&#39;: &#39;221.4400&#39;, &#39;2. high&#39;: &#39;221.4400&#39;, &#39;3. low&#39;: &#39;221.4400&#39;, &#39;4. close&#39;: &#39;221.4400&#39;, &#39;5. volume&#39;: &#39;286&#39;}, &#39;2020-10-12 17:08:00&#39;: {&#39;1. open&#39;: &#39;221.2688&#39;, &#39;2. high&#39;: &#39;221.2688&#39;, &#39;3. low&#39;: &#39;221.2688&#39;, &#39;4. close&#39;: &#39;221.2688&#39;, &#39;5. volume&#39;: &#39;250&#39;}, &#39;2020-10-12 17:07:00&#39;: {&#39;1. open&#39;: &#39;221.4030&#39;, &#39;2. high&#39;: &#39;221.4030&#39;, &#39;3. low&#39;: &#39;221.4030&#39;, &#39;4. close&#39;: &#39;221.4030&#39;, &#39;5. volume&#39;: &#39;188&#39;}, &#39;2020-10-12 17:06:00&#39;: {&#39;1. open&#39;: &#39;221.4485&#39;, &#39;2. high&#39;: &#39;221.4500&#39;, &#39;3. low&#39;: &#39;221.2782&#39;, &#39;4. close&#39;: &#39;221.2782&#39;, &#39;5. volume&#39;: &#39;424&#39;}, &#39;2020-10-12 17:05:00&#39;: {&#39;1. open&#39;: &#39;221.4497&#39;, &#39;2. high&#39;: &#39;221.4497&#39;, &#39;3. low&#39;: &#39;221.4497&#39;, &#39;4. close&#39;: &#39;221.4497&#39;, &#39;5. volume&#39;: &#39;271&#39;}, &#39;2020-10-12 17:01:00&#39;: {&#39;1. open&#39;: &#39;221.3950&#39;, &#39;2. high&#39;: &#39;221.4000&#39;, &#39;3. low&#39;: &#39;221.3950&#39;, &#39;4. close&#39;: &#39;221.4000&#39;, &#39;5. volume&#39;: &#39;297&#39;}, &#39;2020-10-12 17:00:00&#39;: {&#39;1. open&#39;: &#39;221.2700&#39;, &#39;2. high&#39;: &#39;221.2700&#39;, &#39;3. low&#39;: &#39;221.2700&#39;, &#39;4. close&#39;: &#39;221.2700&#39;, &#39;5. volume&#39;: &#39;1008&#39;}, &#39;2020-10-12 16:58:00&#39;: {&#39;1. open&#39;: &#39;221.3000&#39;, &#39;2. high&#39;: &#39;221.3000&#39;, &#39;3. low&#39;: &#39;221.3000&#39;, &#39;4. close&#39;: &#39;221.3000&#39;, &#39;5. volume&#39;: &#39;723&#39;}, &#39;2020-10-12 16:57:00&#39;: {&#39;1. open&#39;: &#39;221.4200&#39;, &#39;2. high&#39;: &#39;221.4200&#39;, &#39;3. low&#39;: &#39;221.3000&#39;, &#39;4. close&#39;: &#39;221.3000&#39;, &#39;5. volume&#39;: &#39;1401&#39;}, &#39;2020-10-12 16:55:00&#39;: {&#39;1. open&#39;: &#39;221.5600&#39;, &#39;2. high&#39;: &#39;221.5600&#39;, &#39;3. low&#39;: &#39;221.5600&#39;, &#39;4. close&#39;: &#39;221.5600&#39;, &#39;5. volume&#39;: &#39;217&#39;}, &#39;2020-10-12 16:51:00&#39;: {&#39;1. open&#39;: &#39;221.5000&#39;, &#39;2. high&#39;: &#39;221.5000&#39;, &#39;3. low&#39;: &#39;221.5000&#39;, &#39;4. close&#39;: &#39;221.5000&#39;, &#39;5. volume&#39;: &#39;372&#39;}, &#39;2020-10-12 16:49:00&#39;: {&#39;1. open&#39;: &#39;221.5000&#39;, &#39;2. high&#39;: &#39;221.5000&#39;, &#39;3. low&#39;: &#39;221.5000&#39;, &#39;4. close&#39;: &#39;221.5000&#39;, &#39;5. volume&#39;: &#39;183&#39;}, &#39;2020-10-12 16:48:00&#39;: {&#39;1. open&#39;: &#39;221.6500&#39;, &#39;2. high&#39;: &#39;221.6500&#39;, &#39;3. low&#39;: &#39;221.4600&#39;, &#39;4. close&#39;: &#39;221.4600&#39;, &#39;5. volume&#39;: &#39;1675&#39;}, &#39;2020-10-12 16:47:00&#39;: {&#39;1. open&#39;: &#39;221.6500&#39;, &#39;2. high&#39;: &#39;221.6500&#39;, &#39;3. low&#39;: &#39;221.6500&#39;, &#39;4. close&#39;: &#39;221.6500&#39;, &#39;5. volume&#39;: &#39;332&#39;}, &#39;2020-10-12 16:46:00&#39;: {&#39;1. open&#39;: &#39;221.6500&#39;, &#39;2. high&#39;: &#39;221.6500&#39;, &#39;3. low&#39;: &#39;221.6498&#39;, &#39;4. close&#39;: &#39;221.6500&#39;, &#39;5. volume&#39;: &#39;604&#39;}, &#39;2020-10-12 16:42:00&#39;: {&#39;1. open&#39;: &#39;221.5700&#39;, &#39;2. high&#39;: &#39;221.6100&#39;, &#39;3. low&#39;: &#39;221.5700&#39;, &#39;4. close&#39;: &#39;221.6100&#39;, &#39;5. volume&#39;: &#39;650&#39;}, &#39;2020-10-12 16:41:00&#39;: {&#39;1. open&#39;: &#39;221.6000&#39;, &#39;2. high&#39;: &#39;221.6000&#39;, &#39;3. low&#39;: &#39;221.5500&#39;, &#39;4. close&#39;: &#39;221.5500&#39;, &#39;5. volume&#39;: &#39;1829&#39;}, &#39;2020-10-12 16:40:00&#39;: {&#39;1. open&#39;: &#39;221.5000&#39;, &#39;2. high&#39;: &#39;221.5800&#39;, &#39;3. low&#39;: &#39;221.5000&#39;, &#39;4. close&#39;: &#39;221.5800&#39;, &#39;5. volume&#39;: &#39;572&#39;}, &#39;2020-10-12 16:38:00&#39;: {&#39;1. open&#39;: &#39;221.5500&#39;, &#39;2. high&#39;: &#39;221.6000&#39;, &#39;3. low&#39;: &#39;221.5200&#39;, &#39;4. close&#39;: &#39;221.5900&#39;, &#39;5. volume&#39;: &#39;1089&#39;}, &#39;2020-10-12 16:35:00&#39;: {&#39;1. open&#39;: &#39;221.6100&#39;, &#39;2. high&#39;: &#39;221.6400&#39;, &#39;3. low&#39;: &#39;221.6100&#39;, &#39;4. close&#39;: &#39;221.6400&#39;, &#39;5. volume&#39;: &#39;475&#39;}, &#39;2020-10-12 16:34:00&#39;: {&#39;1. open&#39;: &#39;221.6100&#39;, &#39;2. high&#39;: &#39;221.6100&#39;, &#39;3. low&#39;: &#39;221.6100&#39;, &#39;4. close&#39;: &#39;221.6100&#39;, &#39;5. volume&#39;: &#39;1519&#39;}, &#39;2020-10-12 16:33:00&#39;: {&#39;1. open&#39;: &#39;221.6100&#39;, &#39;2. high&#39;: &#39;221.6100&#39;, &#39;3. low&#39;: &#39;221.6100&#39;, &#39;4. close&#39;: &#39;221.6100&#39;, &#39;5. volume&#39;: &#39;523&#39;}, &#39;2020-10-12 16:32:00&#39;: {&#39;1. open&#39;: &#39;221.2800&#39;, &#39;2. high&#39;: &#39;221.4000&#39;, &#39;3. low&#39;: &#39;221.2800&#39;, &#39;4. close&#39;: &#39;221.4000&#39;, &#39;5. volume&#39;: &#39;12990&#39;}, &#39;2020-10-12 16:31:00&#39;: {&#39;1. open&#39;: &#39;221.3000&#39;, &#39;2. high&#39;: &#39;221.7100&#39;, &#39;3. low&#39;: &#39;221.3000&#39;, &#39;4. close&#39;: &#39;221.7000&#39;, &#39;5. volume&#39;: &#39;7024&#39;}, &#39;2020-10-12 16:30:00&#39;: {&#39;1. open&#39;: &#39;221.3000&#39;, &#39;2. high&#39;: &#39;221.3000&#39;, &#39;3. low&#39;: &#39;221.2700&#39;, &#39;4. close&#39;: &#39;221.2700&#39;, &#39;5. volume&#39;: &#39;1008&#39;}, &#39;2020-10-12 16:29:00&#39;: {&#39;1. open&#39;: &#39;221.3000&#39;, &#39;2. high&#39;: &#39;221.3000&#39;, &#39;3. low&#39;: &#39;221.3000&#39;, &#39;4. close&#39;: &#39;221.3000&#39;, &#39;5. volume&#39;: &#39;1367&#39;}, &#39;2020-10-12 16:28:00&#39;: {&#39;1. open&#39;: &#39;221.2700&#39;, &#39;2. high&#39;: &#39;221.3000&#39;, &#39;3. low&#39;: &#39;221.2700&#39;, &#39;4. close&#39;: &#39;221.3000&#39;, &#39;5. volume&#39;: &#39;1542&#39;}, &#39;2020-10-12 16:27:00&#39;: {&#39;1. open&#39;: &#39;221.3000&#39;, &#39;2. high&#39;: &#39;221.4000&#39;, &#39;3. low&#39;: &#39;221.2700&#39;, &#39;4. close&#39;: &#39;221.3000&#39;, &#39;5. volume&#39;: &#39;165531&#39;}, &#39;2020-10-12 16:26:00&#39;: {&#39;1. open&#39;: &#39;221.3000&#39;, &#39;2. high&#39;: &#39;221.3500&#39;, &#39;3. low&#39;: &#39;221.2998&#39;, &#39;4. close&#39;: &#39;221.3000&#39;, &#39;5. volume&#39;: &#39;3880&#39;}, &#39;2020-10-12 16:25:00&#39;: {&#39;1. open&#39;: &#39;221.2800&#39;, &#39;2. high&#39;: &#39;221.2800&#39;, &#39;3. low&#39;: &#39;221.2700&#39;, &#39;4. close&#39;: &#39;221.2700&#39;, &#39;5. volume&#39;: &#39;351&#39;}, &#39;2020-10-12 16:24:00&#39;: {&#39;1. open&#39;: &#39;221.3000&#39;, &#39;2. high&#39;: &#39;221.3000&#39;, &#39;3. low&#39;: &#39;221.3000&#39;, &#39;4. close&#39;: &#39;221.3000&#39;, &#39;5. volume&#39;: &#39;463&#39;}, &#39;2020-10-12 16:23:00&#39;: {&#39;1. open&#39;: &#39;221.3200&#39;, &#39;2. high&#39;: &#39;221.3200&#39;, &#39;3. low&#39;: &#39;221.3199&#39;, &#39;4. close&#39;: &#39;221.3200&#39;, &#39;5. volume&#39;: &#39;1752&#39;}, &#39;2020-10-12 16:22:00&#39;: {&#39;1. open&#39;: &#39;221.4000&#39;, &#39;2. high&#39;: &#39;221.4000&#39;, &#39;3. low&#39;: &#39;221.4000&#39;, &#39;4. close&#39;: &#39;221.4000&#39;, &#39;5. volume&#39;: &#39;1214&#39;}, &#39;2020-10-12 16:21:00&#39;: {&#39;1. open&#39;: &#39;221.4000&#39;, &#39;2. high&#39;: &#39;221.4000&#39;, &#39;3. low&#39;: &#39;221.4000&#39;, &#39;4. close&#39;: &#39;221.4000&#39;, &#39;5. volume&#39;: &#39;1624&#39;}, &#39;2020-10-12 16:20:00&#39;: {&#39;1. open&#39;: &#39;221.5000&#39;, &#39;2. high&#39;: &#39;221.5200&#39;, &#39;3. low&#39;: &#39;221.4000&#39;, &#39;4. close&#39;: &#39;221.4000&#39;, &#39;5. volume&#39;: &#39;10911&#39;}, &#39;2020-10-12 16:17:00&#39;: {&#39;1. open&#39;: &#39;221.5800&#39;, &#39;2. high&#39;: &#39;221.5800&#39;, &#39;3. low&#39;: &#39;221.5600&#39;, &#39;4. close&#39;: &#39;221.5800&#39;, &#39;5. volume&#39;: &#39;563&#39;}, &#39;2020-10-12 16:16:00&#39;: {&#39;1. open&#39;: &#39;221.7498&#39;, &#39;2. high&#39;: &#39;221.7498&#39;, &#39;3. low&#39;: &#39;221.7498&#39;, &#39;4. close&#39;: &#39;221.7498&#39;, &#39;5. volume&#39;: &#39;386&#39;}, &#39;2020-10-12 16:15:00&#39;: {&#39;1. open&#39;: &#39;221.5500&#39;, &#39;2. high&#39;: &#39;221.7400&#39;, &#39;3. low&#39;: &#39;221.5500&#39;, &#39;4. close&#39;: &#39;221.7400&#39;, &#39;5. volume&#39;: &#39;4219&#39;}, &#39;2020-10-12 16:14:00&#39;: {&#39;1. open&#39;: &#39;221.5700&#39;, &#39;2. high&#39;: &#39;221.5800&#39;, &#39;3. low&#39;: &#39;221.5100&#39;, &#39;4. close&#39;: &#39;221.5200&#39;, &#39;5. volume&#39;: &#39;2602&#39;}, &#39;2020-10-12 16:13:00&#39;: {&#39;1. open&#39;: &#39;221.5000&#39;, &#39;2. high&#39;: &#39;221.5700&#39;, &#39;3. low&#39;: &#39;221.5000&#39;, &#39;4. close&#39;: &#39;221.5700&#39;, &#39;5. volume&#39;: &#39;3743&#39;}}} has non list value {&#39;2020-10-12 20:00:00&#39;: {&#39;1. open&#39;: &#39;221.5600&#39;, &#39;2. high&#39;: &#39;221.5600&#39;, &#39;3. low&#39;: &#39;221.5600&#39;, &#39;4. close&#39;: &#39;221.5600&#39;, &#39;5. volume&#39;: &#39;613&#39;}, &#39;2020-10-12 19:59:00&#39;: {&#39;1. open&#39;: &#39;221.5500&#39;, &#39;2. high&#39;: &#39;221.5500&#39;, &#39;3. low&#39;: &#39;221.5500&#39;, &#39;4. close&#39;: &#39;221.5500&#39;, &#39;5. volume&#39;: &#39;974&#39;}, &#39;2020-10-12 19:57:00&#39;: {&#39;1. open&#39;: &#39;221.5600&#39;, &#39;2. high&#39;: &#39;221.5600&#39;, &#39;3. low&#39;: &#39;221.5600&#39;, &#39;4. close&#39;: &#39;221.5600&#39;, &#39;5. volume&#39;: &#39;191&#39;}, &#39;2020-10-12 19:54:00&#39;: {&#39;1. open&#39;: &#39;221.7000&#39;, &#39;2. high&#39;: &#39;221.7000&#39;, &#39;3. low&#39;: &#39;221.6700&#39;, &#39;4. close&#39;: &#39;221.6700&#39;, &#39;5. volume&#39;: &#39;1651&#39;}, &#39;2020-10-12 19:51:00&#39;: {&#39;1. open&#39;: &#39;221.7100&#39;, &#39;2. high&#39;: &#39;221.7100&#39;, &#39;3. low&#39;: &#39;221.7100&#39;, &#39;4. close&#39;: &#39;221.7100&#39;, &#39;5. volume&#39;: &#39;156&#39;}, &#39;2020-10-12 19:50:00&#39;: {&#39;1. open&#39;: &#39;221.7400&#39;, &#39;2. high&#39;: &#39;221.7400&#39;, &#39;3. low&#39;: &#39;221.7400&#39;, &#39;4. close&#39;: &#39;221.7400&#39;, &#39;5. volume&#39;: &#39;1012&#39;}, &#39;2020-10-12 19:45:00&#39;: {&#39;1. open&#39;: &#39;221.7000&#39;, &#39;2. high&#39;: &#39;221.7000&#39;, &#39;3. low&#39;: &#39;221.7000&#39;, &#39;4. close&#39;: &#39;221.7000&#39;, &#39;5. volume&#39;: &#39;944&#39;}, &#39;2020-10-12 19:40:00&#39;: {&#39;1. open&#39;: &#39;221.7000&#39;, &#39;2. high&#39;: &#39;221.7000&#39;, &#39;3. low&#39;: &#39;221.7000&#39;, &#39;4. close&#39;: &#39;221.7000&#39;, &#39;5. volume&#39;: &#39;2276&#39;}, &#39;2020-10-12 19:39:00&#39;: {&#39;1. open&#39;: &#39;221.6900&#39;, &#39;2. high&#39;: &#39;221.6900&#39;, &#39;3. low&#39;: &#39;221.6900&#39;, &#39;4. close&#39;: &#39;221.6900&#39;, &#39;5. volume&#39;: &#39;372&#39;}, &#39;2020-10-12 19:37:00&#39;: {&#39;1. open&#39;: &#39;221.7300&#39;, &#39;2. high&#39;: &#39;221.7300&#39;, &#39;3. low&#39;: &#39;221.5400&#39;, &#39;4. close&#39;: &#39;221.5400&#39;, &#39;5. volume&#39;: &#39;401&#39;}, &#39;2020-10-12 19:35:00&#39;: {&#39;1. open&#39;: &#39;221.5500&#39;, &#39;2. high&#39;: &#39;221.5500&#39;, &#39;3. low&#39;: &#39;221.5500&#39;, &#39;4. close&#39;: &#39;221.5500&#39;, &#39;5. volume&#39;: &#39;140&#39;}, &#39;2020-10-12 19:34:00&#39;: {&#39;1. open&#39;: &#39;221.5200&#39;, &#39;2. high&#39;: &#39;221.5200&#39;, &#39;3. low&#39;: &#39;221.5200&#39;, &#39;4. close&#39;: &#39;221.5200&#39;, &#39;5. volume&#39;: &#39;216&#39;}, &#39;2020-10-12 19:28:00&#39;: {&#39;1. open&#39;: &#39;221.6100&#39;, &#39;2. high&#39;: &#39;221.6100&#39;, &#39;3. low&#39;: &#39;221.6100&#39;, &#39;4. close&#39;: &#39;221.6100&#39;, &#39;5. volume&#39;: &#39;805&#39;}, &#39;2020-10-12 19:23:00&#39;: {&#39;1. open&#39;: &#39;221.6100&#39;, &#39;2. high&#39;: &#39;221.6100&#39;, &#39;3. low&#39;: &#39;221.6100&#39;, &#39;4. close&#39;: &#39;221.6100&#39;, &#39;5. volume&#39;: &#39;144&#39;}, &#39;2020-10-12 19:19:00&#39;: {&#39;1. open&#39;: &#39;221.7900&#39;, &#39;2. high&#39;: &#39;221.7900&#39;, &#39;3. low&#39;: &#39;221.7900&#39;, &#39;4. close&#39;: &#39;221.7900&#39;, &#39;5. volume&#39;: &#39;227&#39;}, &#39;2020-10-12 19:18:00&#39;: {&#39;1. open&#39;: &#39;221.6900&#39;, &#39;2. high&#39;: &#39;221.7500&#39;, &#39;3. low&#39;: &#39;221.6900&#39;, &#39;4. close&#39;: &#39;221.7500&#39;, &#39;5. volume&#39;: &#39;5962&#39;}, &#39;2020-10-12 19:16:00&#39;: {&#39;1. open&#39;: &#39;221.5700&#39;, &#39;2. high&#39;: &#39;221.5700&#39;, &#39;3. low&#39;: &#39;221.5700&#39;, &#39;4. close&#39;: &#39;221.5700&#39;, &#39;5. volume&#39;: &#39;561&#39;}, &#39;2020-10-12 19:15:00&#39;: {&#39;1. open&#39;: &#39;221.5500&#39;, &#39;2. high&#39;: &#39;221.5500&#39;, &#39;3. low&#39;: &#39;221.5500&#39;, &#39;4. close&#39;: &#39;221.5500&#39;, &#39;5. volume&#39;: &#39;289&#39;}, &#39;2020-10-12 19:06:00&#39;: {&#39;1. open&#39;: &#39;221.4100&#39;, &#39;2. high&#39;: &#39;221.4100&#39;, &#39;3. low&#39;: &#39;221.4100&#39;, &#39;4. close&#39;: &#39;221.4100&#39;, &#39;5. volume&#39;: &#39;170&#39;}, &#39;2020-10-12 19:04:00&#39;: {&#39;1. open&#39;: &#39;221.5700&#39;, &#39;2. high&#39;: &#39;221.5700&#39;, &#39;3. low&#39;: &#39;221.5700&#39;, &#39;4. close&#39;: &#39;221.5700&#39;, &#39;5. volume&#39;: &#39;100&#39;}, &#39;2020-10-12 19:03:00&#39;: {&#39;1. open&#39;: &#39;221.5800&#39;, &#39;2. high&#39;: &#39;221.5800&#39;, &#39;3. low&#39;: &#39;221.5800&#39;, &#39;4. close&#39;: &#39;221.5800&#39;, &#39;5. volume&#39;: &#39;686&#39;}, &#39;2020-10-12 19:02:00&#39;: {&#39;1. open&#39;: &#39;221.5000&#39;, &#39;2. high&#39;: &#39;221.5800&#39;, &#39;3. low&#39;: &#39;221.5000&#39;, &#39;4. close&#39;: &#39;221.5800&#39;, &#39;5. volume&#39;: &#39;612&#39;}, &#39;2020-10-12 18:58:00&#39;: {&#39;1. open&#39;: &#39;221.4200&#39;, &#39;2. high&#39;: &#39;221.4200&#39;, &#39;3. low&#39;: &#39;221.3000&#39;, &#39;4. close&#39;: &#39;221.3000&#39;, &#39;5. volume&#39;: &#39;620&#39;}, &#39;2020-10-12 18:47:00&#39;: {&#39;1. open&#39;: &#39;221.5000&#39;, &#39;2. high&#39;: &#39;221.5000&#39;, &#39;3. low&#39;: &#39;221.5000&#39;, &#39;4. close&#39;: &#39;221.5000&#39;, &#39;5. volume&#39;: &#39;202&#39;}, &#39;2020-10-12 18:46:00&#39;: {&#39;1. open&#39;: &#39;221.4500&#39;, &#39;2. high&#39;: &#39;221.4500&#39;, &#39;3. low&#39;: &#39;221.4500&#39;, &#39;4. close&#39;: &#39;221.4500&#39;, &#39;5. volume&#39;: &#39;135&#39;}, &#39;2020-10-12 18:41:00&#39;: {&#39;1. open&#39;: &#39;221.4500&#39;, &#39;2. high&#39;: &#39;221.4500&#39;, &#39;3. low&#39;: &#39;221.4500&#39;, &#39;4. close&#39;: &#39;221.4500&#39;, &#39;5. volume&#39;: &#39;195&#39;}, &#39;2020-10-12 18:38:00&#39;: {&#39;1. open&#39;: &#39;221.3300&#39;, &#39;2. high&#39;: &#39;221.3300&#39;, &#39;3. low&#39;: &#39;221.3300&#39;, &#39;4. close&#39;: &#39;221.3300&#39;, &#39;5. volume&#39;: &#39;249&#39;}, &#39;2020-10-12 18:37:00&#39;: {&#39;1. open&#39;: &#39;221.3500&#39;, &#39;2. high&#39;: &#39;221.3500&#39;, &#39;3. low&#39;: &#39;221.3500&#39;, &#39;4. close&#39;: &#39;221.3500&#39;, &#39;5. volume&#39;: &#39;386&#39;}, &#39;2020-10-12 18:35:00&#39;: {&#39;1. open&#39;: &#39;221.4200&#39;, &#39;2. high&#39;: &#39;221.4200&#39;, &#39;3. low&#39;: &#39;221.3500&#39;, &#39;4. close&#39;: &#39;221.3500&#39;, &#39;5. volume&#39;: &#39;925&#39;}, &#39;2020-10-12 18:34:00&#39;: {&#39;1. open&#39;: &#39;221.4400&#39;, &#39;2. high&#39;: &#39;221.6100&#39;, &#39;3. low&#39;: &#39;221.4100&#39;, &#39;4. close&#39;: &#39;221.6100&#39;, &#39;5. volume&#39;: &#39;667&#39;}, &#39;2020-10-12 18:30:00&#39;: {&#39;1. open&#39;: &#39;221.5000&#39;, &#39;2. high&#39;: &#39;221.5200&#39;, &#39;3. low&#39;: &#39;221.5000&#39;, &#39;4. close&#39;: &#39;221.5200&#39;, &#39;5. volume&#39;: &#39;710&#39;}, &#39;2020-10-12 18:28:00&#39;: {&#39;1. open&#39;: &#39;221.5000&#39;, &#39;2. high&#39;: &#39;221.5000&#39;, &#39;3. low&#39;: &#39;221.5000&#39;, &#39;4. close&#39;: &#39;221.5000&#39;, &#39;5. volume&#39;: &#39;180&#39;}, &#39;2020-10-12 18:26:00&#39;: {&#39;1. open&#39;: &#39;221.5300&#39;, &#39;2. high&#39;: &#39;221.5300&#39;, &#39;3. low&#39;: &#39;221.4000&#39;, &#39;4. close&#39;: &#39;221.4000&#39;, &#39;5. volume&#39;: &#39;1744&#39;}, &#39;2020-10-12 18:16:00&#39;: {&#39;1. open&#39;: &#39;221.5500&#39;, &#39;2. high&#39;: &#39;221.5500&#39;, &#39;3. low&#39;: &#39;221.5500&#39;, &#39;4. close&#39;: &#39;221.5500&#39;, &#39;5. volume&#39;: &#39;190&#39;}, &#39;2020-10-12 18:13:00&#39;: {&#39;1. open&#39;: &#39;221.6900&#39;, &#39;2. high&#39;: &#39;221.6900&#39;, &#39;3. low&#39;: &#39;221.6900&#39;, &#39;4. close&#39;: &#39;221.6900&#39;, &#39;5. volume&#39;: &#39;525&#39;}, &#39;2020-10-12 18:10:00&#39;: {&#39;1. open&#39;: &#39;221.5300&#39;, &#39;2. high&#39;: &#39;221.5300&#39;, &#39;3. low&#39;: &#39;221.5300&#39;, &#39;4. close&#39;: &#39;221.5300&#39;, &#39;5. volume&#39;: &#39;184&#39;}, &#39;2020-10-12 18:07:00&#39;: {&#39;1. open&#39;: &#39;221.6500&#39;, &#39;2. high&#39;: &#39;221.6500&#39;, &#39;3. low&#39;: &#39;221.6500&#39;, &#39;4. close&#39;: &#39;221.6500&#39;, &#39;5. volume&#39;: &#39;264&#39;}, &#39;2020-10-12 18:05:00&#39;: {&#39;1. open&#39;: &#39;221.6500&#39;, &#39;2. high&#39;: &#39;221.7000&#39;, &#39;3. low&#39;: &#39;221.6500&#39;, &#39;4. close&#39;: &#39;221.7000&#39;, &#39;5. volume&#39;: &#39;2902&#39;}, &#39;2020-10-12 18:04:00&#39;: {&#39;1. open&#39;: &#39;221.6000&#39;, &#39;2. high&#39;: &#39;221.6500&#39;, &#39;3. low&#39;: &#39;221.6000&#39;, &#39;4. close&#39;: &#39;221.6500&#39;, &#39;5. volume&#39;: &#39;1626&#39;}, &#39;2020-10-12 18:03:00&#39;: {&#39;1. open&#39;: &#39;221.5000&#39;, &#39;2. high&#39;: &#39;221.5000&#39;, &#39;3. low&#39;: &#39;221.5000&#39;, &#39;4. close&#39;: &#39;221.5000&#39;, &#39;5. volume&#39;: &#39;505&#39;}, &#39;2020-10-12 18:02:00&#39;: {&#39;1. open&#39;: &#39;221.3400&#39;, &#39;2. high&#39;: &#39;221.3400&#39;, &#39;3. low&#39;: &#39;221.3400&#39;, &#39;4. close&#39;: &#39;221.3400&#39;, &#39;5. volume&#39;: &#39;195&#39;}, &#39;2020-10-12 18:01:00&#39;: {&#39;1. open&#39;: &#39;221.4000&#39;, &#39;2. high&#39;: &#39;221.4500&#39;, &#39;3. low&#39;: &#39;221.2100&#39;, &#39;4. close&#39;: &#39;221.4500&#39;, &#39;5. volume&#39;: &#39;4322&#39;}, &#39;2020-10-12 18:00:00&#39;: {&#39;1. open&#39;: &#39;221.4500&#39;, &#39;2. high&#39;: &#39;221.4500&#39;, &#39;3. low&#39;: &#39;221.4500&#39;, &#39;4. close&#39;: &#39;221.4500&#39;, &#39;5. volume&#39;: &#39;525&#39;}, &#39;2020-10-12 17:53:00&#39;: {&#39;1. open&#39;: &#39;221.3500&#39;, &#39;2. high&#39;: &#39;221.3500&#39;, &#39;3. low&#39;: &#39;221.3500&#39;, &#39;4. close&#39;: &#39;221.3500&#39;, &#39;5. volume&#39;: &#39;474&#39;}, &#39;2020-10-12 17:51:00&#39;: {&#39;1. open&#39;: &#39;221.3700&#39;, &#39;2. high&#39;: &#39;221.3700&#39;, &#39;3. low&#39;: &#39;221.3700&#39;, &#39;4. close&#39;: &#39;221.3700&#39;, &#39;5. volume&#39;: &#39;324&#39;}, &#39;2020-10-12 17:46:00&#39;: {&#39;1. open&#39;: &#39;221.3700&#39;, &#39;2. high&#39;: &#39;221.3700&#39;, &#39;3. low&#39;: &#39;221.3700&#39;, &#39;4. close&#39;: &#39;221.3700&#39;, &#39;5. volume&#39;: &#39;152&#39;}, &#39;2020-10-12 17:37:00&#39;: {&#39;1. open&#39;: &#39;221.3100&#39;, &#39;2. high&#39;: &#39;221.3100&#39;, &#39;3. low&#39;: &#39;221.3100&#39;, &#39;4. close&#39;: &#39;221.3100&#39;, &#39;5. volume&#39;: &#39;144&#39;}, &#39;2020-10-12 17:35:00&#39;: {&#39;1. open&#39;: &#39;221.4600&#39;, &#39;2. high&#39;: &#39;221.4600&#39;, &#39;3. low&#39;: &#39;221.4600&#39;, &#39;4. close&#39;: &#39;221.4600&#39;, &#39;5. volume&#39;: &#39;276&#39;}, &#39;2020-10-12 17:34:00&#39;: {&#39;1. open&#39;: &#39;221.2900&#39;, &#39;2. high&#39;: &#39;221.4000&#39;, &#39;3. low&#39;: &#39;221.2900&#39;, &#39;4. close&#39;: &#39;221.4000&#39;, &#39;5. volume&#39;: &#39;962&#39;}, &#39;2020-10-12 17:31:00&#39;: {&#39;1. open&#39;: &#39;221.4400&#39;, &#39;2. high&#39;: &#39;221.4400&#39;, &#39;3. low&#39;: &#39;221.2900&#39;, &#39;4. close&#39;: &#39;221.2900&#39;, &#39;5. volume&#39;: &#39;456&#39;}, &#39;2020-10-12 17:30:00&#39;: {&#39;1. open&#39;: &#39;221.2987&#39;, &#39;2. high&#39;: &#39;221.2987&#39;, &#39;3. low&#39;: &#39;221.2987&#39;, &#39;4. close&#39;: &#39;221.2987&#39;, &#39;5. volume&#39;: &#39;382&#39;}, &#39;2020-10-12 17:28:00&#39;: {&#39;1. open&#39;: &#39;221.3100&#39;, &#39;2. high&#39;: &#39;221.3100&#39;, &#39;3. low&#39;: &#39;221.3100&#39;, &#39;4. close&#39;: &#39;221.3100&#39;, &#39;5. volume&#39;: &#39;648&#39;}, &#39;2020-10-12 17:26:00&#39;: {&#39;1. open&#39;: &#39;221.4400&#39;, &#39;2. high&#39;: &#39;221.4400&#39;, &#39;3. low&#39;: &#39;221.4400&#39;, &#39;4. close&#39;: &#39;221.4400&#39;, &#39;5. volume&#39;: &#39;336&#39;}, &#39;2020-10-12 17:25:00&#39;: {&#39;1. open&#39;: &#39;221.2783&#39;, &#39;2. high&#39;: &#39;221.2783&#39;, &#39;3. low&#39;: &#39;221.2783&#39;, &#39;4. close&#39;: &#39;221.2783&#39;, &#39;5. volume&#39;: &#39;432&#39;}, &#39;2020-10-12 17:19:00&#39;: {&#39;1. open&#39;: &#39;221.4200&#39;, &#39;2. high&#39;: &#39;221.4200&#39;, &#39;3. low&#39;: &#39;221.4200&#39;, &#39;4. close&#39;: &#39;221.4200&#39;, &#39;5. volume&#39;: &#39;226&#39;}, &#39;2020-10-12 17:18:00&#39;: {&#39;1. open&#39;: &#39;221.4400&#39;, &#39;2. high&#39;: &#39;221.4400&#39;, &#39;3. low&#39;: &#39;221.4400&#39;, &#39;4. close&#39;: &#39;221.4400&#39;, &#39;5. volume&#39;: &#39;674&#39;}, &#39;2020-10-12 17:17:00&#39;: {&#39;1. open&#39;: &#39;221.4500&#39;, &#39;2. high&#39;: &#39;221.4500&#39;, &#39;3. low&#39;: &#39;221.4500&#39;, &#39;4. close&#39;: &#39;221.4500&#39;, &#39;5. volume&#39;: &#39;310&#39;}, &#39;2020-10-12 17:15:00&#39;: {&#39;1. open&#39;: &#39;221.3800&#39;, &#39;2. high&#39;: &#39;221.4500&#39;, &#39;3. low&#39;: &#39;221.3800&#39;, &#39;4. close&#39;: &#39;221.4500&#39;, &#39;5. volume&#39;: &#39;804&#39;}, &#39;2020-10-12 17:13:00&#39;: {&#39;1. open&#39;: &#39;221.2600&#39;, &#39;2. high&#39;: &#39;221.2600&#39;, &#39;3. low&#39;: &#39;221.2600&#39;, &#39;4. close&#39;: &#39;221.2600&#39;, &#39;5. volume&#39;: &#39;138&#39;}, &#39;2020-10-12 17:12:00&#39;: {&#39;1. open&#39;: &#39;221.2686&#39;, &#39;2. high&#39;: &#39;221.4495&#39;, &#39;3. low&#39;: &#39;221.2686&#39;, &#39;4. close&#39;: &#39;221.3000&#39;, &#39;5. volume&#39;: &#39;2217&#39;}, &#39;2020-10-12 17:10:00&#39;: {&#39;1. open&#39;: &#39;221.4400&#39;, &#39;2. high&#39;: &#39;221.4400&#39;, &#39;3. low&#39;: &#39;221.4400&#39;, &#39;4. close&#39;: &#39;221.4400&#39;, &#39;5. volume&#39;: &#39;286&#39;}, &#39;2020-10-12 17:08:00&#39;: {&#39;1. open&#39;: &#39;221.2688&#39;, &#39;2. high&#39;: &#39;221.2688&#39;, &#39;3. low&#39;: &#39;221.2688&#39;, &#39;4. close&#39;: &#39;221.2688&#39;, &#39;5. volume&#39;: &#39;250&#39;}, &#39;2020-10-12 17:07:00&#39;: {&#39;1. open&#39;: &#39;221.4030&#39;, &#39;2. high&#39;: &#39;221.4030&#39;, &#39;3. low&#39;: &#39;221.4030&#39;, &#39;4. close&#39;: &#39;221.4030&#39;, &#39;5. volume&#39;: &#39;188&#39;}, &#39;2020-10-12 17:06:00&#39;: {&#39;1. open&#39;: &#39;221.4485&#39;, &#39;2. high&#39;: &#39;221.4500&#39;, &#39;3. low&#39;: &#39;221.2782&#39;, &#39;4. close&#39;: &#39;221.2782&#39;, &#39;5. volume&#39;: &#39;424&#39;}, &#39;2020-10-12 17:05:00&#39;: {&#39;1. open&#39;: &#39;221.4497&#39;, &#39;2. high&#39;: &#39;221.4497&#39;, &#39;3. low&#39;: &#39;221.4497&#39;, &#39;4. close&#39;: &#39;221.4497&#39;, &#39;5. volume&#39;: &#39;271&#39;}, &#39;2020-10-12 17:01:00&#39;: {&#39;1. open&#39;: &#39;221.3950&#39;, &#39;2. high&#39;: &#39;221.4000&#39;, &#39;3. low&#39;: &#39;221.3950&#39;, &#39;4. close&#39;: &#39;221.4000&#39;, &#39;5. volume&#39;: &#39;297&#39;}, &#39;2020-10-12 17:00:00&#39;: {&#39;1. open&#39;: &#39;221.2700&#39;, &#39;2. high&#39;: &#39;221.2700&#39;, &#39;3. low&#39;: &#39;221.2700&#39;, &#39;4. close&#39;: &#39;221.2700&#39;, &#39;5. volume&#39;: &#39;1008&#39;}, &#39;2020-10-12 16:58:00&#39;: {&#39;1. open&#39;: &#39;221.3000&#39;, &#39;2. high&#39;: &#39;221.3000&#39;, &#39;3. low&#39;: &#39;221.3000&#39;, &#39;4. close&#39;: &#39;221.3000&#39;, &#39;5. volume&#39;: &#39;723&#39;}, &#39;2020-10-12 16:57:00&#39;: {&#39;1. open&#39;: &#39;221.4200&#39;, &#39;2. high&#39;: &#39;221.4200&#39;, &#39;3. low&#39;: &#39;221.3000&#39;, &#39;4. close&#39;: &#39;221.3000&#39;, &#39;5. volume&#39;: &#39;1401&#39;}, &#39;2020-10-12 16:55:00&#39;: {&#39;1. open&#39;: &#39;221.5600&#39;, &#39;2. high&#39;: &#39;221.5600&#39;, &#39;3. low&#39;: &#39;221.5600&#39;, &#39;4. close&#39;: &#39;221.5600&#39;, &#39;5. volume&#39;: &#39;217&#39;}, &#39;2020-10-12 16:51:00&#39;: {&#39;1. open&#39;: &#39;221.5000&#39;, &#39;2. high&#39;: &#39;221.5000&#39;, &#39;3. low&#39;: &#39;221.5000&#39;, &#39;4. close&#39;: &#39;221.5000&#39;, &#39;5. volume&#39;: &#39;372&#39;}, &#39;2020-10-12 16:49:00&#39;: {&#39;1. open&#39;: &#39;221.5000&#39;, &#39;2. high&#39;: &#39;221.5000&#39;, &#39;3. low&#39;: &#39;221.5000&#39;, &#39;4. close&#39;: &#39;221.5000&#39;, &#39;5. volume&#39;: &#39;183&#39;}, &#39;2020-10-12 16:48:00&#39;: {&#39;1. open&#39;: &#39;221.6500&#39;, &#39;2. high&#39;: &#39;221.6500&#39;, &#39;3. low&#39;: &#39;221.4600&#39;, &#39;4. close&#39;: &#39;221.4600&#39;, &#39;5. volume&#39;: &#39;1675&#39;}, &#39;2020-10-12 16:47:00&#39;: {&#39;1. open&#39;: &#39;221.6500&#39;, &#39;2. high&#39;: &#39;221.6500&#39;, &#39;3. low&#39;: &#39;221.6500&#39;, &#39;4. close&#39;: &#39;221.6500&#39;, &#39;5. volume&#39;: &#39;332&#39;}, &#39;2020-10-12 16:46:00&#39;: {&#39;1. open&#39;: &#39;221.6500&#39;, &#39;2. high&#39;: &#39;221.6500&#39;, &#39;3. low&#39;: &#39;221.6498&#39;, &#39;4. close&#39;: &#39;221.6500&#39;, &#39;5. volume&#39;: &#39;604&#39;}, &#39;2020-10-12 16:42:00&#39;: {&#39;1. open&#39;: &#39;221.5700&#39;, &#39;2. high&#39;: &#39;221.6100&#39;, &#39;3. low&#39;: &#39;221.5700&#39;, &#39;4. close&#39;: &#39;221.6100&#39;, &#39;5. volume&#39;: &#39;650&#39;}, &#39;2020-10-12 16:41:00&#39;: {&#39;1. open&#39;: &#39;221.6000&#39;, &#39;2. high&#39;: &#39;221.6000&#39;, &#39;3. low&#39;: &#39;221.5500&#39;, &#39;4. close&#39;: &#39;221.5500&#39;, &#39;5. volume&#39;: &#39;1829&#39;}, &#39;2020-10-12 16:40:00&#39;: {&#39;1. open&#39;: &#39;221.5000&#39;, &#39;2. high&#39;: &#39;221.5800&#39;, &#39;3. low&#39;: &#39;221.5000&#39;, &#39;4. close&#39;: &#39;221.5800&#39;, &#39;5. volume&#39;: &#39;572&#39;}, &#39;2020-10-12 16:38:00&#39;: {&#39;1. open&#39;: &#39;221.5500&#39;, &#39;2. high&#39;: &#39;221.6000&#39;, &#39;3. low&#39;: &#39;221.5200&#39;, &#39;4. close&#39;: &#39;221.5900&#39;, &#39;5. volume&#39;: &#39;1089&#39;}, &#39;2020-10-12 16:35:00&#39;: {&#39;1. open&#39;: &#39;221.6100&#39;, &#39;2. high&#39;: &#39;221.6400&#39;, &#39;3. low&#39;: &#39;221.6100&#39;, &#39;4. close&#39;: &#39;221.6400&#39;, &#39;5. volume&#39;: &#39;475&#39;}, &#39;2020-10-12 16:34:00&#39;: {&#39;1. open&#39;: &#39;221.6100&#39;, &#39;2. high&#39;: &#39;221.6100&#39;, &#39;3. low&#39;: &#39;221.6100&#39;, &#39;4. close&#39;: &#39;221.6100&#39;, &#39;5. volume&#39;: &#39;1519&#39;}, &#39;2020-10-12 16:33:00&#39;: {&#39;1. open&#39;: &#39;221.6100&#39;, &#39;2. high&#39;: &#39;221.6100&#39;, &#39;3. low&#39;: &#39;221.6100&#39;, &#39;4. close&#39;: &#39;221.6100&#39;, &#39;5. volume&#39;: &#39;523&#39;}, &#39;2020-10-12 16:32:00&#39;: {&#39;1. open&#39;: &#39;221.2800&#39;, &#39;2. high&#39;: &#39;221.4000&#39;, &#39;3. low&#39;: &#39;221.2800&#39;, &#39;4. close&#39;: &#39;221.4000&#39;, &#39;5. volume&#39;: &#39;12990&#39;}, &#39;2020-10-12 16:31:00&#39;: {&#39;1. open&#39;: &#39;221.3000&#39;, &#39;2. high&#39;: &#39;221.7100&#39;, &#39;3. low&#39;: &#39;221.3000&#39;, &#39;4. close&#39;: &#39;221.7000&#39;, &#39;5. volume&#39;: &#39;7024&#39;}, &#39;2020-10-12 16:30:00&#39;: {&#39;1. open&#39;: &#39;221.3000&#39;, &#39;2. high&#39;: &#39;221.3000&#39;, &#39;3. low&#39;: &#39;221.2700&#39;, &#39;4. close&#39;: &#39;221.2700&#39;, &#39;5. volume&#39;: &#39;1008&#39;}, &#39;2020-10-12 16:29:00&#39;: {&#39;1. open&#39;: &#39;221.3000&#39;, &#39;2. high&#39;: &#39;221.3000&#39;, &#39;3. low&#39;: &#39;221.3000&#39;, &#39;4. close&#39;: &#39;221.3000&#39;, &#39;5. volume&#39;: &#39;1367&#39;}, &#39;2020-10-12 16:28:00&#39;: {&#39;1. open&#39;: &#39;221.2700&#39;, &#39;2. high&#39;: &#39;221.3000&#39;, &#39;3. low&#39;: &#39;221.2700&#39;, &#39;4. close&#39;: &#39;221.3000&#39;, &#39;5. volume&#39;: &#39;1542&#39;}, &#39;2020-10-12 16:27:00&#39;: {&#39;1. open&#39;: &#39;221.3000&#39;, &#39;2. high&#39;: &#39;221.4000&#39;, &#39;3. low&#39;: &#39;221.2700&#39;, &#39;4. close&#39;: &#39;221.3000&#39;, &#39;5. volume&#39;: &#39;165531&#39;}, &#39;2020-10-12 16:26:00&#39;: {&#39;1. open&#39;: &#39;221.3000&#39;, &#39;2. high&#39;: &#39;221.3500&#39;, &#39;3. low&#39;: &#39;221.2998&#39;, &#39;4. close&#39;: &#39;221.3000&#39;, &#39;5. volume&#39;: &#39;3880&#39;}, &#39;2020-10-12 16:25:00&#39;: {&#39;1. open&#39;: &#39;221.2800&#39;, &#39;2. high&#39;: &#39;221.2800&#39;, &#39;3. low&#39;: &#39;221.2700&#39;, &#39;4. close&#39;: &#39;221.2700&#39;, &#39;5. volume&#39;: &#39;351&#39;}, &#39;2020-10-12 16:24:00&#39;: {&#39;1. open&#39;: &#39;221.3000&#39;, &#39;2. high&#39;: &#39;221.3000&#39;, &#39;3. low&#39;: &#39;221.3000&#39;, &#39;4. close&#39;: &#39;221.3000&#39;, &#39;5. volume&#39;: &#39;463&#39;}, &#39;2020-10-12 16:23:00&#39;: {&#39;1. open&#39;: &#39;221.3200&#39;, &#39;2. high&#39;: &#39;221.3200&#39;, &#39;3. low&#39;: &#39;221.3199&#39;, &#39;4. close&#39;: &#39;221.3200&#39;, &#39;5. volume&#39;: &#39;1752&#39;}, &#39;2020-10-12 16:22:00&#39;: {&#39;1. open&#39;: &#39;221.4000&#39;, &#39;2. high&#39;: &#39;221.4000&#39;, &#39;3. low&#39;: &#39;221.4000&#39;, &#39;4. close&#39;: &#39;221.4000&#39;, &#39;5. volume&#39;: &#39;1214&#39;}, &#39;2020-10-12 16:21:00&#39;: {&#39;1. open&#39;: &#39;221.4000&#39;, &#39;2. high&#39;: &#39;221.4000&#39;, &#39;3. low&#39;: &#39;221.4000&#39;, &#39;4. close&#39;: &#39;221.4000&#39;, &#39;5. volume&#39;: &#39;1624&#39;}, &#39;2020-10-12 16:20:00&#39;: {&#39;1. open&#39;: &#39;221.5000&#39;, &#39;2. high&#39;: &#39;221.5200&#39;, &#39;3. low&#39;: &#39;221.4000&#39;, &#39;4. close&#39;: &#39;221.4000&#39;, &#39;5. volume&#39;: &#39;10911&#39;}, &#39;2020-10-12 16:17:00&#39;: {&#39;1. open&#39;: &#39;221.5800&#39;, &#39;2. high&#39;: &#39;221.5800&#39;, &#39;3. low&#39;: &#39;221.5600&#39;, &#39;4. close&#39;: &#39;221.5800&#39;, &#39;5. volume&#39;: &#39;563&#39;}, &#39;2020-10-12 16:16:00&#39;: {&#39;1. open&#39;: &#39;221.7498&#39;, &#39;2. high&#39;: &#39;221.7498&#39;, &#39;3. low&#39;: &#39;221.7498&#39;, &#39;4. close&#39;: &#39;221.7498&#39;, &#39;5. volume&#39;: &#39;386&#39;}, &#39;2020-10-12 16:15:00&#39;: {&#39;1. open&#39;: &#39;221.5500&#39;, &#39;2. high&#39;: &#39;221.7400&#39;, &#39;3. low&#39;: &#39;221.5500&#39;, &#39;4. close&#39;: &#39;221.7400&#39;, &#39;5. volume&#39;: &#39;4219&#39;}, &#39;2020-10-12 16:14:00&#39;: {&#39;1. open&#39;: &#39;221.5700&#39;, &#39;2. high&#39;: &#39;221.5800&#39;, &#39;3. low&#39;: &#39;221.5100&#39;, &#39;4. close&#39;: &#39;221.5200&#39;, &#39;5. volume&#39;: &#39;2602&#39;}, &#39;2020-10-12 16:13:00&#39;: {&#39;1. open&#39;: &#39;221.5000&#39;, &#39;2. high&#39;: &#39;221.5700&#39;, &#39;3. low&#39;: &#39;221.5000&#39;, &#39;4. close&#39;: &#39;221.5700&#39;, &#39;5. volume&#39;: &#39;3743&#39;}} for path Time Series (1min). Must be list or null.
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">json_series</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">df</span>
+    <span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s1">&#39;Time Series (1min)&#39;</span><span class="p">:</span><span class="s1">&#39;ts&#39;</span><span class="p">})</span>
+    <span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;ts.notnull()&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s1">&#39;ts&#39;</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">apply</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Series</span><span class="p">)</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">json_series</span>
 </pre></div>
 </div>
 </div>
@@ -1802,328 +1368,105 @@ Failed
   <thead>
     <tr style="text-align: right;">
       <th></th>
-      <th>project</th>
-      <th>article</th>
-      <th>granularity</th>
-      <th>timestamp</th>
-      <th>access</th>
-      <th>agent</th>
-      <th>views</th>
+      <th>1. open</th>
+      <th>2. high</th>
+      <th>3. low</th>
+      <th>4. close</th>
+      <th>5. volume</th>
     </tr>
   </thead>
   <tbody>
     <tr>
-      <th>0</th>
-      <td>en.wikipedia</td>
-      <td>Workday,_Inc.</td>
-      <td>daily</td>
-      <td>2015100100</td>
-      <td>all-access</td>
-      <td>all-agents</td>
-      <td>675</td>
+      <th>2021-01-05 20:00:00</th>
+      <td>217.9500</td>
+      <td>217.9500</td>
+      <td>217.5700</td>
+      <td>217.5700</td>
+      <td>441</td>
     </tr>
     <tr>
-      <th>1</th>
-      <td>en.wikipedia</td>
-      <td>Workday,_Inc.</td>
-      <td>daily</td>
-      <td>2015100200</td>
-      <td>all-access</td>
-      <td>all-agents</td>
-      <td>549</td>
+      <th>2021-01-05 19:58:00</th>
+      <td>217.5100</td>
+      <td>217.5100</td>
+      <td>217.1000</td>
+      <td>217.1000</td>
+      <td>2978</td>
     </tr>
     <tr>
-      <th>2</th>
-      <td>en.wikipedia</td>
-      <td>Workday,_Inc.</td>
-      <td>daily</td>
-      <td>2015100300</td>
-      <td>all-access</td>
-      <td>all-agents</td>
-      <td>236</td>
+      <th>2021-01-05 19:57:00</th>
+      <td>217.9000</td>
+      <td>217.9000</td>
+      <td>217.5100</td>
+      <td>217.5100</td>
+      <td>1732</td>
     </tr>
     <tr>
-      <th>3</th>
-      <td>en.wikipedia</td>
-      <td>Workday,_Inc.</td>
-      <td>daily</td>
-      <td>2015100400</td>
-      <td>all-access</td>
-      <td>all-agents</td>
-      <td>266</td>
+      <th>2021-01-05 19:56:00</th>
+      <td>218.0100</td>
+      <td>218.1500</td>
+      <td>217.9000</td>
+      <td>217.9000</td>
+      <td>2093</td>
     </tr>
     <tr>
-      <th>4</th>
-      <td>en.wikipedia</td>
-      <td>Workday,_Inc.</td>
-      <td>daily</td>
-      <td>2015100500</td>
-      <td>all-access</td>
-      <td>all-agents</td>
-      <td>689</td>
+      <th>2021-01-05 19:54:00</th>
+      <td>218.1100</td>
+      <td>218.1100</td>
+      <td>218.1100</td>
+      <td>218.1100</td>
+      <td>615</td>
     </tr>
     <tr>
-      <th>5</th>
-      <td>en.wikipedia</td>
-      <td>Workday,_Inc.</td>
-      <td>daily</td>
-      <td>2015100600</td>
-      <td>all-access</td>
-      <td>all-agents</td>
-      <td>700</td>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
     </tr>
     <tr>
-      <th>6</th>
-      <td>en.wikipedia</td>
-      <td>Workday,_Inc.</td>
-      <td>daily</td>
-      <td>2015100700</td>
-      <td>all-access</td>
-      <td>all-agents</td>
-      <td>792</td>
+      <th>2021-01-05 15:45:00</th>
+      <td>217.6200</td>
+      <td>217.7500</td>
+      <td>217.6000</td>
+      <td>217.7350</td>
+      <td>51437</td>
     </tr>
     <tr>
-      <th>7</th>
-      <td>en.wikipedia</td>
-      <td>Workday,_Inc.</td>
-      <td>daily</td>
-      <td>2015100800</td>
-      <td>all-access</td>
-      <td>all-agents</td>
-      <td>687</td>
+      <th>2021-01-05 15:44:00</th>
+      <td>217.4181</td>
+      <td>217.6100</td>
+      <td>217.4101</td>
+      <td>217.6100</td>
+      <td>43473</td>
     </tr>
     <tr>
-      <th>8</th>
-      <td>en.wikipedia</td>
-      <td>Workday,_Inc.</td>
-      <td>daily</td>
-      <td>2015100900</td>
-      <td>all-access</td>
-      <td>all-agents</td>
-      <td>580</td>
+      <th>2021-01-05 15:43:00</th>
+      <td>217.2550</td>
+      <td>217.4100</td>
+      <td>217.2550</td>
+      <td>217.4000</td>
+      <td>36737</td>
     </tr>
     <tr>
-      <th>9</th>
-      <td>en.wikipedia</td>
-      <td>Workday,_Inc.</td>
-      <td>daily</td>
-      <td>2015101000</td>
-      <td>all-access</td>
-      <td>all-agents</td>
-      <td>245</td>
+      <th>2021-01-05 15:42:00</th>
+      <td>217.2000</td>
+      <td>217.2750</td>
+      <td>217.1600</td>
+      <td>217.2700</td>
+      <td>39672</td>
     </tr>
     <tr>
-      <th>10</th>
-      <td>en.wikipedia</td>
-      <td>Workday,_Inc.</td>
-      <td>daily</td>
-      <td>2015101100</td>
-      <td>all-access</td>
-      <td>all-agents</td>
-      <td>246</td>
-    </tr>
-    <tr>
-      <th>11</th>
-      <td>en.wikipedia</td>
-      <td>Workday,_Inc.</td>
-      <td>daily</td>
-      <td>2015101200</td>
-      <td>all-access</td>
-      <td>all-agents</td>
-      <td>568</td>
-    </tr>
-    <tr>
-      <th>12</th>
-      <td>en.wikipedia</td>
-      <td>Workday,_Inc.</td>
-      <td>daily</td>
-      <td>2015101300</td>
-      <td>all-access</td>
-      <td>all-agents</td>
-      <td>697</td>
-    </tr>
-    <tr>
-      <th>13</th>
-      <td>en.wikipedia</td>
-      <td>Workday,_Inc.</td>
-      <td>daily</td>
-      <td>2015101400</td>
-      <td>all-access</td>
-      <td>all-agents</td>
-      <td>683</td>
-    </tr>
-    <tr>
-      <th>14</th>
-      <td>en.wikipedia</td>
-      <td>Workday,_Inc.</td>
-      <td>daily</td>
-      <td>2015101500</td>
-      <td>all-access</td>
-      <td>all-agents</td>
-      <td>689</td>
-    </tr>
-    <tr>
-      <th>15</th>
-      <td>en.wikipedia</td>
-      <td>Workday,_Inc.</td>
-      <td>daily</td>
-      <td>2015101600</td>
-      <td>all-access</td>
-      <td>all-agents</td>
-      <td>550</td>
-    </tr>
-    <tr>
-      <th>16</th>
-      <td>en.wikipedia</td>
-      <td>Workday,_Inc.</td>
-      <td>daily</td>
-      <td>2015101700</td>
-      <td>all-access</td>
-      <td>all-agents</td>
-      <td>331</td>
-    </tr>
-    <tr>
-      <th>17</th>
-      <td>en.wikipedia</td>
-      <td>Workday,_Inc.</td>
-      <td>daily</td>
-      <td>2015101800</td>
-      <td>all-access</td>
-      <td>all-agents</td>
-      <td>253</td>
-    </tr>
-    <tr>
-      <th>18</th>
-      <td>en.wikipedia</td>
-      <td>Workday,_Inc.</td>
-      <td>daily</td>
-      <td>2015101900</td>
-      <td>all-access</td>
-      <td>all-agents</td>
-      <td>659</td>
-    </tr>
-    <tr>
-      <th>19</th>
-      <td>en.wikipedia</td>
-      <td>Workday,_Inc.</td>
-      <td>daily</td>
-      <td>2015102000</td>
-      <td>all-access</td>
-      <td>all-agents</td>
-      <td>684</td>
-    </tr>
-    <tr>
-      <th>20</th>
-      <td>en.wikipedia</td>
-      <td>Workday,_Inc.</td>
-      <td>daily</td>
-      <td>2015102100</td>
-      <td>all-access</td>
-      <td>all-agents</td>
-      <td>657</td>
-    </tr>
-    <tr>
-      <th>21</th>
-      <td>en.wikipedia</td>
-      <td>Workday,_Inc.</td>
-      <td>daily</td>
-      <td>2015102200</td>
-      <td>all-access</td>
-      <td>all-agents</td>
-      <td>633</td>
-    </tr>
-    <tr>
-      <th>22</th>
-      <td>en.wikipedia</td>
-      <td>Workday,_Inc.</td>
-      <td>daily</td>
-      <td>2015102300</td>
-      <td>all-access</td>
-      <td>all-agents</td>
-      <td>531</td>
-    </tr>
-    <tr>
-      <th>23</th>
-      <td>en.wikipedia</td>
-      <td>Workday,_Inc.</td>
-      <td>daily</td>
-      <td>2015102400</td>
-      <td>all-access</td>
-      <td>all-agents</td>
-      <td>235</td>
-    </tr>
-    <tr>
-      <th>24</th>
-      <td>en.wikipedia</td>
-      <td>Workday,_Inc.</td>
-      <td>daily</td>
-      <td>2015102500</td>
-      <td>all-access</td>
-      <td>all-agents</td>
-      <td>259</td>
-    </tr>
-    <tr>
-      <th>25</th>
-      <td>en.wikipedia</td>
-      <td>Workday,_Inc.</td>
-      <td>daily</td>
-      <td>2015102600</td>
-      <td>all-access</td>
-      <td>all-agents</td>
-      <td>751</td>
-    </tr>
-    <tr>
-      <th>26</th>
-      <td>en.wikipedia</td>
-      <td>Workday,_Inc.</td>
-      <td>daily</td>
-      <td>2015102700</td>
-      <td>all-access</td>
-      <td>all-agents</td>
-      <td>750</td>
-    </tr>
-    <tr>
-      <th>27</th>
-      <td>en.wikipedia</td>
-      <td>Workday,_Inc.</td>
-      <td>daily</td>
-      <td>2015102800</td>
-      <td>all-access</td>
-      <td>all-agents</td>
-      <td>661</td>
-    </tr>
-    <tr>
-      <th>28</th>
-      <td>en.wikipedia</td>
-      <td>Workday,_Inc.</td>
-      <td>daily</td>
-      <td>2015102900</td>
-      <td>all-access</td>
-      <td>all-agents</td>
-      <td>592</td>
-    </tr>
-    <tr>
-      <th>29</th>
-      <td>en.wikipedia</td>
-      <td>Workday,_Inc.</td>
-      <td>daily</td>
-      <td>2015103000</td>
-      <td>all-access</td>
-      <td>all-agents</td>
-      <td>490</td>
-    </tr>
-    <tr>
-      <th>30</th>
-      <td>en.wikipedia</td>
-      <td>Workday,_Inc.</td>
-      <td>daily</td>
-      <td>2015103100</td>
-      <td>all-access</td>
-      <td>all-agents</td>
-      <td>274</td>
+      <th>2021-01-05 15:41:00</th>
+      <td>217.1500</td>
+      <td>217.2000</td>
+      <td>217.0500</td>
+      <td>217.1964</td>
+      <td>44378</td>
     </tr>
   </tbody>
 </table>
+<p>100 rows × 5 columns</p>
 </div></div></div>
 </div>
 </div>

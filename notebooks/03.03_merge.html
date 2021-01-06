@@ -1137,7 +1137,7 @@ Name: population, dtype: int64
 </div>
 </div>
 </div>
-<p>The join itself is simple. You start with the table that you want to enrich and using <em>merge</em>, you are joining it with the second table. In the example below both tables have a column with the same name (<em>zip_code</em>), and we use it using the <em>on</em> argument. Lastly, we want to have all breweries, even if we don’t find the zip code in the lookup table. Therefore, we are using <em>LEFT</em> join using the <em>how</em> argument.</p>
+<p>The join itself is simple. You start with the table that you want to enrich and using <em>merge</em>, you are joining it with the second table. In the example below both tables have a column with the same name (zip_code), and we use it using the <em>on</em> argument. Lastly, we want to have all breweries, even if we don’t find the zip code in the lookup table. Therefore, we are using <em>LEFT</em> join using the <em>how</em> argument.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">enriched_breweries_data</span> <span class="o">=</span> <span class="p">(</span>
@@ -1149,7 +1149,7 @@ Name: population, dtype: int64
 </div>
 </div>
 <p>We have now many more columns as all the columns of both tables are joined to the enriched table. We will ask the Jupyter notebook to show us all the columns by removing the default maximum number of columns to display.</p>
-<p>In the table below we can see all the columns. If the same column name is found in both tables and it wasn’t the column that was used for the join or merge, the column of first (“left”) table will be appended with x (<em>city_x</em>, for example), and the column of the second (“right”) table will be appended with y (<em>city_y</em>, for example).</p>
+<p>In the table below we can see all the columns. If the same column name is found in both tables and it wasn’t the column that was used for the join or merge, the column of first (“left”) table will be appended with x (city_x, for example), and the column of the second (“right”) table will be appended with y (city_y, for example).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">&#39;display.max_columns&#39;</span><span class="p">,</span> <span class="kc">None</span><span class="p">)</span>
@@ -1781,6 +1781,433 @@ Name: population, dtype: int64
 <p>367 rows × 4 columns</p>
 </div></div></div>
 </div>
+<p>We can see that <em>Maricopa</em> is the beer county with 54 different brewries in it. It is also interesting to see <em>Coconino</em> County with a large number of brewries and suprisigly sparse population around the breweries in it. If you check, you can see that this is the county with most of the grand canyon, which explain its sparse population, and also a good opportunity to open your brewry business there.</p>
+<p>Let’s change the sort key to find the counties with the most breweries</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">enriched_breweries_data</span>
+    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;county_name&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">agg</span><span class="p">(</span>
+        <span class="n">state</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;state_id&#39;</span><span class="p">,</span> <span class="s1">&#39;min&#39;</span><span class="p">),</span> 
+        <span class="n">brewry_count</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">),</span>
+        <span class="n">population_sum</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;population&#39;</span><span class="p">,</span> <span class="s1">&#39;sum&#39;</span><span class="p">),</span>
+        <span class="n">density_average</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;density&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;brewry_count&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>state</th>
+      <th>brewry_count</th>
+      <th>population_sum</th>
+      <th>density_average</th>
+    </tr>
+    <tr>
+      <th>county_name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Maricopa</th>
+      <td>AZ</td>
+      <td>54</td>
+      <td>2245381.0</td>
+      <td>1384.942593</td>
+    </tr>
+    <tr>
+      <th>Pima</th>
+      <td>AZ</td>
+      <td>17</td>
+      <td>710693.0</td>
+      <td>1314.441176</td>
+    </tr>
+    <tr>
+      <th>San Diego</th>
+      <td>CA</td>
+      <td>16</td>
+      <td>618653.0</td>
+      <td>1358.225000</td>
+    </tr>
+    <tr>
+      <th>Jefferson</th>
+      <td>AL</td>
+      <td>16</td>
+      <td>263840.0</td>
+      <td>652.262500</td>
+    </tr>
+    <tr>
+      <th>Anchorage</th>
+      <td>AK</td>
+      <td>13</td>
+      <td>266823.0</td>
+      <td>764.615385</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>Monmouth</th>
+      <td>NJ</td>
+      <td>1</td>
+      <td>23861.0</td>
+      <td>989.100000</td>
+    </tr>
+    <tr>
+      <th>Morgan</th>
+      <td>AL</td>
+      <td>1</td>
+      <td>32666.0</td>
+      <td>472.300000</td>
+    </tr>
+    <tr>
+      <th>Morton</th>
+      <td>ND</td>
+      <td>1</td>
+      <td>25735.0</td>
+      <td>14.400000</td>
+    </tr>
+    <tr>
+      <th>Nassau</th>
+      <td>NY</td>
+      <td>1</td>
+      <td>33454.0</td>
+      <td>1186.300000</td>
+    </tr>
+    <tr>
+      <th>Lexington</th>
+      <td>SC</td>
+      <td>1</td>
+      <td>60081.0</td>
+      <td>279.400000</td>
+    </tr>
+  </tbody>
+</table>
+<p>367 rows × 4 columns</p>
+</div></div></div>
+</div>
+<p>We can now ask ourselves where do we have the most brewries per population and add this column to our table</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">enriched_breweries_data</span>
+    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;county_name&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">agg</span><span class="p">(</span>
+        <span class="n">state</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;state_id&#39;</span><span class="p">,</span> <span class="s1">&#39;min&#39;</span><span class="p">),</span> 
+        <span class="n">brewry_count</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">),</span>
+        <span class="n">population_sum</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;population&#39;</span><span class="p">,</span> <span class="s1">&#39;sum&#39;</span><span class="p">),</span>
+        <span class="n">density_average</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;density&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">brewry_per_population</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">brewry_count</span> <span class="o">/</span> <span class="n">x</span><span class="o">.</span><span class="n">population_sum</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;brewry_per_population&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>state</th>
+      <th>brewry_count</th>
+      <th>population_sum</th>
+      <th>density_average</th>
+      <th>brewry_per_population</th>
+    </tr>
+    <tr>
+      <th>county_name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Alamance</th>
+      <td>NC</td>
+      <td>1</td>
+      <td>41.0</td>
+      <td>819.9</td>
+      <td>24.390244</td>
+    </tr>
+    <tr>
+      <th>San Juan</th>
+      <td>CO</td>
+      <td>1</td>
+      <td>516.0</td>
+      <td>0.8</td>
+      <td>1.937984</td>
+    </tr>
+    <tr>
+      <th>Runnels</th>
+      <td>TX</td>
+      <td>1</td>
+      <td>522.0</td>
+      <td>2.4</td>
+      <td>1.915709</td>
+    </tr>
+    <tr>
+      <th>Chemung</th>
+      <td>NY</td>
+      <td>1</td>
+      <td>749.0</td>
+      <td>21.0</td>
+      <td>1.335113</td>
+    </tr>
+    <tr>
+      <th>Humboldt</th>
+      <td>CA</td>
+      <td>1</td>
+      <td>772.0</td>
+      <td>12.4</td>
+      <td>1.295337</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>Johnson</th>
+      <td>KS</td>
+      <td>1</td>
+      <td>63884.0</td>
+      <td>335.9</td>
+      <td>0.015653</td>
+    </tr>
+    <tr>
+      <th>Riverside</th>
+      <td>CA</td>
+      <td>1</td>
+      <td>64116.0</td>
+      <td>219.1</td>
+      <td>0.015597</td>
+    </tr>
+    <tr>
+      <th>Bronx</th>
+      <td>NY</td>
+      <td>1</td>
+      <td>73870.0</td>
+      <td>10404.0</td>
+      <td>0.013537</td>
+    </tr>
+    <tr>
+      <th>Comal</th>
+      <td>TX</td>
+      <td>1</td>
+      <td>74172.0</td>
+      <td>249.0</td>
+      <td>0.013482</td>
+    </tr>
+    <tr>
+      <th>Yuma</th>
+      <td>AZ</td>
+      <td>2</td>
+      <td>148764.0</td>
+      <td>732.5</td>
+      <td>0.013444</td>
+    </tr>
+  </tbody>
+</table>
+<p>367 rows × 5 columns</p>
+</div></div></div>
+</div>
+<p>We can see, as it is often the case, that we have on the top and the bottom of the table counties with very few brewries. The top of the table of brewries per 1000 people is held by Alamance that was last on our previous table of counties by population. To avoid this, we can filter (using <em>query</em>) our table to counties that have more than 1 or 2 brewries.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">enriched_breweries_data</span>
+    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;county_name&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">agg</span><span class="p">(</span>
+        <span class="n">state</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;state_id&#39;</span><span class="p">,</span> <span class="s1">&#39;min&#39;</span><span class="p">),</span> 
+        <span class="n">brewry_count</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;id&#39;</span><span class="p">,</span> <span class="s1">&#39;count&#39;</span><span class="p">),</span>
+        <span class="n">population_sum</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;population&#39;</span><span class="p">,</span> <span class="s1">&#39;sum&#39;</span><span class="p">),</span>
+        <span class="n">density_average</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;density&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">)</span>
+        <span class="p">)</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">brewry_per_population</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">brewry_count</span> <span class="o">/</span> <span class="n">x</span><span class="o">.</span><span class="n">population_sum</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;brewry_count &gt; 2&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;brewry_per_population&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>state</th>
+      <th>brewry_count</th>
+      <th>population_sum</th>
+      <th>density_average</th>
+      <th>brewry_per_population</th>
+    </tr>
+    <tr>
+      <th>county_name</th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>Mobile</th>
+      <td>AL</td>
+      <td>4</td>
+      <td>21696.0</td>
+      <td>611.425000</td>
+      <td>0.184366</td>
+    </tr>
+    <tr>
+      <th>Berrien</th>
+      <td>MI</td>
+      <td>3</td>
+      <td>21825.0</td>
+      <td>146.633333</td>
+      <td>0.137457</td>
+    </tr>
+    <tr>
+      <th>Erie</th>
+      <td>NY</td>
+      <td>4</td>
+      <td>35339.0</td>
+      <td>1016.825000</td>
+      <td>0.113189</td>
+    </tr>
+    <tr>
+      <th>Kenai Peninsula</th>
+      <td>AK</td>
+      <td>7</td>
+      <td>74328.0</td>
+      <td>10.228571</td>
+      <td>0.094177</td>
+    </tr>
+    <tr>
+      <th>Pulaski</th>
+      <td>AR</td>
+      <td>4</td>
+      <td>42533.0</td>
+      <td>487.950000</td>
+      <td>0.094045</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>Yakima</th>
+      <td>WA</td>
+      <td>3</td>
+      <td>125184.0</td>
+      <td>1353.366667</td>
+      <td>0.023965</td>
+    </tr>
+    <tr>
+      <th>Pima</th>
+      <td>AZ</td>
+      <td>17</td>
+      <td>710693.0</td>
+      <td>1314.441176</td>
+      <td>0.023920</td>
+    </tr>
+    <tr>
+      <th>LaPorte</th>
+      <td>IN</td>
+      <td>3</td>
+      <td>131052.0</td>
+      <td>217.800000</td>
+      <td>0.022892</td>
+    </tr>
+    <tr>
+      <th>Cook</th>
+      <td>IL</td>
+      <td>7</td>
+      <td>352586.0</td>
+      <td>3234.442857</td>
+      <td>0.019853</td>
+    </tr>
+    <tr>
+      <th>Virginia Beach</th>
+      <td>VA</td>
+      <td>3</td>
+      <td>166134.0</td>
+      <td>1231.400000</td>
+      <td>0.018058</td>
+    </tr>
+  </tbody>
+</table>
+<p>85 rows × 5 columns</p>
+</div></div></div>
+</div>
+<p>And the winner is Mobile county in Alabama, with 4 brewries and a 0.18 brewry for every 1,000 people</p>
 </div>
 </div>
 
