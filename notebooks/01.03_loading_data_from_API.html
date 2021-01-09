@@ -288,6 +288,11 @@
    Extracting the relevant data
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#quick-visualization">
+   Quick Visualization
+  </a>
+ </li>
 </ul>
 
         </nav>
@@ -864,7 +869,7 @@
     </tr>
   </tbody>
 </table>
-<p>2435 rows × 7 columns</p>
+<p>2458 rows × 7 columns</p>
 </div></div></div>
 </div>
 <div class="cell docutils container">
@@ -1219,8 +1224,10 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/01.03_loading_data_from_API_19_0.png" src="../_images/01.03_loading_data_from_API_19_0.png" />
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;timestamp&#39;&gt;
+</pre></div>
 </div>
+<img alt="../_images/01.03_loading_data_from_API_19_1.svg" src="../_images/01.03_loading_data_from_API_19_1.svg" /></div>
 </div>
 </div>
 <div class="section" id="loading-from-complex-api">
@@ -1237,29 +1244,23 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: ipython-secrets in /Users/guy/miniconda3/lib/python3.8/site-packages (1.1.1)
+Requirement already satisfied: keyring in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-secrets) (21.8.0)
 Requirement already satisfied: ipython in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-secrets) (7.18.1)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: keyring in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-secrets) (21.8.0)
-Requirement already satisfied: backcall in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (0.2.0)
-Requirement already satisfied: traitlets&gt;=4.2 in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (5.0.5)
-Requirement already satisfied: pygments in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (2.7.1)
-Requirement already satisfied: pickleshare in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (0.7.5)
-Requirement already satisfied: pexpect&gt;4.3; sys_platform != &quot;win32&quot; in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (4.8.0)
 Requirement already satisfied: jedi&gt;=0.10 in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (0.17.2)
-Requirement already satisfied: setuptools&gt;=18.5 in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (46.4.0.post20200518)
-Requirement already satisfied: decorator in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (4.4.2)
+Requirement already satisfied: pygments in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (2.7.1)
 Requirement already satisfied: appnope; sys_platform == &quot;darwin&quot; in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (0.1.0)
+Requirement already satisfied: pexpect&gt;4.3; sys_platform != &quot;win32&quot; in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (4.8.0)
+Requirement already satisfied: traitlets&gt;=4.2 in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (5.0.5)
+Requirement already satisfied: pickleshare in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (0.7.5)
 Requirement already satisfied: prompt-toolkit!=3.0.0,!=3.0.1,&lt;3.1.0,&gt;=2.0.0 in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (3.0.8)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: ipython-genutils in /Users/guy/miniconda3/lib/python3.8/site-packages (from traitlets&gt;=4.2-&gt;ipython-&gt;ipython-secrets) (0.2.0)
-Requirement already satisfied: ptyprocess&gt;=0.5 in /Users/guy/miniconda3/lib/python3.8/site-packages (from pexpect&gt;4.3; sys_platform != &quot;win32&quot;-&gt;ipython-&gt;ipython-secrets) (0.6.0)
+Requirement already satisfied: decorator in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (4.4.2)
+Requirement already satisfied: backcall in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (0.2.0)
+Requirement already satisfied: setuptools&gt;=18.5 in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (46.4.0.post20200518)
 Requirement already satisfied: parso&lt;0.8.0,&gt;=0.7.0 in /Users/guy/miniconda3/lib/python3.8/site-packages (from jedi&gt;=0.10-&gt;ipython-&gt;ipython-secrets) (0.7.1)
+Requirement already satisfied: ptyprocess&gt;=0.5 in /Users/guy/miniconda3/lib/python3.8/site-packages (from pexpect&gt;4.3; sys_platform != &quot;win32&quot;-&gt;ipython-&gt;ipython-secrets) (0.6.0)
+Requirement already satisfied: ipython-genutils in /Users/guy/miniconda3/lib/python3.8/site-packages (from traitlets&gt;=4.2-&gt;ipython-&gt;ipython-secrets) (0.2.0)
 Requirement already satisfied: wcwidth in /Users/guy/miniconda3/lib/python3.8/site-packages (from prompt-toolkit!=3.0.0,!=3.0.1,&lt;3.1.0,&gt;=2.0.0-&gt;ipython-&gt;ipython-secrets) (0.2.5)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Note: you may need to restart the kernel to use updated packages.
+Note: you may need to restart the kernel to use updated packages.
 </pre></div>
 </div>
 </div>
@@ -1330,7 +1331,7 @@ Requirement already satisfied: wcwidth in /Users/guy/miniconda3/lib/python3.8/si
     </tr>
     <tr>
       <th>3. Last Refreshed</th>
-      <td>2021-01-05 20:00:00</td>
+      <td>2021-01-08 19:59:00</td>
       <td>NaN</td>
     </tr>
     <tr>
@@ -1349,29 +1350,29 @@ Requirement already satisfied: wcwidth in /Users/guy/miniconda3/lib/python3.8/si
       <td>...</td>
     </tr>
     <tr>
-      <th>2021-01-05 15:45:00</th>
+      <th>2021-01-08 15:43:00</th>
       <td>NaN</td>
-      <td>{'1. open': '217.6200', '2. high': '217.7500',...</td>
+      <td>{'1. open': '219.7200', '2. high': '219.7600',...</td>
     </tr>
     <tr>
-      <th>2021-01-05 15:44:00</th>
+      <th>2021-01-08 15:42:00</th>
       <td>NaN</td>
-      <td>{'1. open': '217.4181', '2. high': '217.6100',...</td>
+      <td>{'1. open': '219.7900', '2. high': '219.7900',...</td>
     </tr>
     <tr>
-      <th>2021-01-05 15:43:00</th>
+      <th>2021-01-08 15:41:00</th>
       <td>NaN</td>
-      <td>{'1. open': '217.2550', '2. high': '217.4100',...</td>
+      <td>{'1. open': '219.7600', '2. high': '219.8300',...</td>
     </tr>
     <tr>
-      <th>2021-01-05 15:42:00</th>
+      <th>2021-01-08 15:40:00</th>
       <td>NaN</td>
-      <td>{'1. open': '217.2000', '2. high': '217.2750',...</td>
+      <td>{'1. open': '219.7100', '2. high': '219.7900',...</td>
     </tr>
     <tr>
-      <th>2021-01-05 15:41:00</th>
+      <th>2021-01-08 15:39:00</th>
       <td>NaN</td>
-      <td>{'1. open': '217.1500', '2. high': '217.2000',...</td>
+      <td>{'1. open': '219.7200', '2. high': '219.7600',...</td>
     </tr>
   </tbody>
 </table>
@@ -1429,44 +1430,44 @@ Requirement already satisfied: wcwidth in /Users/guy/miniconda3/lib/python3.8/si
   </thead>
   <tbody>
     <tr>
-      <th>2021-01-05 20:00:00</th>
-      <td>217.9500</td>
-      <td>217.9500</td>
-      <td>217.5700</td>
-      <td>217.5700</td>
-      <td>441</td>
+      <th>2021-01-08 19:59:00</th>
+      <td>219.6300</td>
+      <td>219.6300</td>
+      <td>219.6300</td>
+      <td>219.6300</td>
+      <td>179</td>
     </tr>
     <tr>
-      <th>2021-01-05 19:58:00</th>
-      <td>217.5100</td>
-      <td>217.5100</td>
-      <td>217.1000</td>
-      <td>217.1000</td>
-      <td>2978</td>
+      <th>2021-01-08 19:57:00</th>
+      <td>219.6200</td>
+      <td>219.6200</td>
+      <td>219.6200</td>
+      <td>219.6200</td>
+      <td>215</td>
     </tr>
     <tr>
-      <th>2021-01-05 19:57:00</th>
-      <td>217.9000</td>
-      <td>217.9000</td>
-      <td>217.5100</td>
-      <td>217.5100</td>
-      <td>1732</td>
+      <th>2021-01-08 19:52:00</th>
+      <td>219.6300</td>
+      <td>219.6300</td>
+      <td>219.6200</td>
+      <td>219.6200</td>
+      <td>290</td>
     </tr>
     <tr>
-      <th>2021-01-05 19:56:00</th>
-      <td>218.0100</td>
-      <td>218.1500</td>
-      <td>217.9000</td>
-      <td>217.9000</td>
-      <td>2093</td>
+      <th>2021-01-08 19:48:00</th>
+      <td>219.6200</td>
+      <td>219.7500</td>
+      <td>219.6200</td>
+      <td>219.7500</td>
+      <td>830</td>
     </tr>
     <tr>
-      <th>2021-01-05 19:54:00</th>
-      <td>218.1100</td>
-      <td>218.1100</td>
-      <td>218.1100</td>
-      <td>218.1100</td>
-      <td>615</td>
+      <th>2021-01-08 19:47:00</th>
+      <td>219.6200</td>
+      <td>219.6200</td>
+      <td>219.6200</td>
+      <td>219.6200</td>
+      <td>144</td>
     </tr>
     <tr>
       <th>...</th>
@@ -1477,49 +1478,68 @@ Requirement already satisfied: wcwidth in /Users/guy/miniconda3/lib/python3.8/si
       <td>...</td>
     </tr>
     <tr>
-      <th>2021-01-05 15:45:00</th>
-      <td>217.6200</td>
-      <td>217.7500</td>
-      <td>217.6000</td>
-      <td>217.7350</td>
-      <td>51437</td>
+      <th>2021-01-08 15:43:00</th>
+      <td>219.7200</td>
+      <td>219.7600</td>
+      <td>219.6600</td>
+      <td>219.7300</td>
+      <td>51243</td>
     </tr>
     <tr>
-      <th>2021-01-05 15:44:00</th>
-      <td>217.4181</td>
-      <td>217.6100</td>
-      <td>217.4101</td>
-      <td>217.6100</td>
-      <td>43473</td>
+      <th>2021-01-08 15:42:00</th>
+      <td>219.7900</td>
+      <td>219.7900</td>
+      <td>219.6700</td>
+      <td>219.7250</td>
+      <td>56507</td>
     </tr>
     <tr>
-      <th>2021-01-05 15:43:00</th>
-      <td>217.2550</td>
-      <td>217.4100</td>
-      <td>217.2550</td>
-      <td>217.4000</td>
-      <td>36737</td>
+      <th>2021-01-08 15:41:00</th>
+      <td>219.7600</td>
+      <td>219.8300</td>
+      <td>219.7400</td>
+      <td>219.7900</td>
+      <td>36945</td>
     </tr>
     <tr>
-      <th>2021-01-05 15:42:00</th>
-      <td>217.2000</td>
-      <td>217.2750</td>
-      <td>217.1600</td>
-      <td>217.2700</td>
-      <td>39672</td>
+      <th>2021-01-08 15:40:00</th>
+      <td>219.7100</td>
+      <td>219.7900</td>
+      <td>219.6600</td>
+      <td>219.7700</td>
+      <td>59952</td>
     </tr>
     <tr>
-      <th>2021-01-05 15:41:00</th>
-      <td>217.1500</td>
-      <td>217.2000</td>
-      <td>217.0500</td>
-      <td>217.1964</td>
-      <td>44378</td>
+      <th>2021-01-08 15:39:00</th>
+      <td>219.7200</td>
+      <td>219.7600</td>
+      <td>219.6830</td>
+      <td>219.7200</td>
+      <td>37586</td>
     </tr>
   </tbody>
 </table>
 <p>100 rows × 5 columns</p>
 </div></div></div>
+</div>
+</div>
+<div class="section" id="quick-visualization">
+<h2>Quick Visualization<a class="headerlink" href="#quick-visualization" title="Permalink to this headline">¶</a></h2>
+<p>Now that we have the prices from the API we can plot them. The following example is converting the values to numeric form (<em>astype(‘float’)</em>), slicing the table to include only the <em>high</em> and <em>low</em> values (<em>iloc</em>), reversing the order of the time-series to be from oldest to newest (<em>iloc[::-1]</em>), and finally plot the data with 45° rotation.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">json_series</span>
+    <span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">loc</span><span class="p">[:,(</span><span class="s1">&#39;2. high&#39;</span><span class="p">,</span><span class="s1">&#39;3. low&#39;</span><span class="p">)]</span>
+    <span class="o">.</span><span class="n">iloc</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rot</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/01.03_loading_data_from_API_32_0.svg" src="../_images/01.03_loading_data_from_API_32_0.svg" /></div>
 </div>
 </div>
 </div>
