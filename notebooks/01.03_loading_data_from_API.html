@@ -1232,7 +1232,7 @@
 </div>
 <div class="section" id="loading-from-complex-api">
 <h2>Loading from complex API<a class="headerlink" href="#loading-from-complex-api" title="Permalink to this headline">¶</a></h2>
-<p>Many times pages will be more complex and we can still extract the relevant data.</p>
+<p>Many times API are more complex, nevertheless, we can still extract the relevant data.</p>
 <p>Let’s get some stock data from <a class="reference external" href="https://www.alphavantage.co">alphavantage.co</a></p>
 <p>This web service is providing useful investment information using an API, however, like many other API providers, it requires an API key to identify the request (and sometimes chanrge for it).</p>
 <p>To allow secure execution of such API call, we will how to install a new python module and how to use it. The next cell is installing the module from <a class="reference external" href="https://ipython-secrets.readthedocs.io/en/latest/">ipython secrets</a></p>
@@ -1275,9 +1275,12 @@ Note: you may need to restart the kernel to use updated packages.
 </div>
 </div>
 </div>
+<p>From the <a class="reference external" href="https://www.alphavantage.co/documentation/">API documentation</a> we can learn how to extract time-series stock information of a specific symbol. Let’s use Amazon (AMZN) for example.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">request_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&amp;symbol=MSFT&amp;interval=1min&amp;apikey=</span><span class="si">{</span><span class="n">ALPHAVANTAGE_API_KEY</span><span class="si">}</span><span class="s1">&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">symbol</span> <span class="o">=</span> <span class="s1">&#39;AMZN&#39;</span>
+
+<span class="n">request_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&amp;symbol=</span><span class="si">{</span><span class="n">symbol</span><span class="si">}</span><span class="s1">&amp;interval=1min&amp;apikey=</span><span class="si">{</span><span class="n">ALPHAVANTAGE_API_KEY</span><span class="si">}</span><span class="s1">&#39;</span>
 </pre></div>
 </div>
 </div>
@@ -1326,12 +1329,12 @@ Note: you may need to restart the kernel to use updated packages.
     </tr>
     <tr>
       <th>2. Symbol</th>
-      <td>MSFT</td>
+      <td>AMZN</td>
       <td>NaN</td>
     </tr>
     <tr>
       <th>3. Last Refreshed</th>
-      <td>2021-01-08 19:59:00</td>
+      <td>2021-01-08 19:52:00</td>
       <td>NaN</td>
     </tr>
     <tr>
@@ -1350,29 +1353,29 @@ Note: you may need to restart the kernel to use updated packages.
       <td>...</td>
     </tr>
     <tr>
-      <th>2021-01-08 15:43:00</th>
+      <th>2021-01-08 14:58:00</th>
       <td>NaN</td>
-      <td>{'1. open': '219.7200', '2. high': '219.7600',...</td>
+      <td>{'1. open': '3168.8631', '2. high': '3169.3100...</td>
     </tr>
     <tr>
-      <th>2021-01-08 15:42:00</th>
+      <th>2021-01-08 14:57:00</th>
       <td>NaN</td>
-      <td>{'1. open': '219.7900', '2. high': '219.7900',...</td>
+      <td>{'1. open': '3168.1900', '2. high': '3169.1800...</td>
     </tr>
     <tr>
-      <th>2021-01-08 15:41:00</th>
+      <th>2021-01-08 14:56:00</th>
       <td>NaN</td>
-      <td>{'1. open': '219.7600', '2. high': '219.8300',...</td>
+      <td>{'1. open': '3166.7500', '2. high': '3168.1500...</td>
     </tr>
     <tr>
-      <th>2021-01-08 15:40:00</th>
+      <th>2021-01-08 14:55:00</th>
       <td>NaN</td>
-      <td>{'1. open': '219.7100', '2. high': '219.7900',...</td>
+      <td>{'1. open': '3167.8750', '2. high': '3168.4999...</td>
     </tr>
     <tr>
-      <th>2021-01-08 15:39:00</th>
+      <th>2021-01-08 14:54:00</th>
       <td>NaN</td>
-      <td>{'1. open': '219.7200', '2. high': '219.7600',...</td>
+      <td>{'1. open': '3167.9000', '2. high': '3168.8300...</td>
     </tr>
   </tbody>
 </table>
@@ -1430,44 +1433,44 @@ Note: you may need to restart the kernel to use updated packages.
   </thead>
   <tbody>
     <tr>
-      <th>2021-01-08 19:59:00</th>
-      <td>219.6300</td>
-      <td>219.6300</td>
-      <td>219.6300</td>
-      <td>219.6300</td>
-      <td>179</td>
-    </tr>
-    <tr>
-      <th>2021-01-08 19:57:00</th>
-      <td>219.6200</td>
-      <td>219.6200</td>
-      <td>219.6200</td>
-      <td>219.6200</td>
-      <td>215</td>
-    </tr>
-    <tr>
       <th>2021-01-08 19:52:00</th>
-      <td>219.6300</td>
-      <td>219.6300</td>
-      <td>219.6200</td>
-      <td>219.6200</td>
-      <td>290</td>
+      <td>3179.9999</td>
+      <td>3179.9999</td>
+      <td>3179.9999</td>
+      <td>3179.9999</td>
+      <td>245</td>
     </tr>
     <tr>
-      <th>2021-01-08 19:48:00</th>
-      <td>219.6200</td>
-      <td>219.7500</td>
-      <td>219.6200</td>
-      <td>219.7500</td>
-      <td>830</td>
+      <th>2021-01-08 19:35:00</th>
+      <td>3178.0000</td>
+      <td>3178.0000</td>
+      <td>3178.0000</td>
+      <td>3178.0000</td>
+      <td>256</td>
     </tr>
     <tr>
-      <th>2021-01-08 19:47:00</th>
-      <td>219.6200</td>
-      <td>219.6200</td>
-      <td>219.6200</td>
-      <td>219.6200</td>
-      <td>144</td>
+      <th>2021-01-08 19:29:00</th>
+      <td>3178.0000</td>
+      <td>3178.0000</td>
+      <td>3178.0000</td>
+      <td>3178.0000</td>
+      <td>108</td>
+    </tr>
+    <tr>
+      <th>2021-01-08 19:13:00</th>
+      <td>3178.0000</td>
+      <td>3178.0000</td>
+      <td>3178.0000</td>
+      <td>3178.0000</td>
+      <td>155</td>
+    </tr>
+    <tr>
+      <th>2021-01-08 19:00:00</th>
+      <td>3179.0300</td>
+      <td>3179.0300</td>
+      <td>3179.0300</td>
+      <td>3179.0300</td>
+      <td>111</td>
     </tr>
     <tr>
       <th>...</th>
@@ -1478,44 +1481,44 @@ Note: you may need to restart the kernel to use updated packages.
       <td>...</td>
     </tr>
     <tr>
-      <th>2021-01-08 15:43:00</th>
-      <td>219.7200</td>
-      <td>219.7600</td>
-      <td>219.6600</td>
-      <td>219.7300</td>
-      <td>51243</td>
+      <th>2021-01-08 14:58:00</th>
+      <td>3168.8631</td>
+      <td>3169.3100</td>
+      <td>3168.4950</td>
+      <td>3168.4950</td>
+      <td>2734</td>
     </tr>
     <tr>
-      <th>2021-01-08 15:42:00</th>
-      <td>219.7900</td>
-      <td>219.7900</td>
-      <td>219.6700</td>
-      <td>219.7250</td>
-      <td>56507</td>
+      <th>2021-01-08 14:57:00</th>
+      <td>3168.1900</td>
+      <td>3169.1800</td>
+      <td>3168.1900</td>
+      <td>3168.8505</td>
+      <td>5019</td>
     </tr>
     <tr>
-      <th>2021-01-08 15:41:00</th>
-      <td>219.7600</td>
-      <td>219.8300</td>
-      <td>219.7400</td>
-      <td>219.7900</td>
-      <td>36945</td>
+      <th>2021-01-08 14:56:00</th>
+      <td>3166.7500</td>
+      <td>3168.1500</td>
+      <td>3166.7500</td>
+      <td>3167.5833</td>
+      <td>4853</td>
     </tr>
     <tr>
-      <th>2021-01-08 15:40:00</th>
-      <td>219.7100</td>
-      <td>219.7900</td>
-      <td>219.6600</td>
-      <td>219.7700</td>
-      <td>59952</td>
+      <th>2021-01-08 14:55:00</th>
+      <td>3167.8750</td>
+      <td>3168.4999</td>
+      <td>3167.0229</td>
+      <td>3167.0229</td>
+      <td>4240</td>
     </tr>
     <tr>
-      <th>2021-01-08 15:39:00</th>
-      <td>219.7200</td>
-      <td>219.7600</td>
-      <td>219.6830</td>
-      <td>219.7200</td>
-      <td>37586</td>
+      <th>2021-01-08 14:54:00</th>
+      <td>3167.9000</td>
+      <td>3168.8300</td>
+      <td>3167.3600</td>
+      <td>3167.8600</td>
+      <td>3811</td>
     </tr>
   </tbody>
 </table>
@@ -1533,13 +1536,13 @@ Note: you may need to restart the kernel to use updated packages.
     <span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float&#39;</span><span class="p">)</span>
     <span class="o">.</span><span class="n">loc</span><span class="p">[:,(</span><span class="s1">&#39;2. high&#39;</span><span class="p">,</span><span class="s1">&#39;3. low&#39;</span><span class="p">)]</span>
     <span class="o">.</span><span class="n">iloc</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-    <span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">rot</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">symbol</span><span class="p">,</span> <span class="n">rot</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
 <span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/01.03_loading_data_from_API_32_0.svg" src="../_images/01.03_loading_data_from_API_32_0.svg" /></div>
+<img alt="../_images/01.03_loading_data_from_API_33_0.svg" src="../_images/01.03_loading_data_from_API_33_0.svg" /></div>
 </div>
 </div>
 </div>
