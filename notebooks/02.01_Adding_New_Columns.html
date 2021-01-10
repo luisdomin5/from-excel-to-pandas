@@ -308,14 +308,17 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://query.data.world/s/xrfy7fb7oq55gpzh6bvs6jtonv32lk&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">us_median_sq_ft_value</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">pd</span>
+    <span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://query.data.world/s/xrfy7fb7oq55gpzh6bvs6jtonv32lk&#39;</span><span class="p">)</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">us_median_sq_ft_value</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
@@ -494,7 +497,7 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
-    <span class="n">df</span>
+    <span class="n">us_median_sq_ft_value</span>
     <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">country</span><span class="o">=</span><span class="s2">&quot;USA&quot;</span><span class="p">)</span>
 <span class="p">)</span>
 </pre></div>
@@ -816,12 +819,18 @@
 <div class="section" id="excel-functions-equivalent">
 <h2>Excel Functions Equivalent<a class="headerlink" href="#excel-functions-equivalent" title="Permalink to this headline">¶</a></h2>
 <p>Most of the functions that you are used to use in Excel have a direct Equivalent in Pands. We will try a few of them in the following examples. We will only look at the <em>City</em> column in the dataset.</p>
-<p>For example: <code class="docutils literal notranslate"><span class="pre">=TRIM('cell</span> <span class="pre">for</span> <span class="pre">trimming')</span></code> can be replaced by <em>strip</em>. We will take only the <em>City</em> column from the table and add another column that is taking the string part of the column (<em>str</em>) and strip it from spaces around it.</p>
+<p>For example: <code class="docutils literal notranslate"><span class="pre">=TRIM('cell</span> <span class="pre">for</span> <span class="pre">trimming')</span></code> can be replaced by <em>strip</em>.
+We will:</p>
+<ul class="simple">
+<li><p>Take only the <em>City</em> column from the table</p></li>
+<li><p>Add a column that is taking the string part of the column (<em>str</em>) and strip it from spaces around it</p></li>
+<li><p>Show the head (first 5 lines) of the new sub-table</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
-    <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;City&#39;</span><span class="p">]]</span>
-    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">trimmed</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">City</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
+    <span class="n">us_median_sq_ft_value</span><span class="p">[[</span><span class="s1">&#39;City&#39;</span><span class="p">]]</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">trimmed</span> <span class="o">=</span> <span class="n">us_median_sq_ft_value</span><span class="o">.</span><span class="n">City</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">strip</span><span class="p">())</span>
     <span class="o">.</span><span class="n">head</span><span class="p">()</span>
 <span class="p">)</span>
 </pre></div>
@@ -881,11 +890,16 @@
 </div></div></div>
 </div>
 <p>or to remove spaces between words, you will need to run ‘Find and Replace’ option in Excel and in Pandas we can use the <em>replace</em> function:</p>
+<ul class="simple">
+<li><p>Take only the <em>City</em> column from the table</p></li>
+<li><p>Add a column that is taking the string part of the column (<em>str</em>) and removes every space (‘ ‘)</p></li>
+<li><p>Show the head of the new sub-table</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
-    <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;City&#39;</span><span class="p">]]</span>
-    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">no_space</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">City</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))</span>
+    <span class="n">us_median_sq_ft_value</span><span class="p">[[</span><span class="s1">&#39;City&#39;</span><span class="p">]]</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">no_space</span> <span class="o">=</span> <span class="n">us_median_sq_ft_value</span><span class="o">.</span><span class="n">City</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39; &#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">))</span>
     <span class="o">.</span><span class="n">head</span><span class="p">()</span>
 <span class="p">)</span>
 </pre></div>
@@ -947,12 +961,18 @@
 <div class="section" id="more-textual-functions">
 <h3>More Textual Functions<a class="headerlink" href="#more-textual-functions" title="Permalink to this headline">¶</a></h3>
 <p>Another commonly used Excel functions are LEFT and RIGHT (<code class="docutils literal notranslate"><span class="pre">=LEFT(Cell,</span> <span class="pre">number</span> <span class="pre">of</span> <span class="pre">digits)</span></code>). In Pandas, we can use the ‘<code class="docutils literal notranslate"><span class="pre">:</span></code>’, which is used for <em>until</em> or <em>from</em>:</p>
+<ul class="simple">
+<li><p>Take only the <em>City</em> column from the table</p></li>
+<li><p>Add a column that is taking the string part of the column and takes the first 5 characters (=LEFT)</p></li>
+<li><p>Add a column that is taking the string part of the column and takes the last 5 characters (=RIGHT)</p></li>
+<li><p>Show the head of the new sub-table</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
-    <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;City&#39;</span><span class="p">]]</span>
-    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">left_city</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">City</span><span class="o">.</span><span class="n">str</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span> <span class="c1"># until the 5th character</span>
-    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">right_city</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">City</span><span class="o">.</span><span class="n">str</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">:])</span> <span class="c1"># from the 5th characters from the end (=right)</span>
+    <span class="n">us_median_sq_ft_value</span><span class="p">[[</span><span class="s1">&#39;City&#39;</span><span class="p">]]</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">city_left</span> <span class="o">=</span> <span class="n">us_median_sq_ft_value</span><span class="o">.</span><span class="n">City</span><span class="o">.</span><span class="n">str</span><span class="p">[:</span><span class="mi">5</span><span class="p">])</span> <span class="c1"># until the 5th character</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">city_right</span> <span class="o">=</span> <span class="n">us_median_sq_ft_value</span><span class="o">.</span><span class="n">City</span><span class="o">.</span><span class="n">str</span><span class="p">[</span><span class="o">-</span><span class="mi">5</span><span class="p">:])</span> <span class="c1"># from the 5th characters from the end (=right)</span>
     <span class="o">.</span><span class="n">head</span><span class="p">()</span>
 <span class="p">)</span>
 </pre></div>
@@ -978,8 +998,8 @@
     <tr style="text-align: right;">
       <th></th>
       <th>City</th>
-      <th>left_city</th>
-      <th>right_city</th>
+      <th>city_left</th>
+      <th>city_right</th>
     </tr>
   </thead>
   <tbody>
@@ -1023,10 +1043,15 @@
 <h2>Using Lambda<a class="headerlink" href="#using-lambda" title="Permalink to this headline">¶</a></h2>
 <p>Lambda is a bit confusing at first glance, however, it is used to define a the function that we want to apply on a each row or columns of the table. For example, let’s define two new columns: one that is calculating the quantile of the region compare to all the regions, and one that is checking if the state is one of [‘NY’,’NJ’]</p>
 <p>We will focus only on the <em>State</em> and the last month in the data and add the two new columns to it.</p>
+<ul class="simple">
+<li><p>Take only the <em>State</em> and the values of the last period columns from the table</p></li>
+<li><p>Add a column that is checking if the <em>State</em> is either <em>‘NY’</em> or <em>‘NJ’</em></p></li>
+<li><p>Add a column that is calculating the ratio of the average price of the row to the maximum price (quantile)</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
-    <span class="n">df</span><span class="p">[[</span><span class="s1">&#39;State&#39;</span><span class="p">,</span><span class="s1">&#39;2017-09&#39;</span><span class="p">]]</span>
+    <span class="n">us_median_sq_ft_value</span><span class="p">[[</span><span class="s1">&#39;State&#39;</span><span class="p">,</span><span class="s1">&#39;2017-09&#39;</span><span class="p">]]</span>
     <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">is_NY_or_NJ</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">State</span><span class="o">.</span><span class="n">isin</span><span class="p">([</span><span class="s1">&#39;NY&#39;</span><span class="p">,</span><span class="s1">&#39;NJ&#39;</span><span class="p">]))</span>
     <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">last_quantile</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span><span class="p">[</span><span class="s1">&#39;2017-09&#39;</span><span class="p">]</span><span class="o">/</span><span class="nb">max</span><span class="p">(</span><span class="n">x</span><span class="p">[</span><span class="s1">&#39;2017-09&#39;</span><span class="p">]))</span>    
 <span class="p">)</span>
@@ -1146,10 +1171,20 @@
 <h2>Multiple Data Sources<a class="headerlink" href="#multiple-data-sources" title="Permalink to this headline">¶</a></h2>
 <p>We can do a more complicated analysis that is based on additional external sources. For example, we want to calculate the differences between red states and blue states. We can then ask various questions regarding the impacts or correlation between the house prices and the election results and voting patterns.</p>
 <p>First we will load data regarding the voting in various states across the years. A quick internet search finds an interesting table in the following Wikipedia page. Since there are multiple tables on that page, we can filter them using the <em>match</em> option, and using the word <em>Year</em> as the filter.</p>
+<ul class="simple">
+<li><p>Read the HTML tables in the wikipedia entry on the topic of red and blue states</p></li>
+<li><p>retrive on the ones that have the word ‘Year’</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">red_blue_states_wikipedia_entry</span> <span class="o">=</span> <span class="s1">&#39;https://en.wikipedia.org/wiki/Red_states_and_blue_states&#39;</span>
-<span class="n">wikipedia_page_tables</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_html</span><span class="p">(</span><span class="n">red_blue_states_wikipedia_entry</span><span class="p">,</span> <span class="n">match</span><span class="o">=</span><span class="s1">&#39;Year&#39;</span><span class="p">)</span>
+<span class="n">wikipedia_page_tables</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">pd</span>
+    <span class="o">.</span><span class="n">read_html</span><span class="p">(</span>
+        <span class="n">red_blue_states_wikipedia_entry</span><span class="p">,</span> 
+        <span class="n">match</span><span class="o">=</span><span class="s1">&#39;Year&#39;</span>
+    <span class="p">)</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1313,7 +1348,13 @@
 </div>
 </div>
 </div>
-<p>We will take the large table of the multiple elections results, remove the complicated multi level header from the table (<em>droplevel</em>), and filter to only states that have the red candidate, we defined above, in the column of the election year (<em>2020</em>, for example). Then, we will take only the first column from the result, which holds the name of the state (<em>iloc[:,0]</em>).</p>
+<p>We will:</p>
+<ul class="simple">
+<li><p>Take the large table of the multiple elections results</p></li>
+<li><p>Remove the complicated multi level header from the table (<em>droplevel</em>)</p></li>
+<li><p>Filter to only states that have the name of the red candidate, we defined above, in the column of the election year (<em>2020</em>, for example). Note, we need to surround the name of the column with ` as it starts with a number</p></li>
+<li><p>Take only the first column from the result table, which holds the name of the state (<em>iloc[:,0]</em>).</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">red_states_2020</span> <span class="o">=</span> <span class="p">(</span>
@@ -1422,7 +1463,13 @@ Name: Year, dtype: object
 </div>
 </div>
 </div>
-<p>and we can use the dictionary to create a table (DataFrame) from it</p>
+<p>and we can use the dictionary to create a table (DataFrame) from it:</p>
+<ul class="simple">
+<li><p>Create a new dataframe table</p></li>
+<li><p>Using the dictionary of the us state abbreviation above</p></li>
+<li><p>with row for each entry</p></li>
+<li><p>and name the column of the value ‘Abbreviation’</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">us_state_abbrev_df</span> <span class="o">=</span> <span class="p">(</span>
@@ -1444,7 +1491,12 @@ Name: Year, dtype: object
 </div>
 </div>
 </div>
-<p>Next, we will filter the table to include only the red states that we calculated before</p>
+<p>Next, we will:</p>
+<ul class="simple">
+<li><p>Start with the abbreviation list of all the US states</p></li>
+<li><p>Take only the ones that also appear in the list of red states in the 2020 election</p></li>
+<li><p>Take all the rows left, and the index column (country name) with the abbreviation column</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">red_state_abbrev</span> <span class="o">=</span> <span class="p">(</span>
@@ -1486,12 +1538,19 @@ Name: Abbreviation, dtype: object
 </div>
 </div>
 </div>
-<p>Finally, we can create a new column in our dataset (<em>is_red</em>) by checking if the <em>State</em> in the row is in the list of red states that we calculated above.</p>
-<p>We can then, immediately use the new column to calculate the average (<em>mean</em>) price in <em>2017_09</em> of the two groups, and see that the average in the blue states (<em>is_red = False</em>) is more than twice the average of red states (<em>is_red = True</em>)</p>
+<p>Finally:</p>
+<ul class="simple">
+<li><p>Start with the table of the median value of sqr feet per zip code</p></li>
+<li><p>Add a new column (<em>is_red</em>) by checking if the <em>State</em> in the row is in the list of red states that we calculated above.</p></li>
+<li><p>Create two groups for red and blue states and the a value in the last period in the table (September 2017)</p></li>
+<li><p>Calculate the average (<em>mean</em>) price for each of the two groups</p></li>
+<li><p>Plot the two values</p></li>
+<li><p>Title the graph with “Average square feet value between blue and red states”</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
-    <span class="n">df</span>
+    <span class="n">us_median_sq_ft_value</span>
     <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">is_red</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">State</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">red_state_abbrev</span><span class="p">))</span>
     <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;is_red&#39;</span><span class="p">)[</span><span class="s1">&#39;2017-09&#39;</span><span class="p">]</span>
     <span class="o">.</span><span class="n">mean</span><span class="p">()</span>
@@ -1505,6 +1564,7 @@ Name: Abbreviation, dtype: object
 <img alt="../_images/02.01_Adding_New_Columns_32_0.png" src="../_images/02.01_Adding_New_Columns_32_0.png" />
 </div>
 </div>
+<p>We can now see that the average value of square feet in the blue states (<em>is_red = False</em>) is about twice the average of red states (<em>is_red = True</em>)</p>
 </div>
 </div>
 
