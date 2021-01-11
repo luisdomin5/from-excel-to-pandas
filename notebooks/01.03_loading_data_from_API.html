@@ -331,13 +331,15 @@
 <h2>Loading from simple API<a class="headerlink" href="#loading-from-simple-api" title="Permalink to this headline">¶</a></h2>
 <p>If you have a simple API with no authentication, you can pass the URL of the requests library that we used in our previous toturial for loading HTML</p>
 <p>For this excercise we will use the API of the Wikipedia page views. We will use it to test the idea that people who are thinking to buy stocks, are going to the wikipedia page of that stock, and therefore, if we see an increase in the views of a page, we will see an increase in the price of that share.</p>
-<p>We will check the format of the API call from the <a class="reference external" href="https://www.mediawiki.org/wiki/API:Tutorial">technical page</a>. We see the we need to plug the name of</p>
+<p>We will check the format of the API call from the <a class="reference external" href="https://www.mediawiki.org/wiki/API:Tutorial">technical page</a>. We see the we need to plug the name of stock ticker, and we will use the f-string syntax that is replacing the {page} (or any other variable in curly brackets) with the value of the variable (for example, <em>AMZN</em>).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/all-agents/AMZN/daily/2015100100/2015103100&#39;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">page</span> <span class="o">=</span> <span class="s1">&#39;AMZN&#39;</span>
+
+<span class="n">page_views_api_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/all-agents/</span><span class="si">{</span><span class="n">page</span><span class="si">}</span><span class="s1">/daily/2020030100/2020033000&#39;</span>
 
 <span class="kn">import</span> <span class="nn">requests</span>
-<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">page_views_api_url</span><span class="p">)</span>
 <span class="n">response</span>
 </pre></div>
 </div>
@@ -351,7 +353,13 @@
 <p>We can use two methods to extract the data that we want from the JSON format. The first is using <em>json_normalize</em> and the second is using <em>from_dict</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">json_normalize</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">(),</span> <span class="s1">&#39;items&#39;</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">pd</span>
+    <span class="o">.</span><span class="n">json_normalize</span><span class="p">(</span>
+        <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">(),</span> 
+        <span class="s1">&#39;items&#39;</span>
+        <span class="p">)</span>
+<span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
@@ -390,50 +398,50 @@
       <td>en.wikipedia</td>
       <td>AMZN</td>
       <td>daily</td>
-      <td>2015100100</td>
+      <td>2020030100</td>
       <td>all-access</td>
       <td>all-agents</td>
-      <td>9</td>
+      <td>2</td>
     </tr>
     <tr>
       <th>1</th>
       <td>en.wikipedia</td>
       <td>AMZN</td>
       <td>daily</td>
-      <td>2015100200</td>
+      <td>2020030200</td>
       <td>all-access</td>
       <td>all-agents</td>
-      <td>5</td>
+      <td>6</td>
     </tr>
     <tr>
       <th>2</th>
       <td>en.wikipedia</td>
       <td>AMZN</td>
       <td>daily</td>
-      <td>2015100300</td>
+      <td>2020030300</td>
       <td>all-access</td>
       <td>all-agents</td>
-      <td>6</td>
+      <td>16</td>
     </tr>
     <tr>
       <th>3</th>
       <td>en.wikipedia</td>
       <td>AMZN</td>
       <td>daily</td>
-      <td>2015100400</td>
+      <td>2020030400</td>
       <td>all-access</td>
       <td>all-agents</td>
-      <td>5</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>4</th>
       <td>en.wikipedia</td>
       <td>AMZN</td>
       <td>daily</td>
-      <td>2015100500</td>
+      <td>2020030500</td>
       <td>all-access</td>
       <td>all-agents</td>
-      <td>6</td>
+      <td>1</td>
     </tr>
   </tbody>
 </table>
@@ -441,9 +449,17 @@
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">data</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s1">&#39;items&#39;</span><span class="p">]</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">page_view_data</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">requests</span>
+    <span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">page_views_api_url</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">json</span><span class="p">()[</span><span class="s1">&#39;items&#39;</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">page_views_table</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">pd</span>
+    <span class="o">.</span><span class="n">DataFrame</span>
+    <span class="o">.</span><span class="n">from_dict</span><span class="p">(</span><span class="n">page_view_data</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">page_views_table</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -481,50 +497,50 @@
       <td>en.wikipedia</td>
       <td>AMZN</td>
       <td>daily</td>
-      <td>2015100100</td>
+      <td>2020030100</td>
       <td>all-access</td>
       <td>all-agents</td>
-      <td>9</td>
+      <td>2</td>
     </tr>
     <tr>
       <th>1</th>
       <td>en.wikipedia</td>
       <td>AMZN</td>
       <td>daily</td>
-      <td>2015100200</td>
+      <td>2020030200</td>
       <td>all-access</td>
       <td>all-agents</td>
-      <td>5</td>
+      <td>6</td>
     </tr>
     <tr>
       <th>2</th>
       <td>en.wikipedia</td>
       <td>AMZN</td>
       <td>daily</td>
-      <td>2015100300</td>
+      <td>2020030300</td>
       <td>all-access</td>
       <td>all-agents</td>
-      <td>6</td>
+      <td>16</td>
     </tr>
     <tr>
       <th>3</th>
       <td>en.wikipedia</td>
       <td>AMZN</td>
       <td>daily</td>
-      <td>2015100400</td>
+      <td>2020030400</td>
       <td>all-access</td>
       <td>all-agents</td>
-      <td>5</td>
+      <td>1</td>
     </tr>
     <tr>
       <th>4</th>
       <td>en.wikipedia</td>
       <td>AMZN</td>
       <td>daily</td>
-      <td>2015100500</td>
+      <td>2020030500</td>
       <td>all-access</td>
       <td>all-agents</td>
-      <td>6</td>
+      <td>1</td>
     </tr>
   </tbody>
 </table>
@@ -533,22 +549,31 @@
 </div>
 <div class="section" id="simple-data-visualization">
 <h2>Simple Data Visualization<a class="headerlink" href="#simple-data-visualization" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Start with the page view table from the previous API call</p></li>
+<li><p>Convert the timestamp column to date time format using the <em>%Y%m%d%H</em> format</p></li>
+<li><p>Extract the day of the month from the above timestamp</p></li>
+<li><p>Plot the results</p></li>
+<li><p>as bar chart with the day of the month as x and the number of views as y</p></li>
+<li><p>and title the graph as ‘Page views for …’ with the name of the page</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
-    <span class="n">df</span>
-    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">timestamp</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">timestamp</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%Y%m</span><span class="si">%d</span><span class="s1">%H&#39;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">))</span>
+    <span class="n">page_views_table</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">timestamp</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">timestamp</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%Y%m</span><span class="si">%d</span><span class="s1">%H&#39;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">day</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">timestamp</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">day</span><span class="p">)</span>
     <span class="o">.</span><span class="n">plot</span>
-    <span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;timestamp&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;views&#39;</span><span class="p">])</span>
-<span class="p">)</span>
+    <span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">=</span><span class="s1">&#39;day&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;views&#39;</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Page views for </span><span class="si">{</span><span class="n">page</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="p">)</span>
+<span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;timestamp&#39;&gt;
-</pre></div>
-</div>
-<img alt="../_images/01.03_loading_data_from_API_10_1.png" src="../_images/01.03_loading_data_from_API_10_1.png" />
+<img alt="../_images/01.03_loading_data_from_API_10_0.png" src="../_images/01.03_loading_data_from_API_10_0.png" />
 </div>
 </div>
 </div>
@@ -558,16 +583,20 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nasdaq_100_wikipedia_entry</span> <span class="o">=</span> <span class="s1">&#39;https://en.wikipedia.org/wiki/NASDAQ-100&#39;</span>
-<span class="n">nasdaq_100_tickers</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_html</span><span class="p">(</span><span class="n">nasdaq_100_wikipedia_entry</span><span class="p">,</span> <span class="n">match</span><span class="o">=</span><span class="s1">&#39;Ticker&#39;</span><span class="p">)</span>
+<span class="n">nasdaq_100_tickers</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">pd</span>
+    <span class="o">.</span><span class="n">read_html</span><span class="p">(</span>
+        <span class="n">nasdaq_100_wikipedia_entry</span><span class="p">,</span> 
+        <span class="n">match</span><span class="o">=</span><span class="s1">&#39;Ticker&#39;</span>
+    <span class="p">)</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
-    <span class="n">nasdaq_100_tickers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
-<span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nasdaq_100_tickers</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
 </pre></div>
 </div>
 </div>
@@ -679,14 +708,26 @@
 <p>102 rows × 4 columns</p>
 </div></div></div>
 </div>
-<p>Now we want to get all the views of each company on our list. We will define a simple function that will get the name of the company and return the views of this company’s page</p>
+<p>Now we want to get all the views of each company on our list. We will define a simple function that will get the name of the company and return the views of this company’s page.</p>
+<ul class="simple">
+<li><p>Generate the URL of the wikipedia page view using the name of the company</p></li>
+<li><p>Load the API response from above URL</p></li>
+<li><p>Parse the JSON format of the response using the key ‘items’</p></li>
+<li><p>Return the newly create dataframe or an empty data frame if failed</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">get_views</span><span class="p">(</span><span class="n">company</span><span class="p">):</span>
-    <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/all-agents/</span><span class="si">{</span><span class="n">company</span><span class="o">.</span><span class="n">iat</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">/daily/2020090100/2020093000&#39;</span>
-    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+    <span class="n">company_page_url</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;https://wikimedia.org/api/rest_v1/metrics/pageviews/per-article/en.wikipedia/all-access/all-agents/</span><span class="si">{</span><span class="n">company</span><span class="o">.</span><span class="n">iat</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s1">/daily/2020090100/2020093000&#39;</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">company_page_url</span><span class="p">)</span>
     <span class="k">try</span><span class="p">:</span>
-        <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">json_normalize</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">(),</span> <span class="s1">&#39;items&#39;</span><span class="p">)</span>
+        <span class="n">df</span> <span class="o">=</span> <span class="p">(</span>
+            <span class="n">pd</span>
+            <span class="o">.</span><span class="n">json_normalize</span><span class="p">(</span>
+                <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">(),</span> 
+                <span class="s1">&#39;items&#39;</span>
+            <span class="p">)</span>
+        <span class="p">)</span>
     <span class="k">except</span><span class="p">:</span>
         <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">()</span>
     
@@ -695,6 +736,12 @@
 </div>
 </div>
 </div>
+<p>Now we can apply the function above on each of the row from the nasdaq 100 tickets list:</p>
+<ul class="simple">
+<li><p>Start with the first table from the nasdaq 100 list above</p></li>
+<li><p>Group the ticker by the company name (in case we have multiple ticker to a company)</p></li>
+<li><p>Apply the get view function on each of the company names and concat all the data frames together</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nasdaq_100_views</span> <span class="o">=</span> <span class="p">(</span>
@@ -872,6 +919,8 @@
 <p>2435 rows × 7 columns</p>
 </div></div></div>
 </div>
+<p>We see that we have more than 2000 rows in the concatenated dataframe where each line is a view of a company in a specific day in the range of September 2020.</p>
+<p>Let’s look on one of the companies (for example, <em>Lululemon Atheletica</em>)</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">nasdaq_100_views</span><span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;Lululemon Athletica&#39;</span><span class="p">]</span>
@@ -1211,20 +1260,35 @@
 </table>
 </div></div></div>
 </div>
+<ul class="simple">
+<li><p>Start with the page view table of all the nasdaq 100</p></li>
+<li><p>Filter to include only the <em>Lululemon Athletica</em> views</p></li>
+<li><p>Convert the timestamp column to date time format using the <em>%Y%m%d%H</em> format</p></li>
+<li><p>Extract the day of the month from the above timestamp</p></li>
+<li><p>Plot the results</p></li>
+<li><p>as bar chart with the day of the month as x and the number of views as y</p></li>
+<li><p>and title the graph as ‘Page views for …’ with the name of the focused company</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">focused_company</span> <span class="o">=</span> <span class="s1">&#39;Lululemon Athletica&#39;</span>
+<span class="p">(</span>
     <span class="n">nasdaq_100_views</span>
-    <span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;Lululemon Athletica&#39;</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="n">focused_company</span><span class="p">]</span>
     <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">timestamp</span><span class="o">=</span><span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">timestamp</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;%Y%m</span><span class="si">%d</span><span class="s1">%H&#39;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">day</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">timestamp</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">day</span><span class="p">)</span>
     <span class="o">.</span><span class="n">plot</span>
-    <span class="o">.</span><span class="n">bar</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;timestamp&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;views&#39;</span><span class="p">])</span>
+    <span class="o">.</span><span class="n">bar</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">=</span><span class="s1">&#39;day&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;views&#39;</span><span class="p">,</span>
+        <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s1">&#39;Page views for </span><span class="si">{</span><span class="n">focused_company</span><span class="si">}</span><span class="s1">&#39;</span>
+    <span class="p">)</span>
 <span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/01.03_loading_data_from_API_19_0.svg" src="../_images/01.03_loading_data_from_API_19_0.svg" /></div>
+<img alt="../_images/01.03_loading_data_from_API_22_0.png" src="../_images/01.03_loading_data_from_API_22_0.png" />
+</div>
 </div>
 </div>
 <div class="section" id="loading-from-complex-api">
@@ -1241,23 +1305,29 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: ipython-secrets in /Users/guy/miniconda3/lib/python3.8/site-packages (1.1.1)
-Requirement already satisfied: ipython in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-secrets) (7.18.1)
 Requirement already satisfied: keyring in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-secrets) (21.8.0)
-Requirement already satisfied: jedi&gt;=0.10 in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (0.17.2)
+Requirement already satisfied: ipython in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-secrets) (7.18.1)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: setuptools&gt;=18.5 in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (46.4.0.post20200518)
 Requirement already satisfied: prompt-toolkit!=3.0.0,!=3.0.1,&lt;3.1.0,&gt;=2.0.0 in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (3.0.8)
+Requirement already satisfied: backcall in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (0.2.0)
 Requirement already satisfied: pickleshare in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (0.7.5)
-Requirement already satisfied: pexpect&gt;4.3; sys_platform != &quot;win32&quot; in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (4.8.0)
-Requirement already satisfied: traitlets&gt;=4.2 in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (5.0.5)
-Requirement already satisfied: setuptools&gt;=18.5 in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (46.4.0.post20200518)
-Requirement already satisfied: appnope; sys_platform == &quot;darwin&quot; in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (0.1.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: appnope; sys_platform == &quot;darwin&quot; in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (0.1.0)
 Requirement already satisfied: decorator in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (4.4.2)
 Requirement already satisfied: pygments in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (2.7.1)
-Requirement already satisfied: backcall in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (0.2.0)
-Requirement already satisfied: parso&lt;0.8.0,&gt;=0.7.0 in /Users/guy/miniconda3/lib/python3.8/site-packages (from jedi&gt;=0.10-&gt;ipython-&gt;ipython-secrets) (0.7.1)
+Requirement already satisfied: pexpect&gt;4.3; sys_platform != &quot;win32&quot; in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (4.8.0)
+Requirement already satisfied: jedi&gt;=0.10 in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (0.17.2)
+Requirement already satisfied: traitlets&gt;=4.2 in /Users/guy/miniconda3/lib/python3.8/site-packages (from ipython-&gt;ipython-secrets) (5.0.5)
 Requirement already satisfied: wcwidth in /Users/guy/miniconda3/lib/python3.8/site-packages (from prompt-toolkit!=3.0.0,!=3.0.1,&lt;3.1.0,&gt;=2.0.0-&gt;ipython-&gt;ipython-secrets) (0.2.5)
 Requirement already satisfied: ptyprocess&gt;=0.5 in /Users/guy/miniconda3/lib/python3.8/site-packages (from pexpect&gt;4.3; sys_platform != &quot;win32&quot;-&gt;ipython-&gt;ipython-secrets) (0.6.0)
+Requirement already satisfied: parso&lt;0.8.0,&gt;=0.7.0 in /Users/guy/miniconda3/lib/python3.8/site-packages (from jedi&gt;=0.10-&gt;ipython-&gt;ipython-secrets) (0.7.1)
 Requirement already satisfied: ipython-genutils in /Users/guy/miniconda3/lib/python3.8/site-packages (from traitlets&gt;=4.2-&gt;ipython-&gt;ipython-secrets) (0.2.0)
-Note: you may need to restart the kernel to use updated packages.
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Note: you may need to restart the kernel to use updated packages.
 </pre></div>
 </div>
 </div>
@@ -1284,7 +1354,10 @@ Note: you may need to restart the kernel to use updated packages.
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="n">request_url</span><span class="p">)</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">df</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">pd</span>
+    <span class="o">.</span><span class="n">read_json</span><span class="p">(</span><span class="n">request_url</span><span class="p">)</span>
+<span class="p">)</span>
 </pre></div>
 </div>
 </div>
@@ -1383,6 +1456,13 @@ Note: you may need to restart the kernel to use updated packages.
 <div class="section" id="extracting-the-relevant-data">
 <h2>Extracting the relevant data<a class="headerlink" href="#extracting-the-relevant-data" title="Permalink to this headline">¶</a></h2>
 <p>We see that the data that we are looking for (open, close, high and low prices and volume in each minute) is available in a column of the dataframe table. We will filter the table to include only the rows with the prices data and split it to separated columns.</p>
+<ul class="simple">
+<li><p>Start with the dataframe table that was returned from the API call</p></li>
+<li><p>Rename the long ‘Time Series…’ column name to short ‘ts’</p></li>
+<li><p>Filter out all the rows where ‘ts’ column has no value (<em>null</em>)</p></li>
+<li><p>Take only the ‘ts’ column for all the row left</p></li>
+<li><p>Parse each value in the column as a series of key-value pairs and create a column for each pair</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">json_series</span> <span class="o">=</span> <span class="p">(</span>
@@ -1525,7 +1605,16 @@ Note: you may need to restart the kernel to use updated packages.
 </div>
 <div class="section" id="quick-visualization">
 <h2>Quick Visualization<a class="headerlink" href="#quick-visualization" title="Permalink to this headline">¶</a></h2>
-<p>Now that we have the prices from the API we can plot them. The following example is converting the values to numeric form (<em>astype(‘float’)</em>), slicing the table to include only the <em>high</em> and <em>low</em> values (<em>iloc</em>), reversing the order of the time-series to be from oldest to newest (<em>iloc[::-1]</em>), and finally plot the data with 45° rotation.</p>
+<p>Now that we have the prices from the API we can plot them.</p>
+<ul class="simple">
+<li><p>Start with the parsed data table above</p></li>
+<li><p>Convert the values to numeric form (<em>astype(‘float’)</em>)</p></li>
+<li><p>Slice the table to include only the <em>high</em> and <em>low</em> values (<em>iloc</em>)</p></li>
+<li><p>Reverse the order of the time-series to be from oldest to newest (<em>iloc[::-1]</em>)</p></li>
+<li><p>Plot the data</p></li>
+<li><p>with the title of the ticker</p></li>
+<li><p>and with 45° rotation.</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
@@ -1533,13 +1622,17 @@ Note: you may need to restart the kernel to use updated packages.
     <span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;float&#39;</span><span class="p">)</span>
     <span class="o">.</span><span class="n">loc</span><span class="p">[:,(</span><span class="s1">&#39;2. high&#39;</span><span class="p">,</span><span class="s1">&#39;3. low&#39;</span><span class="p">)]</span>
     <span class="o">.</span><span class="n">iloc</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
-    <span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="n">symbol</span><span class="p">,</span> <span class="n">rot</span><span class="o">=</span><span class="mi">45</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">title</span><span class="o">=</span><span class="n">symbol</span><span class="p">,</span> 
+        <span class="n">rot</span><span class="o">=</span><span class="mi">45</span>
+    <span class="p">)</span>
 <span class="p">);</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/01.03_loading_data_from_API_33_0.svg" src="../_images/01.03_loading_data_from_API_33_0.svg" /></div>
+<img alt="../_images/01.03_loading_data_from_API_37_0.png" src="../_images/01.03_loading_data_from_API_37_0.png" />
+</div>
 </div>
 </div>
 </div>
