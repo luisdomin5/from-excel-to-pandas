@@ -37,6 +37,10 @@ The tutorial is based on a set of Jupyter notebooks that are demonstrating the v
     - Using _plotly_ and _seaborn_
     - Extending plots with _Matplotlib_
 
+- Industries
+    - Financial Analysis (Stocks, for example)
+    - Manufacturing (Market Share, for example)
+
 ````{tip}
 Run the notebook in an interactive environment to better learn
 ````

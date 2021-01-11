@@ -32,14 +32,11 @@ nbclient.exceptions.CellTimeoutError: A cell timed out while it was being execut
 The message was: Cell execution timed out.
 Here is a preview of the cell contents:
 -------------------
-response = requests.get(url).json()
-api_dataset = response
-
-#looping through and putting data to the list api_dataset
-for page in range (2, 20):
-    response = requests.get(url + f"&page={page}").json()
-    api_dataset.extend(response)
-
-pmap_data = pd.json_normalize(api_dataset)
+adult_names = ['age','workclass','id','education','education_num','marital_status',
+                'occupation', 'relationship','race','gender','capital_gain',
+              'capital_loss','hours_per_week','native_country','annual_income']
+df = pd.read_csv('https://archive.ics.uci.edu/ml/machine-learning-databases/adult/adult.data', 
+                names = adult_names)
+df
 -------------------
 

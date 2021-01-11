@@ -33,7 +33,11 @@ The message was: Cell execution timed out.
 Here is a preview of the cell contents:
 -------------------
 clean_names_df_head = clean_names_df.head()
-clean_names_df_head['domain'] = clean_names_df_head.company_name.apply(search_domain)
-# clean_names_df['domain'] = clean_names_df.company_name.apply(search_domain)
+clean_names_df_head['domain'] = (
+    clean_names_df_head
+    .company_name
+    .apply(search_domain)
+)
+
 -------------------
 
