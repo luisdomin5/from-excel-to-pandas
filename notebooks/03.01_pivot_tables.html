@@ -332,7 +332,7 @@
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="c1"># import numpy as np</span>
 
 <span class="n">sales_funnel</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">pd</span>
@@ -708,7 +708,7 @@
 </div>
 <div class="section" id="chossing-aggregation-function">
 <h2>Chossing aggregation function<a class="headerlink" href="#chossing-aggregation-function" title="Permalink to this headline">¶</a></h2>
-<p>We want to see the sum of the sales of each sales rep and not the average size of the sales. Let’s request to use the sum as the aggregation function. We are using <em>np.sum</em> from the <em>NumPy</em> library, which is the main library in Python for numeric calculations.</p>
+<p>We want to see the sum of the sales of each sales rep and not the average size of the sales. Let’s request to use the <em>sum</em> as the aggregation function. Other functions are <em>mean</em> (default), <em>median</em> <em>count</em>, <em>min</em>, <em>max</em>, <em>var</em>, <em>std</em>, and <em>prod</em></p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
@@ -716,7 +716,7 @@
     <span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span>
         <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Manager&quot;</span><span class="p">,</span><span class="s2">&quot;Rep&quot;</span><span class="p">],</span> 
         <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Price&quot;</span><span class="p">],</span>
-        <span class="n">aggfunc</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span>
+        <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;sum&#39;</span>
     <span class="p">)</span>
 <span class="p">)</span>
 </pre></div>
@@ -789,7 +789,7 @@
         <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Manager&quot;</span><span class="p">,</span><span class="s2">&quot;Rep&quot;</span><span class="p">],</span> 
         <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Price&quot;</span><span class="p">],</span>
         <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Product&quot;</span><span class="p">],</span>
-        <span class="n">aggfunc</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span>
+        <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;sum&#39;</span>
     <span class="p">)</span>
 <span class="p">)</span>
 </pre></div>
@@ -892,7 +892,7 @@
         <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Manager&quot;</span><span class="p">,</span><span class="s2">&quot;Rep&quot;</span><span class="p">],</span> 
         <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Price&quot;</span><span class="p">],</span>
         <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Product&quot;</span><span class="p">],</span>
-        <span class="n">aggfunc</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">,</span>
+        <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;sum&#39;</span><span class="p">,</span>
         <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span>
     <span class="p">)</span>
 <span class="p">)</span>
@@ -993,7 +993,7 @@
         <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Manager&quot;</span><span class="p">,</span><span class="s2">&quot;Rep&quot;</span><span class="p">],</span> 
         <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Price&quot;</span><span class="p">,</span><span class="s2">&quot;Quantity&quot;</span><span class="p">],</span>
         <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Product&quot;</span><span class="p">],</span>
-        <span class="n">aggfunc</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">,</span>
+        <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;sum&#39;</span><span class="p">,</span>
         <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span>
     <span class="p">)</span>
 <span class="p">)</span>
@@ -1126,7 +1126,7 @@
         <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Manager&quot;</span><span class="p">,</span><span class="s2">&quot;Rep&quot;</span><span class="p">],</span> 
         <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Price&quot;</span><span class="p">],</span>
         <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Product&quot;</span><span class="p">],</span>
-        <span class="n">aggfunc</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">,</span>
+        <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;sum&#39;</span><span class="p">,</span>
         <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span>
         <span class="n">margins</span><span class="o">=</span><span class="kc">True</span>
     <span class="p">)</span>
@@ -1247,7 +1247,7 @@
         <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Manager&quot;</span><span class="p">,</span><span class="s2">&quot;Rep&quot;</span><span class="p">],</span> 
         <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Price&quot;</span><span class="p">],</span>
         <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Product&quot;</span><span class="p">],</span>
-        <span class="n">aggfunc</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">,</span>
+        <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;sum&#39;</span><span class="p">,</span>
         <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span>
     <span class="p">)</span>
     <span class="o">.</span><span class="n">plot</span><span class="p">(</span>
@@ -1275,8 +1275,8 @@
         <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Price&quot;</span><span class="p">,</span><span class="s2">&quot;Quantity&quot;</span><span class="p">],</span>
         <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Product&quot;</span><span class="p">],</span>
         <span class="n">aggfunc</span><span class="o">=</span><span class="p">{</span> 
-            <span class="s2">&quot;Price&quot;</span> <span class="p">:[</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">,</span><span class="n">np</span><span class="o">.</span><span class="n">median</span><span class="p">],</span>
-            <span class="s2">&quot;Quantity&quot;</span> <span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span>
+            <span class="s2">&quot;Price&quot;</span> <span class="p">:[</span><span class="s1">&#39;sum&#39;</span><span class="p">,</span><span class="s1">&#39;median&#39;</span><span class="p">],</span>
+            <span class="s2">&quot;Quantity&quot;</span> <span class="p">:</span> <span class="s1">&#39;sum&#39;</span>
         <span class="p">},</span>
         <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span>
     <span class="p">)</span>
@@ -1444,7 +1444,7 @@
     <span class="o">.</span><span class="n">pivot_table</span><span class="p">(</span>
         <span class="n">index</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Manager&quot;</span><span class="p">,</span><span class="s2">&quot;Rep&quot;</span><span class="p">],</span> 
         <span class="n">values</span><span class="o">=</span><span class="p">[</span><span class="s2">&quot;Price&quot;</span><span class="p">],</span>
-        <span class="n">aggfunc</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">,</span>
+        <span class="n">aggfunc</span><span class="o">=</span><span class="s1">&#39;sum&#39;</span><span class="p">,</span>
         <span class="n">fill_value</span><span class="o">=</span><span class="mi">0</span>
     <span class="p">)</span>
     <span class="o">.</span><span class="n">style</span>
@@ -1455,28 +1455,28 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><style  type="text/css" >
-</style><table id="T_297549e4_54f1_11eb_890b_367dda3a07de" ><thead>    <tr>        <th class="blank" ></th>        <th class="blank level0" ></th>        <th class="col_heading level0 col0" >Price</th>    </tr>    <tr>        <th class="index_name level0" >Manager</th>        <th class="index_name level1" >Rep</th>        <th class="blank" ></th>    </tr></thead><tbody>
+</style><table id="T_b6e70040_54f3_11eb_943c_367dda3a07de" ><thead>    <tr>        <th class="blank" ></th>        <th class="blank level0" ></th>        <th class="col_heading level0 col0" >Price</th>    </tr>    <tr>        <th class="index_name level0" >Manager</th>        <th class="index_name level1" >Rep</th>        <th class="blank" ></th>    </tr></thead><tbody>
                 <tr>
-                        <th id="T_297549e4_54f1_11eb_890b_367dda3a07delevel0_row0" class="row_heading level0 row0" rowspan=3>Debra Henley</th>
-                        <th id="T_297549e4_54f1_11eb_890b_367dda3a07delevel1_row0" class="row_heading level1 row0" >Craig Booker</th>
-                        <td id="T_297549e4_54f1_11eb_890b_367dda3a07derow0_col0" class="data row0 col0" >$80,000</td>
+                        <th id="T_b6e70040_54f3_11eb_943c_367dda3a07delevel0_row0" class="row_heading level0 row0" rowspan=3>Debra Henley</th>
+                        <th id="T_b6e70040_54f3_11eb_943c_367dda3a07delevel1_row0" class="row_heading level1 row0" >Craig Booker</th>
+                        <td id="T_b6e70040_54f3_11eb_943c_367dda3a07derow0_col0" class="data row0 col0" >$80,000</td>
             </tr>
             <tr>
-                                <th id="T_297549e4_54f1_11eb_890b_367dda3a07delevel1_row1" class="row_heading level1 row1" >Daniel Hilton</th>
-                        <td id="T_297549e4_54f1_11eb_890b_367dda3a07derow1_col0" class="data row1 col0" >$115,000</td>
+                                <th id="T_b6e70040_54f3_11eb_943c_367dda3a07delevel1_row1" class="row_heading level1 row1" >Daniel Hilton</th>
+                        <td id="T_b6e70040_54f3_11eb_943c_367dda3a07derow1_col0" class="data row1 col0" >$115,000</td>
             </tr>
             <tr>
-                                <th id="T_297549e4_54f1_11eb_890b_367dda3a07delevel1_row2" class="row_heading level1 row2" >John Smith</th>
-                        <td id="T_297549e4_54f1_11eb_890b_367dda3a07derow2_col0" class="data row2 col0" >$40,000</td>
+                                <th id="T_b6e70040_54f3_11eb_943c_367dda3a07delevel1_row2" class="row_heading level1 row2" >John Smith</th>
+                        <td id="T_b6e70040_54f3_11eb_943c_367dda3a07derow2_col0" class="data row2 col0" >$40,000</td>
             </tr>
             <tr>
-                        <th id="T_297549e4_54f1_11eb_890b_367dda3a07delevel0_row3" class="row_heading level0 row3" rowspan=2>Fred Anderson</th>
-                        <th id="T_297549e4_54f1_11eb_890b_367dda3a07delevel1_row3" class="row_heading level1 row3" >Cedric Moss</th>
-                        <td id="T_297549e4_54f1_11eb_890b_367dda3a07derow3_col0" class="data row3 col0" >$110,000</td>
+                        <th id="T_b6e70040_54f3_11eb_943c_367dda3a07delevel0_row3" class="row_heading level0 row3" rowspan=2>Fred Anderson</th>
+                        <th id="T_b6e70040_54f3_11eb_943c_367dda3a07delevel1_row3" class="row_heading level1 row3" >Cedric Moss</th>
+                        <td id="T_b6e70040_54f3_11eb_943c_367dda3a07derow3_col0" class="data row3 col0" >$110,000</td>
             </tr>
             <tr>
-                                <th id="T_297549e4_54f1_11eb_890b_367dda3a07delevel1_row4" class="row_heading level1 row4" >Wendy Yule</th>
-                        <td id="T_297549e4_54f1_11eb_890b_367dda3a07derow4_col0" class="data row4 col0" >$177,000</td>
+                                <th id="T_b6e70040_54f3_11eb_943c_367dda3a07delevel1_row4" class="row_heading level1 row4" >Wendy Yule</th>
+                        <td id="T_b6e70040_54f3_11eb_943c_367dda3a07derow4_col0" class="data row4 col0" >$177,000</td>
             </tr>
     </tbody></table></div></div>
 </div>
