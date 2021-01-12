@@ -861,8 +861,8 @@
 <li><p>Calculate the correlation values between the numeric values</p></li>
 <li><p>Take the values that are related to the first column (<em>Rented Bike Count</em>)</p></li>
 <li><p>Add style to the output</p></li>
-<li><p>Highlight the maximum correlation values</p></li>
-<li><p>and Highlight the minimum correlation value</p></li>
+<li><p>Highlight the maximum correlation value with green background</p></li>
+<li><p>and Highlight the minimum correlation value with red background</p></li>
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -873,56 +873,58 @@
     <span class="o">.</span><span class="n">corr</span><span class="p">()</span>
     <span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span><span class="p">:,[</span><span class="mi">0</span><span class="p">]]</span>
     <span class="o">.</span><span class="n">style</span>
-    <span class="o">.</span><span class="n">highlight_max</span><span class="p">()</span>
-    <span class="o">.</span><span class="n">highlight_min</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">highlight_max</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;green&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">highlight_min</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">)</span>
 <span class="p">)</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><style  type="text/css" >
-#T_6418fc6e_54d6_11eb_b769_367dda3a07derow0_col0,#T_6418fc6e_54d6_11eb_b769_367dda3a07derow7_col0{
-            background-color:  yellow;
-        }</style><table id="T_6418fc6e_54d6_11eb_b769_367dda3a07de" ><thead>    <tr>        <th class="blank level0" ></th>        <th class="col_heading level0 col0" >Rented Bike Count</th>    </tr></thead><tbody>
+#T_c673ca50_54e6_11eb_961b_367dda3a07derow0_col0{
+            background-color:  green;
+        }#T_c673ca50_54e6_11eb_961b_367dda3a07derow7_col0{
+            background-color:  red;
+        }</style><table id="T_c673ca50_54e6_11eb_961b_367dda3a07de" ><thead>    <tr>        <th class="blank level0" ></th>        <th class="col_heading level0 col0" >Rented Bike Count</th>    </tr></thead><tbody>
                 <tr>
-                        <th id="T_6418fc6e_54d6_11eb_b769_367dda3a07delevel0_row0" class="row_heading level0 row0" >Temperature(°C)</th>
-                        <td id="T_6418fc6e_54d6_11eb_b769_367dda3a07derow0_col0" class="data row0 col0" >0.699824</td>
+                        <th id="T_c673ca50_54e6_11eb_961b_367dda3a07delevel0_row0" class="row_heading level0 row0" >Temperature(°C)</th>
+                        <td id="T_c673ca50_54e6_11eb_961b_367dda3a07derow0_col0" class="data row0 col0" >0.699824</td>
             </tr>
             <tr>
-                        <th id="T_6418fc6e_54d6_11eb_b769_367dda3a07delevel0_row1" class="row_heading level0 row1" >Humidity(%)</th>
-                        <td id="T_6418fc6e_54d6_11eb_b769_367dda3a07derow1_col0" class="data row1 col0" >0.028158</td>
+                        <th id="T_c673ca50_54e6_11eb_961b_367dda3a07delevel0_row1" class="row_heading level0 row1" >Humidity(%)</th>
+                        <td id="T_c673ca50_54e6_11eb_961b_367dda3a07derow1_col0" class="data row1 col0" >0.028158</td>
             </tr>
             <tr>
-                        <th id="T_6418fc6e_54d6_11eb_b769_367dda3a07delevel0_row2" class="row_heading level0 row2" >Wind speed (m/s)</th>
-                        <td id="T_6418fc6e_54d6_11eb_b769_367dda3a07derow2_col0" class="data row2 col0" >-0.174859</td>
+                        <th id="T_c673ca50_54e6_11eb_961b_367dda3a07delevel0_row2" class="row_heading level0 row2" >Wind speed (m/s)</th>
+                        <td id="T_c673ca50_54e6_11eb_961b_367dda3a07derow2_col0" class="data row2 col0" >-0.174859</td>
             </tr>
             <tr>
-                        <th id="T_6418fc6e_54d6_11eb_b769_367dda3a07delevel0_row3" class="row_heading level0 row3" >Visibility (10m)</th>
-                        <td id="T_6418fc6e_54d6_11eb_b769_367dda3a07derow3_col0" class="data row3 col0" >0.145376</td>
+                        <th id="T_c673ca50_54e6_11eb_961b_367dda3a07delevel0_row3" class="row_heading level0 row3" >Visibility (10m)</th>
+                        <td id="T_c673ca50_54e6_11eb_961b_367dda3a07derow3_col0" class="data row3 col0" >0.145376</td>
             </tr>
             <tr>
-                        <th id="T_6418fc6e_54d6_11eb_b769_367dda3a07delevel0_row4" class="row_heading level0 row4" >Dew point temperature(°C)</th>
-                        <td id="T_6418fc6e_54d6_11eb_b769_367dda3a07derow4_col0" class="data row4 col0" >0.602648</td>
+                        <th id="T_c673ca50_54e6_11eb_961b_367dda3a07delevel0_row4" class="row_heading level0 row4" >Dew point temperature(°C)</th>
+                        <td id="T_c673ca50_54e6_11eb_961b_367dda3a07derow4_col0" class="data row4 col0" >0.602648</td>
             </tr>
             <tr>
-                        <th id="T_6418fc6e_54d6_11eb_b769_367dda3a07delevel0_row5" class="row_heading level0 row5" >Solar Radiation (MJ/m2)</th>
-                        <td id="T_6418fc6e_54d6_11eb_b769_367dda3a07derow5_col0" class="data row5 col0" >0.684069</td>
+                        <th id="T_c673ca50_54e6_11eb_961b_367dda3a07delevel0_row5" class="row_heading level0 row5" >Solar Radiation (MJ/m2)</th>
+                        <td id="T_c673ca50_54e6_11eb_961b_367dda3a07derow5_col0" class="data row5 col0" >0.684069</td>
             </tr>
             <tr>
-                        <th id="T_6418fc6e_54d6_11eb_b769_367dda3a07delevel0_row6" class="row_heading level0 row6" >Rainfall(mm)</th>
-                        <td id="T_6418fc6e_54d6_11eb_b769_367dda3a07derow6_col0" class="data row6 col0" >-0.214252</td>
+                        <th id="T_c673ca50_54e6_11eb_961b_367dda3a07delevel0_row6" class="row_heading level0 row6" >Rainfall(mm)</th>
+                        <td id="T_c673ca50_54e6_11eb_961b_367dda3a07derow6_col0" class="data row6 col0" >-0.214252</td>
             </tr>
             <tr>
-                        <th id="T_6418fc6e_54d6_11eb_b769_367dda3a07delevel0_row7" class="row_heading level0 row7" >Snowfall (cm)</th>
-                        <td id="T_6418fc6e_54d6_11eb_b769_367dda3a07derow7_col0" class="data row7 col0" >-0.240836</td>
+                        <th id="T_c673ca50_54e6_11eb_961b_367dda3a07delevel0_row7" class="row_heading level0 row7" >Snowfall (cm)</th>
+                        <td id="T_c673ca50_54e6_11eb_961b_367dda3a07derow7_col0" class="data row7 col0" >-0.240836</td>
             </tr>
             <tr>
-                        <th id="T_6418fc6e_54d6_11eb_b769_367dda3a07delevel0_row8" class="row_heading level0 row8" >DOW</th>
-                        <td id="T_6418fc6e_54d6_11eb_b769_367dda3a07derow8_col0" class="data row8 col0" >-0.044357</td>
+                        <th id="T_c673ca50_54e6_11eb_961b_367dda3a07delevel0_row8" class="row_heading level0 row8" >DOW</th>
+                        <td id="T_c673ca50_54e6_11eb_961b_367dda3a07derow8_col0" class="data row8 col0" >-0.044357</td>
             </tr>
             <tr>
-                        <th id="T_6418fc6e_54d6_11eb_b769_367dda3a07delevel0_row9" class="row_heading level0 row9" >month</th>
-                        <td id="T_6418fc6e_54d6_11eb_b769_367dda3a07derow9_col0" class="data row9 col0" >0.201733</td>
+                        <th id="T_c673ca50_54e6_11eb_961b_367dda3a07delevel0_row9" class="row_heading level0 row9" >month</th>
+                        <td id="T_c673ca50_54e6_11eb_961b_367dda3a07derow9_col0" class="data row9 col0" >0.201733</td>
             </tr>
     </tbody></table></div></div>
 </div>
