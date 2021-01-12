@@ -268,6 +268,11 @@
    Date Columns
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#simple-data-visulizations">
+   Simple Data Visulizations
+  </a>
+ </li>
 </ul>
 
         </nav>
@@ -288,8 +293,14 @@
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://archive.ics.uci.edu/ml/machine-learning-databases/00560/SeoulBikeData.csv&#39;</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;latin1&#39;</span><span class="p">)</span>
-<span class="n">df</span>
+<span class="n">bike_share_data</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">pd</span>
+    <span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+        <span class="s1">&#39;https://archive.ics.uci.edu/ml/machine-learning-databases/00560/SeoulBikeData.csv&#39;</span><span class="p">,</span> 
+        <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;latin1&#39;</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+<span class="n">bike_share_data</span>
 </pre></div>
 </div>
 </div>
@@ -525,15 +536,22 @@
 </div>
 <div class="section" id="date-columns">
 <h2>Date Columns<a class="headerlink" href="#date-columns" title="Permalink to this headline">¶</a></h2>
-<p>We will start with creating a few columns based on the date column, such as day of the week and month. First we will make sure that the column is date column according to the format that we see (note the day before the month), and then we can use it to calculate various built-in date functions. To use the built-in functions we need to access the date accessor (<em>.dt</em>)</p>
+<p>We will start with creating a few columns based on the date column, such as day of the week and month.</p>
+<ul class="simple">
+<li><p>Start with the table we loaded above</p></li>
+<li><p>Make sure that the Date column is in datetime format that we see (note the day before the month)</p></li>
+<li><p>Calculate the day-of-week (DOW) of each row (to use the built-in functions we need to access the date accessor (<em>.dt</em>))</p></li>
+<li><p>Calculate the month value of each row</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
-    <span class="n">df</span>
-    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">Date</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">df</span><span class="o">.</span><span class="n">Date</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">/%m/%Y&#39;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">))</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">enriched_bike_share_data</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">bike_share_data</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">Date</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">bike_share_data</span><span class="o">.</span><span class="n">Date</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">/%m/%Y&#39;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">))</span>
     <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">DOW</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">Date</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">dayofweek</span><span class="p">)</span>
     <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">month</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">Date</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">month</span><span class="p">)</span>
 <span class="p">)</span>
+<span class="n">enriched_bike_share_data</span>
 </pre></div>
 </div>
 </div>
@@ -790,6 +808,126 @@
 </div></div></div>
 </div>
 </div>
+<div class="section" id="simple-data-visulizations">
+<h2>Simple Data Visulizations<a class="headerlink" href="#simple-data-visulizations" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Start with the enriched table above</p></li>
+<li><p>Group the data by date column</p></li>
+<li><p>Calculate the mean of values per each day</p></li>
+<li><p>Plot the results with date as x and number of rented bike as y</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">enriched_bike_share_data</span>
+    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;Rented Bike Count&#39;</span><span class="p">)</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/02.02_more_excel_functions_7_0.png" src="../_images/02.02_more_excel_functions_7_0.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>Start with the enriched table above</p></li>
+<li><p>Group the data by date column</p></li>
+<li><p>Calculate the mean of values per each day</p></li>
+<li><p>Plot the results</p></li>
+<li><p>with scatter plot with temp as x and number of rented bike as y</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">enriched_bike_share_data</span>
+    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">plot</span>
+    <span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;Temperature(°C)&#39;</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="s1">&#39;Rented Bike Count&#39;</span><span class="p">)</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/02.02_more_excel_functions_9_0.png" src="../_images/02.02_more_excel_functions_9_0.png" />
+</div>
+</div>
+<ul class="simple">
+<li><p>Start with the enriched table above</p></li>
+<li><p>Group the data by date column</p></li>
+<li><p>Calculate the mean of values per each day</p></li>
+<li><p>Calculate the correlation values between the numeric values</p></li>
+<li><p>Take the values that are related to the first column (<em>Rented Bike Count</em>)</p></li>
+<li><p>Add style to the output</p></li>
+<li><p>Highlight the maximum correlation values</p></li>
+<li><p>and Highlight the minimum correlation value</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">enriched_bike_share_data</span>
+    <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;Date&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">corr</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">2</span><span class="p">:,[</span><span class="mi">0</span><span class="p">]]</span>
+    <span class="o">.</span><span class="n">style</span>
+    <span class="o">.</span><span class="n">highlight_max</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">highlight_min</span><span class="p">()</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><style  type="text/css" >
+#T_6418fc6e_54d6_11eb_b769_367dda3a07derow0_col0,#T_6418fc6e_54d6_11eb_b769_367dda3a07derow7_col0{
+            background-color:  yellow;
+        }</style><table id="T_6418fc6e_54d6_11eb_b769_367dda3a07de" ><thead>    <tr>        <th class="blank level0" ></th>        <th class="col_heading level0 col0" >Rented Bike Count</th>    </tr></thead><tbody>
+                <tr>
+                        <th id="T_6418fc6e_54d6_11eb_b769_367dda3a07delevel0_row0" class="row_heading level0 row0" >Temperature(°C)</th>
+                        <td id="T_6418fc6e_54d6_11eb_b769_367dda3a07derow0_col0" class="data row0 col0" >0.699824</td>
+            </tr>
+            <tr>
+                        <th id="T_6418fc6e_54d6_11eb_b769_367dda3a07delevel0_row1" class="row_heading level0 row1" >Humidity(%)</th>
+                        <td id="T_6418fc6e_54d6_11eb_b769_367dda3a07derow1_col0" class="data row1 col0" >0.028158</td>
+            </tr>
+            <tr>
+                        <th id="T_6418fc6e_54d6_11eb_b769_367dda3a07delevel0_row2" class="row_heading level0 row2" >Wind speed (m/s)</th>
+                        <td id="T_6418fc6e_54d6_11eb_b769_367dda3a07derow2_col0" class="data row2 col0" >-0.174859</td>
+            </tr>
+            <tr>
+                        <th id="T_6418fc6e_54d6_11eb_b769_367dda3a07delevel0_row3" class="row_heading level0 row3" >Visibility (10m)</th>
+                        <td id="T_6418fc6e_54d6_11eb_b769_367dda3a07derow3_col0" class="data row3 col0" >0.145376</td>
+            </tr>
+            <tr>
+                        <th id="T_6418fc6e_54d6_11eb_b769_367dda3a07delevel0_row4" class="row_heading level0 row4" >Dew point temperature(°C)</th>
+                        <td id="T_6418fc6e_54d6_11eb_b769_367dda3a07derow4_col0" class="data row4 col0" >0.602648</td>
+            </tr>
+            <tr>
+                        <th id="T_6418fc6e_54d6_11eb_b769_367dda3a07delevel0_row5" class="row_heading level0 row5" >Solar Radiation (MJ/m2)</th>
+                        <td id="T_6418fc6e_54d6_11eb_b769_367dda3a07derow5_col0" class="data row5 col0" >0.684069</td>
+            </tr>
+            <tr>
+                        <th id="T_6418fc6e_54d6_11eb_b769_367dda3a07delevel0_row6" class="row_heading level0 row6" >Rainfall(mm)</th>
+                        <td id="T_6418fc6e_54d6_11eb_b769_367dda3a07derow6_col0" class="data row6 col0" >-0.214252</td>
+            </tr>
+            <tr>
+                        <th id="T_6418fc6e_54d6_11eb_b769_367dda3a07delevel0_row7" class="row_heading level0 row7" >Snowfall (cm)</th>
+                        <td id="T_6418fc6e_54d6_11eb_b769_367dda3a07derow7_col0" class="data row7 col0" >-0.240836</td>
+            </tr>
+            <tr>
+                        <th id="T_6418fc6e_54d6_11eb_b769_367dda3a07delevel0_row8" class="row_heading level0 row8" >DOW</th>
+                        <td id="T_6418fc6e_54d6_11eb_b769_367dda3a07derow8_col0" class="data row8 col0" >-0.044357</td>
+            </tr>
+            <tr>
+                        <th id="T_6418fc6e_54d6_11eb_b769_367dda3a07delevel0_row9" class="row_heading level0 row9" >month</th>
+                        <td id="T_6418fc6e_54d6_11eb_b769_367dda3a07derow9_col0" class="data row9 col0" >0.201733</td>
+            </tr>
+    </tbody></table></div></div>
+</div>
+<p>We can see that the higher correlation is with the temperature (the higher the temperature, the more bikes are rented), and with the Snowfall (the more snowfall, the fewer bikes are reneted), which make sense.</p>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
@@ -801,16 +939,16 @@
         },
         codeMirrorConfig: {
             theme: "abcdef",
-            mode: "Python3"
+            mode: "python"
         },
         kernelOptions: {
-            kernelName: "Python3",
+            kernelName: "python3",
             path: "./notebooks"
         },
         predefinedOutput: true
     }
     </script>
-    <script>kernelName = 'Python3'</script>
+    <script>kernelName = 'python3'</script>
 
               </div>
               
