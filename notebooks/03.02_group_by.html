@@ -511,12 +511,17 @@
 </div>
 <div class="section" id="loading-all-pages">
 <h2>Loading all pages<a class="headerlink" href="#loading-all-pages" title="Permalink to this headline">¶</a></h2>
-<p>If the number of results from an API is high, the API often uses pagination and returns a constant number of results in each page. We set up the page size to be 50 in the URL above, and now we will load 20 pages from the API
-*</p>
+<p>If the number of results from an API is high, the API often uses pagination and returns a constant number of results in each page.</p>
+<ul class="simple">
+<li><p>Start with an empty list of values</p></li>
+<li><p>For each page between page 1 and page 150:</p></li>
+<li><p>Read the data from the API with the page number</p></li>
+<li><p>Add the data to the growing list</p></li>
+<li><p>Finally, create a dataframe with the above whole list of breweries</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">open_brewery_api_url</span><span class="p">)</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
-<span class="n">api_dataset</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># response</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">api_dataset</span> <span class="o">=</span> <span class="p">[]</span> 
 
 <span class="c1">#looping through and putting data to the list api_dataset</span>
 <span class="k">for</span> <span class="n">page</span> <span class="ow">in</span> <span class="nb">range</span> <span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">150</span><span class="p">):</span>
@@ -629,14 +634,12 @@ dtype: int64
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">us_brewery_distribution</span> <span class="o">=</span> <span class="p">(</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
     <span class="n">breweries_data</span>
     <span class="o">.</span><span class="n">groupby</span><span class="p">(</span><span class="s1">&#39;state&#39;</span><span class="p">)</span>
     <span class="o">.</span><span class="n">size</span><span class="p">()</span>
     <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="p">)</span>
-
-<span class="n">us_brewery_distribution</span>
 </pre></div>
 </div>
 </div>
@@ -729,6 +732,7 @@ dtype: int64
 <img alt="../_images/03.02_group_by_14_0.png" src="../_images/03.02_group_by_14_0.png" />
 </div>
 </div>
+<p>The graph above looks like the map of the US and the distribution of breweries in geographic terms. We can see the deep green in NY area which we already know that is third on the list of states (after the huge California and Colorado), but also see an even deeper blue area around Illinois. We will dive deeper into these questions, when we merge the zip code level with the data, and find the where should you live or visit if you want to taste as many breweries as possible.</p>
 </div>
 <div class="section" id="more-advanced-aggregation-functions">
 <h2>More advanced Aggregation Functions<a class="headerlink" href="#more-advanced-aggregation-functions" title="Permalink to this headline">¶</a></h2>
@@ -1079,24 +1083,24 @@ dtype: int64
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><style  type="text/css" >
-</style><table id="T_fe542d88_5596_11eb_9c59_367dda3a07de" ><thead>    <tr>        <th class="blank" ></th>        <th class="blank level0" ></th>        <th class="col_heading level0 col0" >id</th>    </tr>    <tr>        <th class="index_name level0" >annual_income</th>        <th class="index_name level1" >gender</th>        <th class="blank" ></th>    </tr></thead><tbody>
+</style><table id="T_e1a577d2_55b4_11eb_986b_367dda3a07de" ><thead>    <tr>        <th class="blank" ></th>        <th class="blank level0" ></th>        <th class="col_heading level0 col0" >id</th>    </tr>    <tr>        <th class="index_name level0" >annual_income</th>        <th class="index_name level1" >gender</th>        <th class="blank" ></th>    </tr></thead><tbody>
                 <tr>
-                        <th id="T_fe542d88_5596_11eb_9c59_367dda3a07delevel0_row0" class="row_heading level0 row0" rowspan=2> <=50K</th>
-                        <th id="T_fe542d88_5596_11eb_9c59_367dda3a07delevel1_row0" class="row_heading level1 row0" > Female</th>
-                        <td id="T_fe542d88_5596_11eb_9c59_367dda3a07derow0_col0" class="data row0 col0" >38.80%</td>
+                        <th id="T_e1a577d2_55b4_11eb_986b_367dda3a07delevel0_row0" class="row_heading level0 row0" rowspan=2> <=50K</th>
+                        <th id="T_e1a577d2_55b4_11eb_986b_367dda3a07delevel1_row0" class="row_heading level1 row0" > Female</th>
+                        <td id="T_e1a577d2_55b4_11eb_986b_367dda3a07derow0_col0" class="data row0 col0" >38.80%</td>
             </tr>
             <tr>
-                                <th id="T_fe542d88_5596_11eb_9c59_367dda3a07delevel1_row1" class="row_heading level1 row1" > Male</th>
-                        <td id="T_fe542d88_5596_11eb_9c59_367dda3a07derow1_col0" class="data row1 col0" >61.20%</td>
+                                <th id="T_e1a577d2_55b4_11eb_986b_367dda3a07delevel1_row1" class="row_heading level1 row1" > Male</th>
+                        <td id="T_e1a577d2_55b4_11eb_986b_367dda3a07derow1_col0" class="data row1 col0" >61.20%</td>
             </tr>
             <tr>
-                        <th id="T_fe542d88_5596_11eb_9c59_367dda3a07delevel0_row2" class="row_heading level0 row2" rowspan=2> >50K</th>
-                        <th id="T_fe542d88_5596_11eb_9c59_367dda3a07delevel1_row2" class="row_heading level1 row2" > Female</th>
-                        <td id="T_fe542d88_5596_11eb_9c59_367dda3a07derow2_col0" class="data row2 col0" >15.04%</td>
+                        <th id="T_e1a577d2_55b4_11eb_986b_367dda3a07delevel0_row2" class="row_heading level0 row2" rowspan=2> >50K</th>
+                        <th id="T_e1a577d2_55b4_11eb_986b_367dda3a07delevel1_row2" class="row_heading level1 row2" > Female</th>
+                        <td id="T_e1a577d2_55b4_11eb_986b_367dda3a07derow2_col0" class="data row2 col0" >15.04%</td>
             </tr>
             <tr>
-                                <th id="T_fe542d88_5596_11eb_9c59_367dda3a07delevel1_row3" class="row_heading level1 row3" > Male</th>
-                        <td id="T_fe542d88_5596_11eb_9c59_367dda3a07derow3_col0" class="data row3 col0" >84.96%</td>
+                                <th id="T_e1a577d2_55b4_11eb_986b_367dda3a07delevel1_row3" class="row_heading level1 row3" > Male</th>
+                        <td id="T_e1a577d2_55b4_11eb_986b_367dda3a07derow3_col0" class="data row3 col0" >84.96%</td>
             </tr>
     </tbody></table></div></div>
 </div>
@@ -1133,67 +1137,67 @@ dtype: int64
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><style  type="text/css" >
-#T_fe57ac38_5596_11eb_9c59_367dda3a07derow0_col0,#T_fe57ac38_5596_11eb_9c59_367dda3a07derow1_col1,#T_fe57ac38_5596_11eb_9c59_367dda3a07derow2_col0,#T_fe57ac38_5596_11eb_9c59_367dda3a07derow3_col1,#T_fe57ac38_5596_11eb_9c59_367dda3a07derow4_col0,#T_fe57ac38_5596_11eb_9c59_367dda3a07derow5_col1,#T_fe57ac38_5596_11eb_9c59_367dda3a07derow6_col0,#T_fe57ac38_5596_11eb_9c59_367dda3a07derow7_col1{
+#T_e1a94de4_55b4_11eb_986b_367dda3a07derow0_col0,#T_e1a94de4_55b4_11eb_986b_367dda3a07derow1_col1,#T_e1a94de4_55b4_11eb_986b_367dda3a07derow2_col0,#T_e1a94de4_55b4_11eb_986b_367dda3a07derow3_col1,#T_e1a94de4_55b4_11eb_986b_367dda3a07derow4_col0,#T_e1a94de4_55b4_11eb_986b_367dda3a07derow5_col1,#T_e1a94de4_55b4_11eb_986b_367dda3a07derow6_col0,#T_e1a94de4_55b4_11eb_986b_367dda3a07derow7_col1{
             background-color:  #3b4cc0;
             color:  #f1f1f1;
-        }#T_fe57ac38_5596_11eb_9c59_367dda3a07derow0_col1,#T_fe57ac38_5596_11eb_9c59_367dda3a07derow1_col0{
+        }#T_e1a94de4_55b4_11eb_986b_367dda3a07derow0_col1,#T_e1a94de4_55b4_11eb_986b_367dda3a07derow1_col0{
             background-color:  #ec8165;
             color:  #000000;
-        }#T_fe57ac38_5596_11eb_9c59_367dda3a07derow2_col1,#T_fe57ac38_5596_11eb_9c59_367dda3a07derow3_col0{
+        }#T_e1a94de4_55b4_11eb_986b_367dda3a07derow2_col1,#T_e1a94de4_55b4_11eb_986b_367dda3a07derow3_col0{
             background-color:  #b6cefa;
             color:  #000000;
-        }#T_fe57ac38_5596_11eb_9c59_367dda3a07derow4_col1,#T_fe57ac38_5596_11eb_9c59_367dda3a07derow5_col0{
+        }#T_e1a94de4_55b4_11eb_986b_367dda3a07derow4_col1,#T_e1a94de4_55b4_11eb_986b_367dda3a07derow5_col0{
             background-color:  #b40426;
             color:  #f1f1f1;
-        }#T_fe57ac38_5596_11eb_9c59_367dda3a07derow6_col1,#T_fe57ac38_5596_11eb_9c59_367dda3a07derow7_col0{
+        }#T_e1a94de4_55b4_11eb_986b_367dda3a07derow6_col1,#T_e1a94de4_55b4_11eb_986b_367dda3a07derow7_col0{
             background-color:  #8fb1fe;
             color:  #000000;
-        }</style><table id="T_fe57ac38_5596_11eb_9c59_367dda3a07de" ><thead>    <tr>        <th class="blank" ></th>        <th class="blank" ></th>        <th class="blank level0" ></th>        <th class="col_heading level0 col0" >education_num</th>        <th class="col_heading level0 col1" >hours_per_week</th>    </tr>    <tr>        <th class="index_name level0" >annual_income</th>        <th class="index_name level1" >gender</th>        <th class="index_name level2" ></th>        <th class="blank" ></th>        <th class="blank" ></th>    </tr></thead><tbody>
+        }</style><table id="T_e1a94de4_55b4_11eb_986b_367dda3a07de" ><thead>    <tr>        <th class="blank" ></th>        <th class="blank" ></th>        <th class="blank level0" ></th>        <th class="col_heading level0 col0" >education_num</th>        <th class="col_heading level0 col1" >hours_per_week</th>    </tr>    <tr>        <th class="index_name level0" >annual_income</th>        <th class="index_name level1" >gender</th>        <th class="index_name level2" ></th>        <th class="blank" ></th>        <th class="blank" ></th>    </tr></thead><tbody>
                 <tr>
-                        <th id="T_fe57ac38_5596_11eb_9c59_367dda3a07delevel0_row0" class="row_heading level0 row0" rowspan=4> <=50K</th>
-                        <th id="T_fe57ac38_5596_11eb_9c59_367dda3a07delevel1_row0" class="row_heading level1 row0" rowspan=2> Female</th>
-                        <th id="T_fe57ac38_5596_11eb_9c59_367dda3a07delevel2_row0" class="row_heading level2 row0" >education_num</th>
-                        <td id="T_fe57ac38_5596_11eb_9c59_367dda3a07derow0_col0" class="data row0 col0" >0.0</td>
-                        <td id="T_fe57ac38_5596_11eb_9c59_367dda3a07derow0_col1" class="data row0 col1" >0.151</td>
+                        <th id="T_e1a94de4_55b4_11eb_986b_367dda3a07delevel0_row0" class="row_heading level0 row0" rowspan=4> <=50K</th>
+                        <th id="T_e1a94de4_55b4_11eb_986b_367dda3a07delevel1_row0" class="row_heading level1 row0" rowspan=2> Female</th>
+                        <th id="T_e1a94de4_55b4_11eb_986b_367dda3a07delevel2_row0" class="row_heading level2 row0" >education_num</th>
+                        <td id="T_e1a94de4_55b4_11eb_986b_367dda3a07derow0_col0" class="data row0 col0" >0.0</td>
+                        <td id="T_e1a94de4_55b4_11eb_986b_367dda3a07derow0_col1" class="data row0 col1" >0.151</td>
             </tr>
             <tr>
-                                        <th id="T_fe57ac38_5596_11eb_9c59_367dda3a07delevel2_row1" class="row_heading level2 row1" >hours_per_week</th>
-                        <td id="T_fe57ac38_5596_11eb_9c59_367dda3a07derow1_col0" class="data row1 col0" >0.151</td>
-                        <td id="T_fe57ac38_5596_11eb_9c59_367dda3a07derow1_col1" class="data row1 col1" >0.0</td>
+                                        <th id="T_e1a94de4_55b4_11eb_986b_367dda3a07delevel2_row1" class="row_heading level2 row1" >hours_per_week</th>
+                        <td id="T_e1a94de4_55b4_11eb_986b_367dda3a07derow1_col0" class="data row1 col0" >0.151</td>
+                        <td id="T_e1a94de4_55b4_11eb_986b_367dda3a07derow1_col1" class="data row1 col1" >0.0</td>
             </tr>
             <tr>
-                                <th id="T_fe57ac38_5596_11eb_9c59_367dda3a07delevel1_row2" class="row_heading level1 row2" rowspan=2> Male</th>
-                        <th id="T_fe57ac38_5596_11eb_9c59_367dda3a07delevel2_row2" class="row_heading level2 row2" >education_num</th>
-                        <td id="T_fe57ac38_5596_11eb_9c59_367dda3a07derow2_col0" class="data row2 col0" >0.0</td>
-                        <td id="T_fe57ac38_5596_11eb_9c59_367dda3a07derow2_col1" class="data row2 col1" >0.069</td>
+                                <th id="T_e1a94de4_55b4_11eb_986b_367dda3a07delevel1_row2" class="row_heading level1 row2" rowspan=2> Male</th>
+                        <th id="T_e1a94de4_55b4_11eb_986b_367dda3a07delevel2_row2" class="row_heading level2 row2" >education_num</th>
+                        <td id="T_e1a94de4_55b4_11eb_986b_367dda3a07derow2_col0" class="data row2 col0" >0.0</td>
+                        <td id="T_e1a94de4_55b4_11eb_986b_367dda3a07derow2_col1" class="data row2 col1" >0.069</td>
             </tr>
             <tr>
-                                        <th id="T_fe57ac38_5596_11eb_9c59_367dda3a07delevel2_row3" class="row_heading level2 row3" >hours_per_week</th>
-                        <td id="T_fe57ac38_5596_11eb_9c59_367dda3a07derow3_col0" class="data row3 col0" >0.069</td>
-                        <td id="T_fe57ac38_5596_11eb_9c59_367dda3a07derow3_col1" class="data row3 col1" >0.0</td>
+                                        <th id="T_e1a94de4_55b4_11eb_986b_367dda3a07delevel2_row3" class="row_heading level2 row3" >hours_per_week</th>
+                        <td id="T_e1a94de4_55b4_11eb_986b_367dda3a07derow3_col0" class="data row3 col0" >0.069</td>
+                        <td id="T_e1a94de4_55b4_11eb_986b_367dda3a07derow3_col1" class="data row3 col1" >0.0</td>
             </tr>
             <tr>
-                        <th id="T_fe57ac38_5596_11eb_9c59_367dda3a07delevel0_row4" class="row_heading level0 row4" rowspan=4> >50K</th>
-                        <th id="T_fe57ac38_5596_11eb_9c59_367dda3a07delevel1_row4" class="row_heading level1 row4" rowspan=2> Female</th>
-                        <th id="T_fe57ac38_5596_11eb_9c59_367dda3a07delevel2_row4" class="row_heading level2 row4" >education_num</th>
-                        <td id="T_fe57ac38_5596_11eb_9c59_367dda3a07derow4_col0" class="data row4 col0" >0.0</td>
-                        <td id="T_fe57ac38_5596_11eb_9c59_367dda3a07derow4_col1" class="data row4 col1" >0.187</td>
+                        <th id="T_e1a94de4_55b4_11eb_986b_367dda3a07delevel0_row4" class="row_heading level0 row4" rowspan=4> >50K</th>
+                        <th id="T_e1a94de4_55b4_11eb_986b_367dda3a07delevel1_row4" class="row_heading level1 row4" rowspan=2> Female</th>
+                        <th id="T_e1a94de4_55b4_11eb_986b_367dda3a07delevel2_row4" class="row_heading level2 row4" >education_num</th>
+                        <td id="T_e1a94de4_55b4_11eb_986b_367dda3a07derow4_col0" class="data row4 col0" >0.0</td>
+                        <td id="T_e1a94de4_55b4_11eb_986b_367dda3a07derow4_col1" class="data row4 col1" >0.187</td>
             </tr>
             <tr>
-                                        <th id="T_fe57ac38_5596_11eb_9c59_367dda3a07delevel2_row5" class="row_heading level2 row5" >hours_per_week</th>
-                        <td id="T_fe57ac38_5596_11eb_9c59_367dda3a07derow5_col0" class="data row5 col0" >0.187</td>
-                        <td id="T_fe57ac38_5596_11eb_9c59_367dda3a07derow5_col1" class="data row5 col1" >0.0</td>
+                                        <th id="T_e1a94de4_55b4_11eb_986b_367dda3a07delevel2_row5" class="row_heading level2 row5" >hours_per_week</th>
+                        <td id="T_e1a94de4_55b4_11eb_986b_367dda3a07derow5_col0" class="data row5 col0" >0.187</td>
+                        <td id="T_e1a94de4_55b4_11eb_986b_367dda3a07derow5_col1" class="data row5 col1" >0.0</td>
             </tr>
             <tr>
-                                <th id="T_fe57ac38_5596_11eb_9c59_367dda3a07delevel1_row6" class="row_heading level1 row6" rowspan=2> Male</th>
-                        <th id="T_fe57ac38_5596_11eb_9c59_367dda3a07delevel2_row6" class="row_heading level2 row6" >education_num</th>
-                        <td id="T_fe57ac38_5596_11eb_9c59_367dda3a07derow6_col0" class="data row6 col0" >0.0</td>
-                        <td id="T_fe57ac38_5596_11eb_9c59_367dda3a07derow6_col1" class="data row6 col1" >0.0477</td>
+                                <th id="T_e1a94de4_55b4_11eb_986b_367dda3a07delevel1_row6" class="row_heading level1 row6" rowspan=2> Male</th>
+                        <th id="T_e1a94de4_55b4_11eb_986b_367dda3a07delevel2_row6" class="row_heading level2 row6" >education_num</th>
+                        <td id="T_e1a94de4_55b4_11eb_986b_367dda3a07derow6_col0" class="data row6 col0" >0.0</td>
+                        <td id="T_e1a94de4_55b4_11eb_986b_367dda3a07derow6_col1" class="data row6 col1" >0.0477</td>
             </tr>
             <tr>
-                                        <th id="T_fe57ac38_5596_11eb_9c59_367dda3a07delevel2_row7" class="row_heading level2 row7" >hours_per_week</th>
-                        <td id="T_fe57ac38_5596_11eb_9c59_367dda3a07derow7_col0" class="data row7 col0" >0.0477</td>
-                        <td id="T_fe57ac38_5596_11eb_9c59_367dda3a07derow7_col1" class="data row7 col1" >0.0</td>
+                                        <th id="T_e1a94de4_55b4_11eb_986b_367dda3a07delevel2_row7" class="row_heading level2 row7" >hours_per_week</th>
+                        <td id="T_e1a94de4_55b4_11eb_986b_367dda3a07derow7_col0" class="data row7 col0" >0.0477</td>
+                        <td id="T_e1a94de4_55b4_11eb_986b_367dda3a07derow7_col1" class="data row7 col1" >0.0</td>
             </tr>
     </tbody></table></div></div>
 </div>
