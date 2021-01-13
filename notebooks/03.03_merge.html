@@ -339,11 +339,16 @@
 </div>
 </div>
 </div>
+<p>The CSV file is read through a URL and therefore, we need to convert the text of the response to a simple string as we get when we read a local file. For that we will use the StringIO functionality as follows:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">zip_lookup</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">pd</span>
-    <span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">StringIO</span><span class="p">(</span><span class="n">response</span><span class="o">.</span><span class="n">text</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+        <span class="n">StringIO</span><span class="p">(</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">text</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
 <span class="p">)</span>
 
 <span class="n">zip_lookup</span>
@@ -707,7 +712,13 @@ dtype: int64
 </div>
 <div class="section" id="sorting-values">
 <h2>Sorting Values<a class="headerlink" href="#sorting-values" title="Permalink to this headline">¶</a></h2>
-<p>To sort the values is also simple with <em>sort_value()</em> function, and see the population size of each state (based on the zip code lookup data).</p>
+<p>To sort the values is also simple with <em>sort_value()</em> function, and see the population size of each state (based on the zip code lookup data):</p>
+<ul class="simple">
+<li><p>Start with the zip lookup data above</p></li>
+<li><p>Group the row by <em>state_name</em> and take only the <em>population</em> values</p></li>
+<li><p>Sum up all the population values for each zip code area in the state Group</p></li>
+<li><p>Sort the states by the accumulated population value in descending order</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">us_population_distribution</span> <span class="o">=</span> <span class="p">(</span>
@@ -794,7 +805,7 @@ Name: population, dtype: int64
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/03.03_merge_11_0.png" src="../_images/03.03_merge_11_0.png" />
+<img alt="../_images/03.03_merge_12_0.png" src="../_images/03.03_merge_12_0.png" />
 </div>
 </div>
 </div>
@@ -1137,12 +1148,22 @@ Name: population, dtype: int64
 </div>
 </div>
 </div>
-<p>The join itself is simple. You start with the table that you want to enrich and using <em>merge</em>, you are joining it with the second table. In the example below both tables have a column with the same name (zip_code), and we use it using the <em>on</em> argument. Lastly, we want to have all breweries, even if we don’t find the zip code in the lookup table. Therefore, we are using <em>LEFT</em> join using the <em>how</em> argument.</p>
+<p>The join itself is simple.</p>
+<ul class="simple">
+<li><p>Start with the breweries table that you want to enrich</p></li>
+<li><p>Join using <em>merge</em> with the second zip loopup table</p></li>
+<li><p>Define the key column with the same name (zip_code), and we use it using the <em>on</em> argument</p></li>
+<li><p>Lastly, we want to have all breweries, even if we don’t find the zip code in the lookup table. Therefore, we are using <em>LEFT</em> join using the <em>how</em> argument.</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">enriched_breweries_data</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">breweries_data_with_zip</span>
-    <span class="o">.</span><span class="n">merge</span><span class="p">(</span><span class="n">zip_lookup_as_string</span><span class="p">,</span> <span class="n">on</span><span class="o">=</span><span class="s1">&#39;zip_code&#39;</span><span class="p">,</span> <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+        <span class="n">zip_lookup_as_string</span><span class="p">,</span> 
+        <span class="n">on</span><span class="o">=</span><span class="s1">&#39;zip_code&#39;</span><span class="p">,</span> 
+        <span class="n">how</span><span class="o">=</span><span class="s1">&#39;left&#39;</span>
+    <span class="p">)</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -1649,7 +1670,16 @@ Name: population, dtype: int64
 <p>7450 rows × 36 columns</p>
 </div></div></div>
 </div>
-<p>Now, that we have the enriched table, we can analyze the joined data and explore the different counties across the US, count their number of breweries, and check statistics about their population. It can help us decide where we should travel too, or where we should open the next brewry.</p>
+<p>Now, that we have the enriched table, we can analyze the joined data and explore the different counties across the US:</p>
+<ul class="simple">
+<li><p>Start with the enriched breweries data above</p></li>
+<li><p>Group the breweries by county_name</p></li>
+<li><p>For each group add the State ID</p></li>
+<li><p>count the number of breweries,</p></li>
+<li><p>sum up the populations of each zip code area in each group</p></li>
+<li><p>and calculate the average population density in the county</p></li>
+<li><p>Sort that list by the population size</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
@@ -1781,7 +1811,7 @@ Name: population, dtype: int64
 <p>959 rows × 4 columns</p>
 </div></div></div>
 </div>
-<p>We can see that <em>Maricopa</em> is the beer county with 54 different brewries in it. It is also interesting to see <em>Coconino</em> County with a large number of brewries and suprisigly sparse population around the breweries in it. If you check, you can see that this is the county with most of the grand canyon, which explain its sparse population, and also a good opportunity to open your brewry business there.</p>
+<p>We can see that <em>san Diego</em> is the beer county with 154 different brewries in it. If you remember the map of the US that we saw in the previous section, it is now more clear the Cook county in IL is</p>
 <p>Let’s change the sort key to find the counties with the most breweries</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2060,7 +2090,7 @@ Name: population, dtype: int64
 <p>959 rows × 5 columns</p>
 </div></div></div>
 </div>
-<p>We can see, as it is often the case, that we have on the top and the bottom of the table counties with very few brewries. The top of the table of brewries per 1000 people is held by Alamance that was last on our previous table of counties by population. To avoid this, we can filter (using <em>query</em>) our table to counties that have more than 1 or 2 brewries.</p>
+<p>We can see, as it is often the case, that we have on the top and the bottom of the table counties with very few brewries. The top of the table of brewries per 1000 people is held by Keweenaw that was last on our previous table of counties by population. To avoid this, we can filter (using <em>query</em>) our table to counties that have more than 5 brewries.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
@@ -2073,7 +2103,7 @@ Name: population, dtype: int64
         <span class="n">density_average</span><span class="o">=</span><span class="p">(</span><span class="s1">&#39;density&#39;</span><span class="p">,</span> <span class="s1">&#39;mean&#39;</span><span class="p">)</span>
         <span class="p">)</span>
     <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">brewry_per_population</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">brewry_count</span> <span class="o">/</span> <span class="n">x</span><span class="o">.</span><span class="n">population_sum</span> <span class="o">*</span> <span class="mi">1000</span><span class="p">)</span>
-    <span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;brewry_count &gt; 2&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s2">&quot;brewry_count &gt; 5&quot;</span><span class="p">)</span>
     <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="n">by</span><span class="o">=</span><span class="s1">&#39;brewry_per_population&#39;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
 <span class="p">)</span>
 </pre></div>
@@ -2115,30 +2145,6 @@ Name: population, dtype: int64
   </thead>
   <tbody>
     <tr>
-      <th>Tucker</th>
-      <td>WV</td>
-      <td>3</td>
-      <td>3745.0</td>
-      <td>8.766667</td>
-      <td>0.801068</td>
-    </tr>
-    <tr>
-      <th>Ouray</th>
-      <td>CO</td>
-      <td>4</td>
-      <td>6115.0</td>
-      <td>4.100000</td>
-      <td>0.654129</td>
-    </tr>
-    <tr>
-      <th>Shoshone</th>
-      <td>ID</td>
-      <td>3</td>
-      <td>6078.0</td>
-      <td>7.700000</td>
-      <td>0.493583</td>
-    </tr>
-    <tr>
       <th>Schuyler</th>
       <td>NY</td>
       <td>7</td>
@@ -2147,12 +2153,36 @@ Name: population, dtype: int64
       <td>0.463055</td>
     </tr>
     <tr>
-      <th>Clear Creek</th>
+      <th>Grafton</th>
+      <td>NH</td>
+      <td>7</td>
+      <td>25969.0</td>
+      <td>28.714286</td>
+      <td>0.269552</td>
+    </tr>
+    <tr>
+      <th>Windsor</th>
+      <td>VT</td>
+      <td>7</td>
+      <td>28073.0</td>
+      <td>36.228571</td>
+      <td>0.249350</td>
+    </tr>
+    <tr>
+      <th>Waldo</th>
+      <td>ME</td>
+      <td>7</td>
+      <td>28697.0</td>
+      <td>28.357143</td>
+      <td>0.243928</td>
+    </tr>
+    <tr>
+      <th>Grand</th>
       <td>CO</td>
-      <td>3</td>
-      <td>7414.0</td>
-      <td>10.500000</td>
-      <td>0.404640</td>
+      <td>7</td>
+      <td>30992.0</td>
+      <td>3.485714</td>
+      <td>0.225865</td>
     </tr>
     <tr>
       <th>...</th>
@@ -2163,20 +2193,28 @@ Name: population, dtype: int64
       <td>...</td>
     </tr>
     <tr>
-      <th>Bronx</th>
-      <td>NY</td>
-      <td>4</td>
-      <td>234425.0</td>
-      <td>16752.350000</td>
-      <td>0.017063</td>
+      <th>St. Charles</th>
+      <td>MO</td>
+      <td>7</td>
+      <td>356115.0</td>
+      <td>426.171429</td>
+      <td>0.019657</td>
     </tr>
     <tr>
-      <th>Cabarrus</th>
-      <td>NC</td>
-      <td>5</td>
-      <td>299927.0</td>
-      <td>256.800000</td>
-      <td>0.016671</td>
+      <th>Kings</th>
+      <td>CA</td>
+      <td>30</td>
+      <td>1706298.0</td>
+      <td>14137.416667</td>
+      <td>0.017582</td>
+    </tr>
+    <tr>
+      <th>Gwinnett</th>
+      <td>GA</td>
+      <td>6</td>
+      <td>349573.0</td>
+      <td>737.716667</td>
+      <td>0.017164</td>
     </tr>
     <tr>
       <th>Fort Bend</th>
@@ -2194,20 +2232,12 @@ Name: population, dtype: int64
       <td>113.828571</td>
       <td>0.014167</td>
     </tr>
-    <tr>
-      <th>Hidalgo</th>
-      <td>TX</td>
-      <td>4</td>
-      <td>287487.0</td>
-      <td>798.050000</td>
-      <td>0.013914</td>
-    </tr>
   </tbody>
 </table>
-<p>539 rows × 5 columns</p>
+<p>299 rows × 5 columns</p>
 </div></div></div>
 </div>
-<p>And the winner is Mobile county in Alabama, with 4 brewries and a 0.18 brewry for every 1,000 people</p>
+<p>And the winner is Schuyler county in New York, with 7 brewries and a 0.46 brewry for every 1,000 people</p>
 </div>
 </div>
 
