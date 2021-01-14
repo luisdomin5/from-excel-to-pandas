@@ -1,4 +1,4 @@
-# Welcome to the complete tutorial from Excel to Pandas
+# Welcome to the tutorial "from-Excel-to-Pandas" for data analysis
 
 This is a guide for data analysts that are fluent with Excel and want to modernize their analyses to Python and mainly using the Pandas library.
 
