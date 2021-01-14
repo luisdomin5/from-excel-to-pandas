@@ -292,6 +292,11 @@
    Joining the tables
   </a>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#geographic-mapping">
+   Geographic Mapping
+  </a>
+ </li>
 </ul>
 
         </nav>
@@ -1137,12 +1142,23 @@ Name: population, dtype: int64
 </div>
 <div class="section" id="joining-the-tables">
 <h2>Joining the tables<a class="headerlink" href="#joining-the-tables" title="Permalink to this headline">¶</a></h2>
-<p>The joining of the table is based on a joined key. In this case we want to use the 5-digits zip code as the lookup or join key. In the previous step with shorten the longer zip codes to the shorter 5 digits format, and now we will make sure that the lookup table also have it in the same format. First we need to convert the numeric value into string (<em>astype(str)</em>), and then we will pad it with zero is the number is shorter than 5 digits (<em>zfill(5)</em>).</p>
+<p>The joining of the table is based on a joined key. In this case we want to use the 5-digits zip code as the lookup or join key. In the previous step with shorten the longer zip codes to the shorter 5 digits format, and now we will make sure that the lookup table also have it in the same format.</p>
+<ul class="simple">
+<li><p>Start with the zip loopup table</p></li>
+<li><p>Add a column zip_code that is based on the value of the column <em>zip</em></p></li>
+<li><p>Convert the numeric value into string (<em>astype(str)</em>),</p></li>
+<li><p>Pad the string with zeros when the number is shorter than 5 digits (<em>zfill(5)</em>).</p></li>
+</ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">zip_lookup_as_string</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">zip_lookup</span>
-    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">zip_code</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">zip</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">5</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span>
+        <span class="n">zip_code</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">zip</span>
+        <span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+        <span class="o">.</span><span class="n">str</span>
+        <span class="o">.</span><span class="n">zfill</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
+    <span class="p">)</span>
 <span class="p">)</span>
 </pre></div>
 </div>
@@ -1811,7 +1827,7 @@ Name: population, dtype: int64
 <p>959 rows × 4 columns</p>
 </div></div></div>
 </div>
-<p>We can see that <em>san Diego</em> is the beer county with 154 different brewries in it. If you remember the map of the US that we saw in the previous section, it is now more clear the Cook county in IL is</p>
+<p>We can see that <em>san Diego</em> is the largest county in terms of population and also a beer county with 154 different brewries in it.</p>
 <p>Let’s change the sort key to find the counties with the most breweries</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -1944,6 +1960,7 @@ Name: population, dtype: int64
 <p>959 rows × 4 columns</p>
 </div></div></div>
 </div>
+<p>If you remember the map of the US that we saw in the previous section, it is now more clear the Cook county in IL is likely the dark area we saw in our hexbin visualization of the data, as a dense population of breweries.</p>
 <p>We can now ask ourselves where do we have the most brewries per population and add this column to our table</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -2238,6 +2255,219 @@ Name: population, dtype: int64
 </div></div></div>
 </div>
 <p>And the winner is Schuyler county in New York, with 7 brewries and a 0.46 brewry for every 1,000 people</p>
+</div>
+<div class="section" id="geographic-mapping">
+<h2>Geographic Mapping<a class="headerlink" href="#geographic-mapping" title="Permalink to this headline">¶</a></h2>
+<p>The merge that we did allows us now to have geo location information for all the breweries, including the ones that didn’t have it in the original data set, as we have the geo location of the zip code area.</p>
+<p>We can also add layers on real maps using the library GeoPandas. Let’s start with installing the library to our environment.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">geopandas</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: geopandas in /Users/guy/miniconda3/lib/python3.8/site-packages (0.8.1)
+Requirement already satisfied: pandas&gt;=0.23.0 in /Users/guy/miniconda3/lib/python3.8/site-packages (from geopandas) (1.1.2)
+Requirement already satisfied: fiona in /Users/guy/miniconda3/lib/python3.8/site-packages (from geopandas) (1.8.18)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pyproj&gt;=2.2.0 in /Users/guy/miniconda3/lib/python3.8/site-packages (from geopandas) (3.0.0.post1)
+Requirement already satisfied: shapely in /Users/guy/miniconda3/lib/python3.8/site-packages (from geopandas) (1.7.1)
+Requirement already satisfied: python-dateutil&gt;=2.7.3 in /Users/guy/miniconda3/lib/python3.8/site-packages (from pandas&gt;=0.23.0-&gt;geopandas) (2.8.1)
+Requirement already satisfied: pytz&gt;=2017.2 in /Users/guy/miniconda3/lib/python3.8/site-packages (from pandas&gt;=0.23.0-&gt;geopandas) (2020.1)
+Requirement already satisfied: numpy&gt;=1.15.4 in /Users/guy/miniconda3/lib/python3.8/site-packages (from pandas&gt;=0.23.0-&gt;geopandas) (1.19.2)
+Requirement already satisfied: click-plugins&gt;=1.0 in /Users/guy/miniconda3/lib/python3.8/site-packages (from fiona-&gt;geopandas) (1.1.1)
+Requirement already satisfied: click&lt;8,&gt;=4.0 in /Users/guy/miniconda3/lib/python3.8/site-packages (from fiona-&gt;geopandas) (7.1.2)
+Requirement already satisfied: attrs&gt;=17 in /Users/guy/miniconda3/lib/python3.8/site-packages (from fiona-&gt;geopandas) (20.2.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: munch in /Users/guy/miniconda3/lib/python3.8/site-packages (from fiona-&gt;geopandas) (2.5.0)
+Requirement already satisfied: cligj&gt;=0.5 in /Users/guy/miniconda3/lib/python3.8/site-packages (from fiona-&gt;geopandas) (0.7.1)
+Requirement already satisfied: certifi in /Users/guy/miniconda3/lib/python3.8/site-packages (from fiona-&gt;geopandas) (2020.6.20)
+Requirement already satisfied: six&gt;=1.7 in /Users/guy/miniconda3/lib/python3.8/site-packages (from fiona-&gt;geopandas) (1.14.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Note: you may need to restart the kernel to use updated packages.
+</pre></div>
+</div>
+</div>
+</div>
+<p>We also need to install a library to handle geo coordinates</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">pip</span> <span class="n">install</span> <span class="n">descartes</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: descartes in /Users/guy/miniconda3/lib/python3.8/site-packages (1.1.0)
+Requirement already satisfied: matplotlib in /Users/guy/miniconda3/lib/python3.8/site-packages (from descartes) (3.3.2)
+Requirement already satisfied: certifi&gt;=2020.06.20 in /Users/guy/miniconda3/lib/python3.8/site-packages (from matplotlib-&gt;descartes) (2020.6.20)
+Requirement already satisfied: numpy&gt;=1.15 in /Users/guy/miniconda3/lib/python3.8/site-packages (from matplotlib-&gt;descartes) (1.19.2)
+Requirement already satisfied: cycler&gt;=0.10 in /Users/guy/miniconda3/lib/python3.8/site-packages (from matplotlib-&gt;descartes) (0.10.0)
+Requirement already satisfied: pyparsing!=2.0.4,!=2.1.2,!=2.1.6,&gt;=2.0.3 in /Users/guy/miniconda3/lib/python3.8/site-packages (from matplotlib-&gt;descartes) (2.4.7)
+Requirement already satisfied: python-dateutil&gt;=2.1 in /Users/guy/miniconda3/lib/python3.8/site-packages (from matplotlib-&gt;descartes) (2.8.1)
+Requirement already satisfied: kiwisolver&gt;=1.0.1 in /Users/guy/miniconda3/lib/python3.8/site-packages (from matplotlib-&gt;descartes) (1.2.0)
+Requirement already satisfied: pillow&gt;=6.2.0 in /Users/guy/miniconda3/lib/python3.8/site-packages (from matplotlib-&gt;descartes) (7.2.0)
+Requirement already satisfied: six in /Users/guy/miniconda3/lib/python3.8/site-packages (from cycler&gt;=0.10-&gt;matplotlib-&gt;descartes) (1.14.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Note: you may need to restart the kernel to use updated packages.
+</pre></div>
+</div>
+</div>
+</div>
+<p>We will import the library</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">geopandas</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Create a data frame that is designed for geo data</p></li>
+<li><p>Start with the enriched breweries data above</p></li>
+<li><p>Define the geometry of the data from</p></li>
+<li><p>x as the longitude (<em>lng</em> column)</p></li>
+<li><p>y as the latitude (<em>lat</em> column)</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">gdf</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">geopandas</span>
+    <span class="o">.</span><span class="n">GeoDataFrame</span><span class="p">(</span>
+    <span class="n">enriched_breweries_data</span><span class="p">,</span> 
+    <span class="n">geometry</span><span class="o">=</span><span class="n">geopandas</span>
+    <span class="o">.</span><span class="n">points_from_xy</span><span class="p">(</span>
+        <span class="n">enriched_breweries_data</span><span class="o">.</span><span class="n">lng</span><span class="p">,</span> 
+        <span class="n">enriched_breweries_data</span><span class="o">.</span><span class="n">lat</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>Create a geo dataframe for the world map from the built-in dataset of GeoPandas library</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">world</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">geopandas</span>
+    <span class="o">.</span><span class="n">read_file</span><span class="p">(</span>
+        <span class="n">geopandas</span>
+        <span class="o">.</span><span class="n">datasets</span>
+        <span class="o">.</span><span class="n">get_path</span><span class="p">(</span><span class="s1">&#39;naturalearth_lowres&#39;</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<ul class="simple">
+<li><p>Start with the world data frame</p></li>
+<li><p>Filter it to use only the USA parts</p></li>
+<li><p>Focus on the geometry boundaries of the map</p></li>
+<li><p>Plot the map</p></li>
+<li><p>using black color</p></li>
+<li><p>and thin lines (0.2)</p></li>
+<li><p>Now, plot the breweries data</p></li>
+<li><p>on the above map</p></li>
+<li><p>using red dots</p></li>
+<li><p>and one pixel for each</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># We restrict to USA</span>
+<span class="n">ax</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">world</span>
+    <span class="p">[</span><span class="n">world</span><span class="o">.</span><span class="n">iso_a3</span> <span class="o">==</span> <span class="s1">&#39;USA&#39;</span><span class="p">]</span>
+    <span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">boundary</span>
+    <span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">color</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> 
+        <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> 
+        <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.2</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+
+<span class="p">(</span> 
+    <span class="n">gdf</span>
+    <span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">,</span> 
+        <span class="n">color</span><span class="o">=</span><span class="s1">&#39;red&#39;</span><span class="p">,</span>
+        <span class="n">markersize</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="p">)</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/03.03_merge_46_0.png" src="../_images/03.03_merge_46_0.png" />
+</div>
+</div>
+<p>This is a good start, but we can’t really use it. Let’s make it more usable to know where is the beer hub in the US.</p>
+<ul class="simple">
+<li><p>Create a 2D histogram based on the enriched breweries data</p></li>
+<li><p>using x as latitude (<em>lat</em> column),</p></li>
+<li><p>y as longtitude (<em>lng</em> column),</p></li>
+<li><p>and 1000 bins for the histogram</p></li>
+<li><p>Focus only on the main land using its coordinates</p></li>
+<li><p>Then, create a smooth heat map from the histogram</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">from</span> <span class="nn">scipy</span> <span class="kn">import</span> <span class="n">ndimage</span>
+
+<span class="n">heatmap</span><span class="p">,</span> <span class="n">xedges</span><span class="p">,</span> <span class="n">yedges</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram2d</span><span class="p">(</span>
+    <span class="n">enriched_breweries_data</span><span class="p">[</span><span class="s1">&#39;lat&#39;</span><span class="p">],</span> 
+    <span class="n">enriched_breweries_data</span><span class="p">[</span><span class="s1">&#39;lng&#39;</span><span class="p">],</span>
+    <span class="n">bins</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> 
+    <span class="nb">range</span><span class="o">=</span><span class="p">[</span>
+        <span class="p">[</span><span class="mi">25</span><span class="p">,</span> <span class="mi">50</span><span class="p">],</span>  <span class="c1"># North-South extent of US</span>
+        <span class="p">[</span><span class="o">-</span><span class="mi">125</span><span class="p">,</span> <span class="o">-</span><span class="mi">65</span><span class="p">]</span>  <span class="c1"># East-West extent of US, </span>
+    <span class="p">]</span>
+<span class="p">)</span>
+<span class="n">extent</span> <span class="o">=</span> <span class="p">[</span><span class="n">yedges</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">yedges</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">xedges</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">],</span> <span class="n">xedges</span><span class="p">[</span><span class="mi">0</span><span class="p">]]</span>
+<span class="n">logheatmap</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">heatmap</span><span class="p">)</span>
+<span class="n">logheatmap</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">isneginf</span><span class="p">(</span><span class="n">logheatmap</span><span class="p">)]</span> <span class="o">=</span> <span class="mi">0</span>
+<span class="n">logheatmap</span> <span class="o">=</span> <span class="n">ndimage</span><span class="o">.</span><span class="n">filters</span><span class="o">.</span><span class="n">gaussian_filter</span><span class="p">(</span><span class="n">logheatmap</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s1">&#39;nearest&#39;</span><span class="p">)</span>  <span class="c1"># smooth out peaks</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;ipython-input-24-785fa68b4e5e&gt;:14: RuntimeWarning: divide by zero encountered in log
+  logheatmap = np.log(heatmap)
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">ax</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">world</span>
+    <span class="p">[</span><span class="n">world</span><span class="o">.</span><span class="n">iso_a3</span> <span class="o">==</span> <span class="s1">&#39;USA&#39;</span><span class="p">]</span>
+    <span class="p">[</span><span class="s1">&#39;geometry&#39;</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">boundary</span>
+    <span class="o">.</span><span class="n">plot</span><span class="p">(</span>
+        <span class="n">color</span><span class="o">=</span><span class="s1">&#39;k&#39;</span><span class="p">,</span> 
+        <span class="n">edgecolor</span><span class="o">=</span><span class="s1">&#39;black&#39;</span><span class="p">,</span> 
+        <span class="n">linewidth</span><span class="o">=</span><span class="mf">0.5</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">imshow</span><span class="p">(</span><span class="n">logheatmap</span><span class="p">,</span> <span class="n">cmap</span><span class="o">=</span><span class="s1">&#39;coolwarm&#39;</span><span class="p">,</span> <span class="n">extent</span><span class="o">=</span><span class="n">extent</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">invert_yaxis</span><span class="p">()</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlim</span><span class="o">=</span><span class="p">[</span><span class="o">-</span><span class="mi">125</span><span class="p">,</span> <span class="o">-</span><span class="mi">65</span><span class="p">],</span> <span class="n">ylim</span><span class="o">=</span><span class="p">[</span><span class="mi">25</span><span class="p">,</span> <span class="mi">50</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/03.03_merge_49_0.png" src="../_images/03.03_merge_49_0.png" />
+</div>
+</div>
+<p>We can clearly see the hubs in San Diego, New York, Illinois, and another one in Colorado.</p>
 </div>
 </div>
 

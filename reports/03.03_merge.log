@@ -17,21 +17,30 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply['content'])
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-zip_lookup = (
-    pd
-    .read_csv(StringIO(response.text))
+ax = (
+    world
+    [world.iso_a3 == 'USA']
+    ['geometry']
+    .boundary
+    .plot(
+        color='k', 
+        edgecolor='black', 
+        linewidth=0.5
+    )
 )
 
-df.head(5)
+ax.imshow(logheatmap, cmap='coolwarm', extent=extent)
+ax.invert_yaxis()
+ax.set(xlim=xlim, ylim=ylim);
 ------------------
 
 [0;31m---------------------------------------------------------------------------[0m
 [0;31mNameError[0m                                 Traceback (most recent call last)
-[0;32m<ipython-input-3-99611dc0ff32>[0m in [0;36m<module>[0;34m[0m
-[1;32m      4[0m )
-[1;32m      5[0m [0;34m[0m[0m
-[0;32m----> 6[0;31m [0mdf[0m[0;34m.[0m[0mhead[0m[0;34m([0m[0;36m5[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m<ipython-input-25-11cf3458d6c1>[0m in [0;36m<module>[0;34m[0m
+[1;32m     13[0m [0max[0m[0;34m.[0m[0mimshow[0m[0;34m([0m[0mlogheatmap[0m[0;34m,[0m [0mcmap[0m[0;34m=[0m[0;34m'coolwarm'[0m[0;34m,[0m [0mextent[0m[0;34m=[0m[0mextent[0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[1;32m     14[0m [0max[0m[0;34m.[0m[0minvert_yaxis[0m[0;34m([0m[0;34m)[0m[0;34m[0m[0;34m[0m[0m
+[0;32m---> 15[0;31m [0max[0m[0;34m.[0m[0mset[0m[0;34m([0m[0mxlim[0m[0;34m=[0m[0mxlim[0m[0;34m,[0m [0mylim[0m[0;34m=[0m[0mylim[0m[0;34m)[0m[0;34m;[0m[0;34m[0m[0;34m[0m[0m
 [0m
-[0;31mNameError[0m: name 'df' is not defined
-NameError: name 'df' is not defined
+[0;31mNameError[0m: name 'xlim' is not defined
+NameError: name 'xlim' is not defined
 
