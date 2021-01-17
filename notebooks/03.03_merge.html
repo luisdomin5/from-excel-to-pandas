@@ -36,6 +36,7 @@
     <script async="async" src="../_static/sphinx-thebe.js"></script>
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Logistics Analysis" href="08.01_Logistics_analysis.html" />
     <link rel="prev" title="Split a Table into Groups" href="03.02_group_by.html" />
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -72,7 +73,7 @@
   <ul class="nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="../intro.html">
-   Welcome to the complete tutorial from Excel to Pandas
+   Welcome to the tutorial “from-Excel-to-Pandas” for data analysis
   </a>
  </li>
 </ul>
@@ -163,6 +164,18 @@
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
    Merge/Join Tables (VLOOKUP)
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Industries Use Cases
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="08.01_Logistics_analysis.html">
+   Logistics Analysis
   </a>
  </li>
 </ul>
@@ -2268,24 +2281,24 @@ Name: population, dtype: int64
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: geopandas in /Users/guy/miniconda3/lib/python3.8/site-packages (0.8.1)
-Requirement already satisfied: pandas&gt;=0.23.0 in /Users/guy/miniconda3/lib/python3.8/site-packages (from geopandas) (1.1.2)
 Requirement already satisfied: fiona in /Users/guy/miniconda3/lib/python3.8/site-packages (from geopandas) (1.8.18)
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: pyproj&gt;=2.2.0 in /Users/guy/miniconda3/lib/python3.8/site-packages (from geopandas) (3.0.0.post1)
+Requirement already satisfied: pandas&gt;=0.23.0 in /Users/guy/miniconda3/lib/python3.8/site-packages (from geopandas) (1.1.2)
 Requirement already satisfied: shapely in /Users/guy/miniconda3/lib/python3.8/site-packages (from geopandas) (1.7.1)
+Requirement already satisfied: cligj&gt;=0.5 in /Users/guy/miniconda3/lib/python3.8/site-packages (from fiona-&gt;geopandas) (0.7.1)
+Requirement already satisfied: six&gt;=1.7 in /Users/guy/miniconda3/lib/python3.8/site-packages (from fiona-&gt;geopandas) (1.14.0)
+Requirement already satisfied: click&lt;8,&gt;=4.0 in /Users/guy/miniconda3/lib/python3.8/site-packages (from fiona-&gt;geopandas) (7.1.2)
+Requirement already satisfied: attrs&gt;=17 in /Users/guy/miniconda3/lib/python3.8/site-packages (from fiona-&gt;geopandas) (20.2.0)
+Requirement already satisfied: munch in /Users/guy/miniconda3/lib/python3.8/site-packages (from fiona-&gt;geopandas) (2.5.0)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: click-plugins&gt;=1.0 in /Users/guy/miniconda3/lib/python3.8/site-packages (from fiona-&gt;geopandas) (1.1.1)
+Requirement already satisfied: certifi in /Users/guy/miniconda3/lib/python3.8/site-packages (from fiona-&gt;geopandas) (2020.6.20)
 Requirement already satisfied: python-dateutil&gt;=2.7.3 in /Users/guy/miniconda3/lib/python3.8/site-packages (from pandas&gt;=0.23.0-&gt;geopandas) (2.8.1)
 Requirement already satisfied: pytz&gt;=2017.2 in /Users/guy/miniconda3/lib/python3.8/site-packages (from pandas&gt;=0.23.0-&gt;geopandas) (2020.1)
 Requirement already satisfied: numpy&gt;=1.15.4 in /Users/guy/miniconda3/lib/python3.8/site-packages (from pandas&gt;=0.23.0-&gt;geopandas) (1.19.2)
-Requirement already satisfied: click-plugins&gt;=1.0 in /Users/guy/miniconda3/lib/python3.8/site-packages (from fiona-&gt;geopandas) (1.1.1)
-Requirement already satisfied: click&lt;8,&gt;=4.0 in /Users/guy/miniconda3/lib/python3.8/site-packages (from fiona-&gt;geopandas) (7.1.2)
-Requirement already satisfied: attrs&gt;=17 in /Users/guy/miniconda3/lib/python3.8/site-packages (from fiona-&gt;geopandas) (20.2.0)
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: munch in /Users/guy/miniconda3/lib/python3.8/site-packages (from fiona-&gt;geopandas) (2.5.0)
-Requirement already satisfied: cligj&gt;=0.5 in /Users/guy/miniconda3/lib/python3.8/site-packages (from fiona-&gt;geopandas) (0.7.1)
-Requirement already satisfied: certifi in /Users/guy/miniconda3/lib/python3.8/site-packages (from fiona-&gt;geopandas) (2020.6.20)
-Requirement already satisfied: six&gt;=1.7 in /Users/guy/miniconda3/lib/python3.8/site-packages (from fiona-&gt;geopandas) (1.14.0)
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Note: you may need to restart the kernel to use updated packages.
@@ -2303,14 +2316,16 @@ Requirement already satisfied: six&gt;=1.7 in /Users/guy/miniconda3/lib/python3.
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: descartes in /Users/guy/miniconda3/lib/python3.8/site-packages (1.1.0)
 Requirement already satisfied: matplotlib in /Users/guy/miniconda3/lib/python3.8/site-packages (from descartes) (3.3.2)
-Requirement already satisfied: certifi&gt;=2020.06.20 in /Users/guy/miniconda3/lib/python3.8/site-packages (from matplotlib-&gt;descartes) (2020.6.20)
-Requirement already satisfied: numpy&gt;=1.15 in /Users/guy/miniconda3/lib/python3.8/site-packages (from matplotlib-&gt;descartes) (1.19.2)
-Requirement already satisfied: cycler&gt;=0.10 in /Users/guy/miniconda3/lib/python3.8/site-packages (from matplotlib-&gt;descartes) (0.10.0)
-Requirement already satisfied: pyparsing!=2.0.4,!=2.1.2,!=2.1.6,&gt;=2.0.3 in /Users/guy/miniconda3/lib/python3.8/site-packages (from matplotlib-&gt;descartes) (2.4.7)
-Requirement already satisfied: python-dateutil&gt;=2.1 in /Users/guy/miniconda3/lib/python3.8/site-packages (from matplotlib-&gt;descartes) (2.8.1)
-Requirement already satisfied: kiwisolver&gt;=1.0.1 in /Users/guy/miniconda3/lib/python3.8/site-packages (from matplotlib-&gt;descartes) (1.2.0)
 Requirement already satisfied: pillow&gt;=6.2.0 in /Users/guy/miniconda3/lib/python3.8/site-packages (from matplotlib-&gt;descartes) (7.2.0)
-Requirement already satisfied: six in /Users/guy/miniconda3/lib/python3.8/site-packages (from cycler&gt;=0.10-&gt;matplotlib-&gt;descartes) (1.14.0)
+Requirement already satisfied: python-dateutil&gt;=2.1 in /Users/guy/miniconda3/lib/python3.8/site-packages (from matplotlib-&gt;descartes) (2.8.1)
+Requirement already satisfied: pyparsing!=2.0.4,!=2.1.2,!=2.1.6,&gt;=2.0.3 in /Users/guy/miniconda3/lib/python3.8/site-packages (from matplotlib-&gt;descartes) (2.4.7)
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Requirement already satisfied: certifi&gt;=2020.06.20 in /Users/guy/miniconda3/lib/python3.8/site-packages (from matplotlib-&gt;descartes) (2020.6.20)
+Requirement already satisfied: cycler&gt;=0.10 in /Users/guy/miniconda3/lib/python3.8/site-packages (from matplotlib-&gt;descartes) (0.10.0)
+Requirement already satisfied: numpy&gt;=1.15 in /Users/guy/miniconda3/lib/python3.8/site-packages (from matplotlib-&gt;descartes) (1.19.2)
+Requirement already satisfied: kiwisolver&gt;=1.0.1 in /Users/guy/miniconda3/lib/python3.8/site-packages (from matplotlib-&gt;descartes) (1.2.0)
+Requirement already satisfied: six&gt;=1.5 in /Users/guy/miniconda3/lib/python3.8/site-packages (from python-dateutil&gt;=2.1-&gt;matplotlib-&gt;descartes) (1.14.0)
 </pre></div>
 </div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Note: you may need to restart the kernel to use updated packages.
@@ -2500,6 +2515,7 @@ Requirement already satisfied: six in /Users/guy/miniconda3/lib/python3.8/site-p
     <div class='prev-next-bottom'>
         
     <a class='left-prev' id="prev-link" href="03.02_group_by.html" title="previous page">Split a Table into Groups</a>
+    <a class='right-next' id="next-link" href="08.01_Logistics_analysis.html" title="next page">Logistics Analysis</a>
 
     </div>
     <footer class="footer mt-5 mt-md-0">

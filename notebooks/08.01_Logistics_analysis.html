@@ -1,0 +1,870 @@
+
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Logistics Analysis &#8212; From Excel to Pandas</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.11.2/css/all.min.css" integrity="sha384-KA6wR/X5RY4zFAHpv/CnoG2UW1uogYfdnP67Uv7eULvTveboZJg0qUpmJZb5VqzN" crossorigin="anonymous">
+    <link href="../_static/css/index.css" rel="stylesheet">
+    <link rel="stylesheet" href="../_static/sphinx-book-theme.css" type="text/css" />
+    <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    <script id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/language_data.js"></script>
+    <script src="../_static/togglebutton.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script src="../_static/sphinx-book-theme.js"></script>
+    <script >var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script async="async" src="https://unpkg.com/thebelab@latest/lib/index.js"></script>
+    <script >
+        const thebe_selector = ".thebe"
+        const thebe_selector_input = "pre"
+        const thebe_selector_output = ".output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Merge/Join Tables (VLOOKUP)" href="03.03_merge.html" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="docsearch:language" content="en">
+
+
+
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+<a class="navbar-brand text-wrap" href="../index.html">
+  
+  <img src="../_static/logo.png" class="logo" alt="logo">
+  
+  
+  <h1 class="site-logo" id="site-title">From Excel to Pandas</h1>
+  
+</a>
+</div>
+
+<form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form>
+
+<nav class="bd-links" id="bd-docs-nav" aria-label="Main navigation">
+  <ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Welcome to the tutorial “from-Excel-to-Pandas” for data analysis
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Getting Started
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../getting_started.html">
+   Install Locally
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../getting_started.html#open-in-binder-colab">
+   Open in Binder/Colab
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="../getting_started.html#open-in-visual-studio-code">
+   Open in Visual Studio Code
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Loading Data
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01%20-%20loading%20files.html">
+   Loading Files
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="01.02%20-%20loading%20data%20from%20HTML.html">
+   Reading Data from Web Sites
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="01.03_loading_data_from_API.html">
+   Reading Data from External API
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Adding Columns
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="02.01_Adding_New_Columns.html">
+   Adding New Columns
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02.02_more_excel_functions.html">
+   Adding Various Columns with Functions
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Table Aggregation and Reshaping
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.01_pivot_tables.html">
+   Creating a Pivot Table
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.02_group_by.html">
+   Split a Table into Groups
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Table Enrichment with Merge
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="03.03_merge.html">
+   Merge/Join Tables (VLOOKUP)
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Industries Use Cases
+ </span>
+</p>
+<ul class="current nav sidenav_l1">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   Logistics Analysis
+  </a>
+ </li>
+</ul>
+
+</nav>
+
+ <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="row topbar fixed-top container-xl">
+    <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show">
+    </div>
+    <div class="col pl-2 topbar-main">
+        
+        <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+            data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+            aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+            title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+            <i class="fas fa-bars"></i>
+            <i class="fas fa-arrow-left"></i>
+            <i class="fas fa-arrow-up"></i>
+        </button>
+        
+        <div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/notebooks/08.01_Logistics_analysis.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+            onClick="window.print()" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+    
+</div>
+        <!-- Source interaction buttons -->
+
+
+        <!-- Full screen (wrap in <a> to have style consistency -->
+        <a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+                data-placement="bottom" onclick="toggleFullScreen()" title="Fullscreen mode"><i
+                    class="fas fa-expand"></i></button></a>
+
+        <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/executablebooks/jupyter-book/master?urlpath=tree/notebooks/08.01_Logistics_analysis.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/executablebooks/jupyter-book/blob/master/notebooks/08.01_Logistics_analysis.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        
+    </div>
+</div>
+
+    </div>
+
+    <!-- Table of contents -->
+    <div class="d-none d-md-block col-md-2 bd-toc show">
+        <div class="tocsection onthispage pt-5 pb-3">
+            <i class="fas fa-list"></i> Contents
+        </div>
+        <nav id="bd-toc-nav">
+            <ul class="nav section-nav flex-column">
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#loading-the-data">
+   Loading the data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-exploration">
+   Data Exploration
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#data-cleanup">
+   Data Cleanup
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#accuracy-histogram">
+     Accuracy Histogram
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#fancier-visualization">
+     Fancier Visualization
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+        </nav>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+        
+              <div>
+                
+  <div class="section" id="logistics-analysis">
+<h1>Logistics Analysis<a class="headerlink" href="#logistics-analysis" title="Permalink to this headline">¶</a></h1>
+<p>In this example, we will analyze the accuracy of a public transit system. The example, is analyzing three lines in Seattle, and it is based on the great blog post <a class="reference external" href="https://jakevdp.github.io/blog/2018/09/13/waiting-time-paradox/">The Waiting Time Paradox, or, Why Is My Bus Always Late?</a></p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="section" id="loading-the-data">
+<h2>Loading the data<a class="headerlink" href="#loading-the-data" title="Permalink to this headline">¶</a></h2>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">IPython.display</span> <span class="kn">import</span> <span class="n">Image</span>
+<span class="n">Image</span><span class="p">(</span><span class="n">url</span><span class="o">=</span><span class="s1">&#39;http://jakevdp.github.io/images/seattle-transit-map.png&#39;</span><span class="p">)</span> 
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><img src="http://jakevdp.github.io/images/seattle-transit-map.png"/></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s1">&#39;https://gist.githubusercontent.com/jakevdp/82409002fcc5142a2add0168c274a869/raw/1bbabf78333306dbc45b9f33662500957b2b6dc3/arrival_times.csv&#39;</span>
+
+<span class="kn">import</span> <span class="nn">requests</span>
+<span class="kn">from</span> <span class="nn">io</span> <span class="kn">import</span> <span class="n">StringIO</span>
+
+<span class="n">response</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">)</span>
+<span class="n">response</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;Response [200]&gt;
+</pre></div>
+</div>
+</div>
+</div>
+<p>The CSV file is read through a URL and therefore, we need to convert the text of the response to a simple string as we get when we read a local file. For that we will use the StringIO functionality as follows:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bus_arrival_times</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">pd</span>
+    <span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
+        <span class="n">StringIO</span><span class="p">(</span>
+            <span class="n">response</span><span class="o">.</span><span class="n">text</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+
+<span class="n">bus_arrival_times</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>OPD_DATE</th>
+      <th>VEHICLE_ID</th>
+      <th>RTE</th>
+      <th>DIR</th>
+      <th>TRIP_ID</th>
+      <th>STOP_ID</th>
+      <th>STOP_NAME</th>
+      <th>SCH_STOP_TM</th>
+      <th>ACT_STOP_TM</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2016-03-26</td>
+      <td>6201</td>
+      <td>673</td>
+      <td>S</td>
+      <td>30908177</td>
+      <td>431</td>
+      <td>3RD AVE &amp; PIKE ST (431)</td>
+      <td>01:11:57</td>
+      <td>01:13:19</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2016-03-26</td>
+      <td>6201</td>
+      <td>673</td>
+      <td>S</td>
+      <td>30908033</td>
+      <td>431</td>
+      <td>3RD AVE &amp; PIKE ST (431)</td>
+      <td>23:19:57</td>
+      <td>23:16:13</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2016-03-26</td>
+      <td>6201</td>
+      <td>673</td>
+      <td>S</td>
+      <td>30908028</td>
+      <td>431</td>
+      <td>3RD AVE &amp; PIKE ST (431)</td>
+      <td>21:19:57</td>
+      <td>21:18:46</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2016-03-26</td>
+      <td>6201</td>
+      <td>673</td>
+      <td>S</td>
+      <td>30908019</td>
+      <td>431</td>
+      <td>3RD AVE &amp; PIKE ST (431)</td>
+      <td>19:04:57</td>
+      <td>19:01:49</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2016-03-26</td>
+      <td>6201</td>
+      <td>673</td>
+      <td>S</td>
+      <td>30908252</td>
+      <td>431</td>
+      <td>3RD AVE &amp; PIKE ST (431)</td>
+      <td>16:42:57</td>
+      <td>16:42:39</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>39152</th>
+      <td>2016-05-27</td>
+      <td>6215</td>
+      <td>674</td>
+      <td>N</td>
+      <td>30905957</td>
+      <td>578</td>
+      <td>3RD AVE &amp; PIKE ST (578)</td>
+      <td>10:50:25</td>
+      <td>10:49:50</td>
+    </tr>
+    <tr>
+      <th>39153</th>
+      <td>2016-05-27</td>
+      <td>6215</td>
+      <td>674</td>
+      <td>N</td>
+      <td>30905720</td>
+      <td>578</td>
+      <td>3RD AVE &amp; PIKE ST (578)</td>
+      <td>13:02:27</td>
+      <td>13:07:10</td>
+    </tr>
+    <tr>
+      <th>39154</th>
+      <td>2016-05-27</td>
+      <td>6215</td>
+      <td>674</td>
+      <td>N</td>
+      <td>30905729</td>
+      <td>578</td>
+      <td>3RD AVE &amp; PIKE ST (578)</td>
+      <td>15:14:29</td>
+      <td>15:15:55</td>
+    </tr>
+    <tr>
+      <th>39155</th>
+      <td>2016-05-27</td>
+      <td>6215</td>
+      <td>674</td>
+      <td>N</td>
+      <td>30905740</td>
+      <td>578</td>
+      <td>3RD AVE &amp; PIKE ST (578)</td>
+      <td>17:26:29</td>
+      <td>17:25:40</td>
+    </tr>
+    <tr>
+      <th>39156</th>
+      <td>2016-05-27</td>
+      <td>6216</td>
+      <td>674</td>
+      <td>N</td>
+      <td>30905885</td>
+      <td>578</td>
+      <td>3RD AVE &amp; PIKE ST (578)</td>
+      <td>18:06:29</td>
+      <td>18:07:01</td>
+    </tr>
+  </tbody>
+</table>
+<p>39157 rows × 9 columns</p>
+</div></div></div>
+</div>
+</div>
+<div class="section" id="data-exploration">
+<h2>Data Exploration<a class="headerlink" href="#data-exploration" title="Permalink to this headline">¶</a></h2>
+<p>Let’s check how many days, buses, routes, trips, stops, etc. do we have in the data.</p>
+<ul class="simple">
+<li><p>Start with the bus arrival times data above</p></li>
+<li><p>Convert every cell to string value</p></li>
+<li><p>Describe the table (count, unique values, top and frequency)</p></li>
+<li><p>Focus only on the unique values count</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">bus_arrival_times</span>
+    <span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">describe</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">loc</span><span class="p">[</span><span class="s1">&#39;unique&#39;</span><span class="p">]</span>
+<span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>OPD_DATE          63
+VEHICLE_ID       115
+RTE                3
+DIR                2
+TRIP_ID         1660
+STOP_ID            2
+STOP_NAME          2
+SCH_STOP_TM     1357
+ACT_STOP_TM    27633
+Name: unique, dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<p>We see that we have 63 days of data, for 115 buses, in 3 lines (<em>RTE</em>) and 2 directions and schedule and arrival times in 2 stops over 1660 trips.</p>
+</div>
+<div class="section" id="data-cleanup">
+<h2>Data Cleanup<a class="headerlink" href="#data-cleanup" title="Permalink to this headline">¶</a></h2>
+<p>Let’s make the data easier to understand and to calculate the accuracy of the lines</p>
+<ul class="simple">
+<li><p>Start with the bus arrival times table above</p></li>
+<li><p>Create a <em>scheduled</em> column timestamp with the combination of the date and the scheduled stop time</p></li>
+<li><p>Create a <em>actual</em> column timestamp with the combination of the date and the actual stop time</p></li>
+<li><p>Calculate the difference between the above timestamps</p></li>
+<li><p>Calculate the difference in minutes by scaling to seconds and then 60 (seconds in a minute)</p></li>
+<li><p>Fix the rows that fall across midnights (difference larger than 1000 minutes)</p></li>
+<li><p>Add a column with the route symbol (<em>C</em>, <em>D</em> or <em>E</em>)</p></li>
+<li><p>Add a column with the direction of the trip (<em>northbound</em> or <em>southbound</em>)</p></li>
+<li><p>Focus only on the new columns we created here</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">trips_accuracy</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">bus_arrival_times</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">scheduled</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">OPD_DATE</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">x</span><span class="o">.</span><span class="n">SCH_STOP_TM</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">actual</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">OPD_DATE</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">x</span><span class="o">.</span><span class="n">ACT_STOP_TM</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span>
+        <span class="n">time_diff</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">actual</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">scheduled</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span>
+        <span class="n">minutes_late</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">time_diff</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">total_seconds</span><span class="p">()</span> <span class="o">/</span> <span class="mi">60</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">minutes_late</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">.</span><span class="n">minutes_late</span> <span class="o">&lt;</span> <span class="mi">1000</span><span class="p">,</span> 
+        <span class="n">x</span><span class="o">.</span><span class="n">minutes_late</span><span class="p">,</span> 
+        <span class="n">x</span><span class="o">.</span><span class="n">minutes_late</span> <span class="o">-</span> <span class="mi">60</span><span class="o">*</span><span class="mi">24</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">minutes_late</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">.</span><span class="n">minutes_late</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1000</span><span class="p">,</span> 
+        <span class="n">x</span><span class="o">.</span><span class="n">minutes_late</span><span class="p">,</span> 
+        <span class="n">x</span><span class="o">.</span><span class="n">minutes_late</span> <span class="o">+</span> <span class="mi">60</span><span class="o">*</span><span class="mi">24</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">route</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">RTE</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span>
+        <span class="mi">673</span><span class="p">:</span> <span class="s1">&#39;C&#39;</span><span class="p">,</span> 
+        <span class="mi">674</span><span class="p">:</span> <span class="s1">&#39;D&#39;</span><span class="p">,</span> 
+        <span class="mi">675</span><span class="p">:</span> <span class="s1">&#39;E&#39;</span><span class="p">})</span>
+        <span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">direction</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span><span class="n">x</span><span class="o">.</span><span class="n">DIR</span><span class="o">.</span><span class="n">replace</span><span class="p">({</span>
+        <span class="s1">&#39;N&#39;</span><span class="p">:</span> <span class="s1">&#39;northbound&#39;</span><span class="p">,</span> 
+        <span class="s1">&#39;S&#39;</span><span class="p">:</span> <span class="s1">&#39;southbound&#39;</span><span class="p">})</span>
+        <span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;category&#39;</span><span class="p">)</span>
+    <span class="p">)</span>
+    <span class="o">.</span><span class="n">loc</span><span class="p">[:,[</span><span class="s1">&#39;route&#39;</span><span class="p">,</span> <span class="s1">&#39;direction&#39;</span><span class="p">,</span> <span class="s1">&#39;scheduled&#39;</span><span class="p">,</span> <span class="s1">&#39;actual&#39;</span><span class="p">,</span> <span class="s1">&#39;minutes_late&#39;</span><span class="p">]]</span>
+<span class="p">)</span>
+<span class="n">trips_accuracy</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>route</th>
+      <th>direction</th>
+      <th>scheduled</th>
+      <th>actual</th>
+      <th>minutes_late</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>C</td>
+      <td>southbound</td>
+      <td>2016-03-26 01:11:57</td>
+      <td>2016-03-26 01:13:19</td>
+      <td>1.366667</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>C</td>
+      <td>southbound</td>
+      <td>2016-03-26 23:19:57</td>
+      <td>2016-03-26 23:16:13</td>
+      <td>-3.733333</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>C</td>
+      <td>southbound</td>
+      <td>2016-03-26 21:19:57</td>
+      <td>2016-03-26 21:18:46</td>
+      <td>-1.183333</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>C</td>
+      <td>southbound</td>
+      <td>2016-03-26 19:04:57</td>
+      <td>2016-03-26 19:01:49</td>
+      <td>-3.133333</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>C</td>
+      <td>southbound</td>
+      <td>2016-03-26 16:42:57</td>
+      <td>2016-03-26 16:42:39</td>
+      <td>-0.300000</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>39152</th>
+      <td>D</td>
+      <td>northbound</td>
+      <td>2016-05-27 10:50:25</td>
+      <td>2016-05-27 10:49:50</td>
+      <td>-0.583333</td>
+    </tr>
+    <tr>
+      <th>39153</th>
+      <td>D</td>
+      <td>northbound</td>
+      <td>2016-05-27 13:02:27</td>
+      <td>2016-05-27 13:07:10</td>
+      <td>4.716667</td>
+    </tr>
+    <tr>
+      <th>39154</th>
+      <td>D</td>
+      <td>northbound</td>
+      <td>2016-05-27 15:14:29</td>
+      <td>2016-05-27 15:15:55</td>
+      <td>1.433333</td>
+    </tr>
+    <tr>
+      <th>39155</th>
+      <td>D</td>
+      <td>northbound</td>
+      <td>2016-05-27 17:26:29</td>
+      <td>2016-05-27 17:25:40</td>
+      <td>-0.816667</td>
+    </tr>
+    <tr>
+      <th>39156</th>
+      <td>D</td>
+      <td>northbound</td>
+      <td>2016-05-27 18:06:29</td>
+      <td>2016-05-27 18:07:01</td>
+      <td>0.533333</td>
+    </tr>
+  </tbody>
+</table>
+<p>39157 rows × 5 columns</p>
+</div></div></div>
+</div>
+<div class="section" id="accuracy-histogram">
+<h3>Accuracy Histogram<a class="headerlink" href="#accuracy-histogram" title="Permalink to this headline">¶</a></h3>
+<p>We can quickly graph the distribution of the accuracy</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">trips_accuracy</span>
+    <span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">)</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/08.01_Logistics_analysis_13_0.png" src="../_images/08.01_Logistics_analysis_13_0.png" />
+</div>
+</div>
+<p>Or even break it down by the different routes and directions to see if the grouops are behaving in a similar way</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="p">(</span>
+    <span class="n">trips_accuracy</span>
+    <span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;minutes_late &lt; 30&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">hist</span><span class="p">(</span>
+        <span class="n">bins</span><span class="o">=</span><span class="mi">50</span><span class="p">,</span>
+        <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+        <span class="n">by</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;route&#39;</span><span class="p">,</span><span class="s1">&#39;direction&#39;</span><span class="p">],</span> 
+        <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">10</span><span class="p">,</span><span class="mi">6</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/08.01_Logistics_analysis_15_0.png" src="../_images/08.01_Logistics_analysis_15_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="fancier-visualization">
+<h3>Fancier Visualization<a class="headerlink" href="#fancier-visualization" title="Permalink to this headline">¶</a></h3>
+<p>The default visualization functionality of Pandas is often enhanced with a set of graphic libraries that we will cover in a dedicated chapter. Here is an improved visualization using Seaborn.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="n">g</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">sns</span>
+    <span class="o">.</span><span class="n">FacetGrid</span><span class="p">(</span>
+        <span class="n">trips_accuracy</span><span class="p">,</span> 
+        <span class="n">row</span><span class="o">=</span><span class="s2">&quot;direction&quot;</span><span class="p">,</span> 
+        <span class="n">col</span><span class="o">=</span><span class="s2">&quot;route&quot;</span>
+    <span class="p">)</span>
+
+<span class="n">g</span><span class="o">.</span><span class="n">map</span><span class="p">(</span>
+    <span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">,</span> 
+    <span class="s2">&quot;minutes_late&quot;</span><span class="p">,</span> 
+    <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="o">-</span><span class="mi">10</span><span class="p">,</span> <span class="mi">20</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">set_titles</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{col_name}</span><span class="s1"> </span><span class="si">{row_name}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">set_axis_labels</span><span class="p">(</span><span class="s1">&#39;minutes late&#39;</span><span class="p">,</span> <span class="s1">&#39;number of trips&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">  File</span><span class="nn"> &quot;&lt;ipython-input-9-d7973d9712e0&gt;&quot;</span><span class="gt">, line </span><span class="mi">11</span>
+    <span class="n">g</span><span class="o">.</span><span class="n">map</span><span class="p">(</span>
+    <span class="o">^</span>
+<span class="ne">SyntaxError</span>: invalid syntax
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./notebooks"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+        </div>
+    </div>
+    
+    
+    <div class='prev-next-bottom'>
+        
+    <a class='left-prev' id="prev-link" href="03.03_merge.html" title="previous page">Merge/Join Tables (VLOOKUP)</a>
+
+    </div>
+    <footer class="footer mt-5 mt-md-0">
+    <div class="container">
+      <p>
+        
+          By The Aiola Team<br/>
+        
+            &copy; Copyright 2020.<br/>
+      </p>
+    </div>
+  </footer>
+</main>
+
+
+      </div>
+    </div>
+
+    <script src="../_static/js/index.js"></script>
+    
+  </body>
+</html>

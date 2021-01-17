@@ -73,7 +73,7 @@
   <ul class="nav sidenav_l1">
  <li class="toctree-l1">
   <a class="reference internal" href="../intro.html">
-   Welcome to the complete tutorial from Excel to Pandas
+   Welcome to the tutorial “from-Excel-to-Pandas” for data analysis
   </a>
  </li>
 </ul>
@@ -164,6 +164,18 @@
  <li class="toctree-l1">
   <a class="reference internal" href="03.03_merge.html">
    Merge/Join Tables (VLOOKUP)
+  </a>
+ </li>
+</ul>
+<p class="caption">
+ <span class="caption-text">
+  Industries Use Cases
+ </span>
+</p>
+<ul class="nav sidenav_l1">
+ <li class="toctree-l1">
+  <a class="reference internal" href="08.01_Logistics_analysis.html">
+   Logistics Analysis
   </a>
  </li>
 </ul>
@@ -261,6 +273,11 @@
  <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#loading-data">
    Loading Data
+  </a>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#date-functions">
+   Date Functions
   </a>
  </li>
  <li class="toc-h2 nav-item toc-entry">
@@ -534,6 +551,92 @@
 </div>
 <p>You can see that the data includes columns such as <em>Seasons</em> or <em>Functioning Day</em>, however, we might want to calculate such columns differently.</p>
 </div>
+<div class="section" id="date-functions">
+<h2>Date Functions<a class="headerlink" href="#date-functions" title="Permalink to this headline">¶</a></h2>
+<p>Let’s review some common functions in Excel and their replacement in Pandas</p>
+<p><code class="docutils literal notranslate"><span class="pre">=TODAY()</span></code></p>
+<p>Like many of the Pandas functions, most of the arguments are optional and the default values are often as expected. For example, the time stamp and even the date depends on the timezone needed. In the next example, we will specific the optional tz value to <em>‘America/Chicago’</em>:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">now</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">pd</span>
+    <span class="o">.</span><span class="n">Timestamp</span>
+    <span class="o">.</span><span class="n">today</span><span class="p">(</span>
+        <span class="n">tz</span><span class="o">=</span><span class="s1">&#39;America/Chicago&#39;</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+<span class="n">now</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Timestamp(&#39;2021-01-17 01:04:23.823652-0600&#39;, tz=&#39;America/Chicago&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<p>we can create a date with given values such as day, month, and year</p>
+<p><code class="docutils literal notranslate"><span class="pre">=Date(2021,1,1)</span></code></p>
+<p>and in pandas:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">new_year</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">pd</span>
+    <span class="o">.</span><span class="n">Timestamp</span><span class="p">(</span>
+        <span class="n">year</span><span class="o">=</span><span class="mi">2021</span><span class="p">,</span>
+        <span class="n">month</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span>
+        <span class="n">day</span><span class="o">=</span><span class="mi">1</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+<span class="n">new_year</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Timestamp(&#39;2021-01-01 00:00:00&#39;)
+</pre></div>
+</div>
+</div>
+</div>
+<p>A common function in business context is <code class="docutils literal notranslate"><span class="pre">=NETWORKDAYS()</span></code>, that calculates the number of working days between two dates. In Pandas we can use the following:</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span> 
+<span class="kn">import</span> <span class="nn">datetime</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">busday_count</span><span class="p">(</span><span class="n">new_year</span><span class="p">,</span> <span class="n">now</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">TypeError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">4</span><span class="o">-</span><span class="mi">67</span><span class="n">b16334037d</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">datetime</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> 
+<span class="ne">----&gt; </span><span class="mi">4</span> <span class="n">np</span><span class="o">.</span><span class="n">busday_count</span><span class="p">(</span><span class="n">new_year</span><span class="p">,</span> <span class="n">now</span> <span class="o">+</span> <span class="n">datetime</span><span class="o">.</span><span class="n">timedelta</span><span class="p">(</span><span class="n">days</span><span class="o">=</span><span class="mi">1</span><span class="p">))</span>
+
+<span class="nn">&lt;__array_function__ internals&gt;</span> in <span class="ni">busday_count</span><span class="nt">(*args, **kwargs)</span>
+
+<span class="ne">TypeError</span>: Iterator operand 0 dtype could not be cast from dtype(&#39;&lt;M8[us]&#39;) to dtype(&#39;&lt;M8[D]&#39;) according to the rule &#39;safe&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<p>We can apply all the various date functions from excel such as <em>DAY</em>, <em>MINUTE</em>, <em>HOUR</em> etc.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">now</span><span class="o">.</span><span class="n">day</span><span class="p">,</span> <span class="n">now</span><span class="o">.</span><span class="n">month</span><span class="p">,</span> <span class="n">now</span><span class="o">.</span><span class="n">year</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(15, 1, 2021)
+</pre></div>
+</div>
+</div>
+</div>
+</div>
 <div class="section" id="date-columns">
 <h2>Date Columns<a class="headerlink" href="#date-columns" title="Permalink to this headline">¶</a></h2>
 <p>We will start with creating a few columns based on the date column, such as day of the week and month.</p>
@@ -548,7 +651,7 @@
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">enriched_bike_share_data</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">bike_share_data</span>
     <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">Date</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">bike_share_data</span><span class="o">.</span><span class="n">Date</span><span class="p">,</span> <span class="nb">format</span><span class="o">=</span><span class="s1">&#39;</span><span class="si">%d</span><span class="s1">/%m/%Y&#39;</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;coerce&#39;</span><span class="p">))</span>
-    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">DOW</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">Date</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">dayofweek</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">DOW</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">Date</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">day_name</span><span class="p">())</span>
     <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">month</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">x</span><span class="o">.</span><span class="n">Date</span><span class="o">.</span><span class="n">dt</span><span class="o">.</span><span class="n">month</span><span class="p">)</span>
 <span class="p">)</span>
 <span class="n">enriched_bike_share_data</span>
@@ -609,7 +712,7 @@
       <td>Winter</td>
       <td>No Holiday</td>
       <td>Yes</td>
-      <td>4</td>
+      <td>Friday</td>
       <td>12</td>
     </tr>
     <tr>
@@ -628,7 +731,7 @@
       <td>Winter</td>
       <td>No Holiday</td>
       <td>Yes</td>
-      <td>4</td>
+      <td>Friday</td>
       <td>12</td>
     </tr>
     <tr>
@@ -647,7 +750,7 @@
       <td>Winter</td>
       <td>No Holiday</td>
       <td>Yes</td>
-      <td>4</td>
+      <td>Friday</td>
       <td>12</td>
     </tr>
     <tr>
@@ -666,7 +769,7 @@
       <td>Winter</td>
       <td>No Holiday</td>
       <td>Yes</td>
-      <td>4</td>
+      <td>Friday</td>
       <td>12</td>
     </tr>
     <tr>
@@ -685,7 +788,7 @@
       <td>Winter</td>
       <td>No Holiday</td>
       <td>Yes</td>
-      <td>4</td>
+      <td>Friday</td>
       <td>12</td>
     </tr>
     <tr>
@@ -723,7 +826,7 @@
       <td>Autumn</td>
       <td>No Holiday</td>
       <td>Yes</td>
-      <td>4</td>
+      <td>Friday</td>
       <td>11</td>
     </tr>
     <tr>
@@ -742,7 +845,7 @@
       <td>Autumn</td>
       <td>No Holiday</td>
       <td>Yes</td>
-      <td>4</td>
+      <td>Friday</td>
       <td>11</td>
     </tr>
     <tr>
@@ -761,7 +864,7 @@
       <td>Autumn</td>
       <td>No Holiday</td>
       <td>Yes</td>
-      <td>4</td>
+      <td>Friday</td>
       <td>11</td>
     </tr>
     <tr>
@@ -780,7 +883,7 @@
       <td>Autumn</td>
       <td>No Holiday</td>
       <td>Yes</td>
-      <td>4</td>
+      <td>Friday</td>
       <td>11</td>
     </tr>
     <tr>
@@ -799,7 +902,7 @@
       <td>Autumn</td>
       <td>No Holiday</td>
       <td>Yes</td>
-      <td>4</td>
+      <td>Friday</td>
       <td>11</td>
     </tr>
   </tbody>
@@ -828,8 +931,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/02.02_more_excel_functions_7_0.png" src="../_images/02.02_more_excel_functions_7_0.png" />
-</div>
+<img alt="../_images/02.02_more_excel_functions_15_0.svg" src="../_images/02.02_more_excel_functions_15_0.svg" /></div>
 </div>
 <ul class="simple">
 <li><p>Start with the enriched table above</p></li>
@@ -851,8 +953,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/02.02_more_excel_functions_9_0.png" src="../_images/02.02_more_excel_functions_9_0.png" />
-</div>
+<img alt="../_images/02.02_more_excel_functions_17_0.svg" src="../_images/02.02_more_excel_functions_17_0.svg" /></div>
 </div>
 <ul class="simple">
 <li><p>Start with the enriched table above</p></li>
@@ -881,50 +982,50 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><style  type="text/css" >
-#T_ae32f6b8_5596_11eb_b92a_367dda3a07derow0_col0{
+#T_e97af826_54ef_11eb_addd_367dda3a07derow0_col0{
             background-color:  green;
-        }#T_ae32f6b8_5596_11eb_b92a_367dda3a07derow7_col0{
+        }#T_e97af826_54ef_11eb_addd_367dda3a07derow7_col0{
             background-color:  red;
-        }</style><table id="T_ae32f6b8_5596_11eb_b92a_367dda3a07de" ><thead>    <tr>        <th class="blank level0" ></th>        <th class="col_heading level0 col0" >Rented Bike Count</th>    </tr></thead><tbody>
+        }</style><table id="T_e97af826_54ef_11eb_addd_367dda3a07de" ><thead>    <tr>        <th class="blank level0" ></th>        <th class="col_heading level0 col0" >Rented Bike Count</th>    </tr></thead><tbody>
                 <tr>
-                        <th id="T_ae32f6b8_5596_11eb_b92a_367dda3a07delevel0_row0" class="row_heading level0 row0" >Temperature(°C)</th>
-                        <td id="T_ae32f6b8_5596_11eb_b92a_367dda3a07derow0_col0" class="data row0 col0" >0.699824</td>
+                        <th id="T_e97af826_54ef_11eb_addd_367dda3a07delevel0_row0" class="row_heading level0 row0" >Temperature(°C)</th>
+                        <td id="T_e97af826_54ef_11eb_addd_367dda3a07derow0_col0" class="data row0 col0" >0.699824</td>
             </tr>
             <tr>
-                        <th id="T_ae32f6b8_5596_11eb_b92a_367dda3a07delevel0_row1" class="row_heading level0 row1" >Humidity(%)</th>
-                        <td id="T_ae32f6b8_5596_11eb_b92a_367dda3a07derow1_col0" class="data row1 col0" >0.028158</td>
+                        <th id="T_e97af826_54ef_11eb_addd_367dda3a07delevel0_row1" class="row_heading level0 row1" >Humidity(%)</th>
+                        <td id="T_e97af826_54ef_11eb_addd_367dda3a07derow1_col0" class="data row1 col0" >0.028158</td>
             </tr>
             <tr>
-                        <th id="T_ae32f6b8_5596_11eb_b92a_367dda3a07delevel0_row2" class="row_heading level0 row2" >Wind speed (m/s)</th>
-                        <td id="T_ae32f6b8_5596_11eb_b92a_367dda3a07derow2_col0" class="data row2 col0" >-0.174859</td>
+                        <th id="T_e97af826_54ef_11eb_addd_367dda3a07delevel0_row2" class="row_heading level0 row2" >Wind speed (m/s)</th>
+                        <td id="T_e97af826_54ef_11eb_addd_367dda3a07derow2_col0" class="data row2 col0" >-0.174859</td>
             </tr>
             <tr>
-                        <th id="T_ae32f6b8_5596_11eb_b92a_367dda3a07delevel0_row3" class="row_heading level0 row3" >Visibility (10m)</th>
-                        <td id="T_ae32f6b8_5596_11eb_b92a_367dda3a07derow3_col0" class="data row3 col0" >0.145376</td>
+                        <th id="T_e97af826_54ef_11eb_addd_367dda3a07delevel0_row3" class="row_heading level0 row3" >Visibility (10m)</th>
+                        <td id="T_e97af826_54ef_11eb_addd_367dda3a07derow3_col0" class="data row3 col0" >0.145376</td>
             </tr>
             <tr>
-                        <th id="T_ae32f6b8_5596_11eb_b92a_367dda3a07delevel0_row4" class="row_heading level0 row4" >Dew point temperature(°C)</th>
-                        <td id="T_ae32f6b8_5596_11eb_b92a_367dda3a07derow4_col0" class="data row4 col0" >0.602648</td>
+                        <th id="T_e97af826_54ef_11eb_addd_367dda3a07delevel0_row4" class="row_heading level0 row4" >Dew point temperature(°C)</th>
+                        <td id="T_e97af826_54ef_11eb_addd_367dda3a07derow4_col0" class="data row4 col0" >0.602648</td>
             </tr>
             <tr>
-                        <th id="T_ae32f6b8_5596_11eb_b92a_367dda3a07delevel0_row5" class="row_heading level0 row5" >Solar Radiation (MJ/m2)</th>
-                        <td id="T_ae32f6b8_5596_11eb_b92a_367dda3a07derow5_col0" class="data row5 col0" >0.684069</td>
+                        <th id="T_e97af826_54ef_11eb_addd_367dda3a07delevel0_row5" class="row_heading level0 row5" >Solar Radiation (MJ/m2)</th>
+                        <td id="T_e97af826_54ef_11eb_addd_367dda3a07derow5_col0" class="data row5 col0" >0.684069</td>
             </tr>
             <tr>
-                        <th id="T_ae32f6b8_5596_11eb_b92a_367dda3a07delevel0_row6" class="row_heading level0 row6" >Rainfall(mm)</th>
-                        <td id="T_ae32f6b8_5596_11eb_b92a_367dda3a07derow6_col0" class="data row6 col0" >-0.214252</td>
+                        <th id="T_e97af826_54ef_11eb_addd_367dda3a07delevel0_row6" class="row_heading level0 row6" >Rainfall(mm)</th>
+                        <td id="T_e97af826_54ef_11eb_addd_367dda3a07derow6_col0" class="data row6 col0" >-0.214252</td>
             </tr>
             <tr>
-                        <th id="T_ae32f6b8_5596_11eb_b92a_367dda3a07delevel0_row7" class="row_heading level0 row7" >Snowfall (cm)</th>
-                        <td id="T_ae32f6b8_5596_11eb_b92a_367dda3a07derow7_col0" class="data row7 col0" >-0.240836</td>
+                        <th id="T_e97af826_54ef_11eb_addd_367dda3a07delevel0_row7" class="row_heading level0 row7" >Snowfall (cm)</th>
+                        <td id="T_e97af826_54ef_11eb_addd_367dda3a07derow7_col0" class="data row7 col0" >-0.240836</td>
             </tr>
             <tr>
-                        <th id="T_ae32f6b8_5596_11eb_b92a_367dda3a07delevel0_row8" class="row_heading level0 row8" >DOW</th>
-                        <td id="T_ae32f6b8_5596_11eb_b92a_367dda3a07derow8_col0" class="data row8 col0" >-0.044357</td>
+                        <th id="T_e97af826_54ef_11eb_addd_367dda3a07delevel0_row8" class="row_heading level0 row8" >DOW</th>
+                        <td id="T_e97af826_54ef_11eb_addd_367dda3a07derow8_col0" class="data row8 col0" >-0.044357</td>
             </tr>
             <tr>
-                        <th id="T_ae32f6b8_5596_11eb_b92a_367dda3a07delevel0_row9" class="row_heading level0 row9" >month</th>
-                        <td id="T_ae32f6b8_5596_11eb_b92a_367dda3a07derow9_col0" class="data row9 col0" >0.201733</td>
+                        <th id="T_e97af826_54ef_11eb_addd_367dda3a07delevel0_row9" class="row_heading level0 row9" >month</th>
+                        <td id="T_e97af826_54ef_11eb_addd_367dda3a07derow9_col0" class="data row9 col0" >0.201733</td>
             </tr>
     </tbody></table></div></div>
 </div>
