@@ -137,11 +137,6 @@
    Date Functions
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="#real-life-example">
-   Real life example
-  </a>
- </li>
 </ul>
 <p class="caption">
  <span class="caption-text">
@@ -307,6 +302,33 @@
    </li>
   </ul>
  </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#real-life-example">
+   Real life example
+  </a>
+  <ul class="nav section-nav flex-column">
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#loading-data">
+     Loading Data
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#date-columns-manipulations">
+     Date Columns Manipulations
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#simple-data-visulizations">
+     Simple Data Visulizations
+    </a>
+   </li>
+   <li class="toc-h3 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#analyzing-corrlations-between-the-columns">
+     Analyzing Corrlations between the columns
+    </a>
+   </li>
+  </ul>
+ </li>
 </ul>
 
         </nav>
@@ -330,6 +352,13 @@
 <p>You can see that the data includes columns such as <em>Seasons</em> or <em>Functioning Day</em>, however, we might want to calculate such columns differently.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">now</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">pd</span>
     <span class="o">.</span><span class="n">Timestamp</span>
@@ -342,16 +371,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="o">&lt;</span><span class="n">ipython</span><span class="o">-</span><span class="nb">input</span><span class="o">-</span><span class="mi">1</span><span class="o">-</span><span class="mi">8</span><span class="n">f13a57c2add</span><span class="o">&gt;</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
-<span class="g g-Whitespace">      </span><span class="mi">1</span> <span class="n">now</span> <span class="o">=</span> <span class="p">(</span>
-<span class="ne">----&gt; </span><span class="mi">2</span>     <span class="n">pd</span>
-<span class="g g-Whitespace">      </span><span class="mi">3</span>     <span class="o">.</span><span class="n">Timestamp</span>
-<span class="g g-Whitespace">      </span><span class="mi">4</span>     <span class="o">.</span><span class="n">today</span><span class="p">(</span>
-<span class="g g-Whitespace">      </span><span class="mi">5</span>         <span class="n">tz</span><span class="o">=</span><span class="s1">&#39;America/Chicago&#39;</span>
-
-<span class="ne">NameError</span>: name &#39;pd&#39; is not defined
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Timestamp(&#39;2021-01-17 02:07:04.428294-0600&#39;, tz=&#39;America/Chicago&#39;)
 </pre></div>
 </div>
 </div>
@@ -367,7 +387,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(15, 1, 2021)
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(17, 1, 2021)
 </pre></div>
 </div>
 </div>
@@ -417,7 +437,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>10
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>11
 </pre></div>
 </div>
 </div>
@@ -452,21 +472,18 @@
 </div>
 </div>
 </div>
-<p>The one hundred working day on the 2021 is May 21st.</p>
+<p>The one hundred working day in 2021 is May 21st.</p>
 <p>Pandas has a wide range of options for date offsets, such as weeks, month-end, semi-month-end (15th day), querter, retail year (aka 52-53 week), and many <a class="reference external" href="https://pandas.pydata.org/pandas-docs/stable/user_guide/timeseries.html#dateoffset-objects">others</a>.</p>
 </div>
 </div>
-</div>
 <div class="section" id="real-life-example">
-<h1>Real life example<a class="headerlink" href="#real-life-example" title="Permalink to this headline">¶</a></h1>
+<h2>Real life example<a class="headerlink" href="#real-life-example" title="Permalink to this headline">¶</a></h2>
 <div class="section" id="loading-data">
-<h2>Loading Data<a class="headerlink" href="#loading-data" title="Permalink to this headline">¶</a></h2>
+<h3>Loading Data<a class="headerlink" href="#loading-data" title="Permalink to this headline">¶</a></h3>
 <p>As usual, let’s load a dataset to work on. We will take another dataset that is used in machine learning education, “Bike Share”. This is a data set about the demand of bike share service in Seoul. Please note that we need to modify the default encoding of <em>read_csv</em> from ‘UTF-8’ to ‘latin1’.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-
-<span class="n">bike_share_data</span> <span class="o">=</span> <span class="p">(</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">bike_share_data</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">pd</span>
     <span class="o">.</span><span class="n">read_csv</span><span class="p">(</span>
         <span class="s1">&#39;https://archive.ics.uci.edu/ml/machine-learning-databases/00560/SeoulBikeData.csv&#39;</span><span class="p">,</span> 
@@ -706,8 +723,8 @@
 </div></div></div>
 </div>
 </div>
-<div class="section" id="date-columns">
-<h2>Date Columns<a class="headerlink" href="#date-columns" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="date-columns-manipulations">
+<h3>Date Columns Manipulations<a class="headerlink" href="#date-columns-manipulations" title="Permalink to this headline">¶</a></h3>
 <p>We will start with creating a few columns based on the date column, such as day of the week and month.</p>
 <ul class="simple">
 <li><p>Start with the table we loaded above</p></li>
@@ -981,7 +998,7 @@
 </div>
 </div>
 <div class="section" id="simple-data-visulizations">
-<h2>Simple Data Visulizations<a class="headerlink" href="#simple-data-visulizations" title="Permalink to this headline">¶</a></h2>
+<h3>Simple Data Visulizations<a class="headerlink" href="#simple-data-visulizations" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Start with the enriched table above</p></li>
 <li><p>Group the data by date column</p></li>
@@ -1000,7 +1017,8 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/02.02_date_functions_19_0.svg" src="../_images/02.02_date_functions_19_0.svg" /></div>
+<img alt="../_images/02.02_date_functions_20_0.png" src="../_images/02.02_date_functions_20_0.png" />
+</div>
 </div>
 <ul class="simple">
 <li><p>Start with the enriched table above</p></li>
@@ -1022,8 +1040,12 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/02.02_date_functions_21_0.svg" src="../_images/02.02_date_functions_21_0.svg" /></div>
+<img alt="../_images/02.02_date_functions_22_0.png" src="../_images/02.02_date_functions_22_0.png" />
 </div>
+</div>
+</div>
+<div class="section" id="analyzing-corrlations-between-the-columns">
+<h3>Analyzing Corrlations between the columns<a class="headerlink" href="#analyzing-corrlations-between-the-columns" title="Permalink to this headline">¶</a></h3>
 <ul class="simple">
 <li><p>Start with the enriched table above</p></li>
 <li><p>Group the data by date column</p></li>
@@ -1051,54 +1073,51 @@
 </div>
 <div class="cell_output docutils container">
 <div class="output text_html"><style  type="text/css" >
-#T_e97af826_54ef_11eb_addd_367dda3a07derow0_col0{
+#T_00dce19c_589b_11eb_9891_acde48001122row0_col0{
             background-color:  green;
-        }#T_e97af826_54ef_11eb_addd_367dda3a07derow7_col0{
+        }#T_00dce19c_589b_11eb_9891_acde48001122row7_col0{
             background-color:  red;
-        }</style><table id="T_e97af826_54ef_11eb_addd_367dda3a07de" ><thead>    <tr>        <th class="blank level0" ></th>        <th class="col_heading level0 col0" >Rented Bike Count</th>    </tr></thead><tbody>
+        }</style><table id="T_00dce19c_589b_11eb_9891_acde48001122" ><thead>    <tr>        <th class="blank level0" ></th>        <th class="col_heading level0 col0" >Rented Bike Count</th>    </tr></thead><tbody>
                 <tr>
-                        <th id="T_e97af826_54ef_11eb_addd_367dda3a07delevel0_row0" class="row_heading level0 row0" >Temperature(°C)</th>
-                        <td id="T_e97af826_54ef_11eb_addd_367dda3a07derow0_col0" class="data row0 col0" >0.699824</td>
+                        <th id="T_00dce19c_589b_11eb_9891_acde48001122level0_row0" class="row_heading level0 row0" >Temperature(°C)</th>
+                        <td id="T_00dce19c_589b_11eb_9891_acde48001122row0_col0" class="data row0 col0" >0.699824</td>
             </tr>
             <tr>
-                        <th id="T_e97af826_54ef_11eb_addd_367dda3a07delevel0_row1" class="row_heading level0 row1" >Humidity(%)</th>
-                        <td id="T_e97af826_54ef_11eb_addd_367dda3a07derow1_col0" class="data row1 col0" >0.028158</td>
+                        <th id="T_00dce19c_589b_11eb_9891_acde48001122level0_row1" class="row_heading level0 row1" >Humidity(%)</th>
+                        <td id="T_00dce19c_589b_11eb_9891_acde48001122row1_col0" class="data row1 col0" >0.028158</td>
             </tr>
             <tr>
-                        <th id="T_e97af826_54ef_11eb_addd_367dda3a07delevel0_row2" class="row_heading level0 row2" >Wind speed (m/s)</th>
-                        <td id="T_e97af826_54ef_11eb_addd_367dda3a07derow2_col0" class="data row2 col0" >-0.174859</td>
+                        <th id="T_00dce19c_589b_11eb_9891_acde48001122level0_row2" class="row_heading level0 row2" >Wind speed (m/s)</th>
+                        <td id="T_00dce19c_589b_11eb_9891_acde48001122row2_col0" class="data row2 col0" >-0.174859</td>
             </tr>
             <tr>
-                        <th id="T_e97af826_54ef_11eb_addd_367dda3a07delevel0_row3" class="row_heading level0 row3" >Visibility (10m)</th>
-                        <td id="T_e97af826_54ef_11eb_addd_367dda3a07derow3_col0" class="data row3 col0" >0.145376</td>
+                        <th id="T_00dce19c_589b_11eb_9891_acde48001122level0_row3" class="row_heading level0 row3" >Visibility (10m)</th>
+                        <td id="T_00dce19c_589b_11eb_9891_acde48001122row3_col0" class="data row3 col0" >0.145376</td>
             </tr>
             <tr>
-                        <th id="T_e97af826_54ef_11eb_addd_367dda3a07delevel0_row4" class="row_heading level0 row4" >Dew point temperature(°C)</th>
-                        <td id="T_e97af826_54ef_11eb_addd_367dda3a07derow4_col0" class="data row4 col0" >0.602648</td>
+                        <th id="T_00dce19c_589b_11eb_9891_acde48001122level0_row4" class="row_heading level0 row4" >Dew point temperature(°C)</th>
+                        <td id="T_00dce19c_589b_11eb_9891_acde48001122row4_col0" class="data row4 col0" >0.602648</td>
             </tr>
             <tr>
-                        <th id="T_e97af826_54ef_11eb_addd_367dda3a07delevel0_row5" class="row_heading level0 row5" >Solar Radiation (MJ/m2)</th>
-                        <td id="T_e97af826_54ef_11eb_addd_367dda3a07derow5_col0" class="data row5 col0" >0.684069</td>
+                        <th id="T_00dce19c_589b_11eb_9891_acde48001122level0_row5" class="row_heading level0 row5" >Solar Radiation (MJ/m2)</th>
+                        <td id="T_00dce19c_589b_11eb_9891_acde48001122row5_col0" class="data row5 col0" >0.684069</td>
             </tr>
             <tr>
-                        <th id="T_e97af826_54ef_11eb_addd_367dda3a07delevel0_row6" class="row_heading level0 row6" >Rainfall(mm)</th>
-                        <td id="T_e97af826_54ef_11eb_addd_367dda3a07derow6_col0" class="data row6 col0" >-0.214252</td>
+                        <th id="T_00dce19c_589b_11eb_9891_acde48001122level0_row6" class="row_heading level0 row6" >Rainfall(mm)</th>
+                        <td id="T_00dce19c_589b_11eb_9891_acde48001122row6_col0" class="data row6 col0" >-0.214252</td>
             </tr>
             <tr>
-                        <th id="T_e97af826_54ef_11eb_addd_367dda3a07delevel0_row7" class="row_heading level0 row7" >Snowfall (cm)</th>
-                        <td id="T_e97af826_54ef_11eb_addd_367dda3a07derow7_col0" class="data row7 col0" >-0.240836</td>
+                        <th id="T_00dce19c_589b_11eb_9891_acde48001122level0_row7" class="row_heading level0 row7" >Snowfall (cm)</th>
+                        <td id="T_00dce19c_589b_11eb_9891_acde48001122row7_col0" class="data row7 col0" >-0.240836</td>
             </tr>
             <tr>
-                        <th id="T_e97af826_54ef_11eb_addd_367dda3a07delevel0_row8" class="row_heading level0 row8" >DOW</th>
-                        <td id="T_e97af826_54ef_11eb_addd_367dda3a07derow8_col0" class="data row8 col0" >-0.044357</td>
-            </tr>
-            <tr>
-                        <th id="T_e97af826_54ef_11eb_addd_367dda3a07delevel0_row9" class="row_heading level0 row9" >month</th>
-                        <td id="T_e97af826_54ef_11eb_addd_367dda3a07derow9_col0" class="data row9 col0" >0.201733</td>
+                        <th id="T_00dce19c_589b_11eb_9891_acde48001122level0_row8" class="row_heading level0 row8" >month</th>
+                        <td id="T_00dce19c_589b_11eb_9891_acde48001122row8_col0" class="data row8 col0" >0.201733</td>
             </tr>
     </tbody></table></div></div>
 </div>
 <p>We can see that the higher correlation is with the temperature (the higher the temperature, the more bikes are rented), and with the Snowfall (the more snowfall, the fewer bikes are reneted), which make sense.</p>
+</div>
 </div>
 </div>
 
