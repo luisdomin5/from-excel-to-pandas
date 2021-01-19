@@ -136,11 +136,6 @@
    Date Functions
   </a>
  </li>
- <li class="toctree-l1">
-  <a class="reference internal" href="02.02_date_functions.html#real-life-example">
-   Real life example
-  </a>
- </li>
 </ul>
 <p class="caption">
  <span class="caption-text">
@@ -300,6 +295,11 @@
     </a>
    </li>
   </ul>
+ </li>
+ <li class="toc-h2 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#scheduled-and-observed-arrival-intervals">
+   Scheduled and Observed Arrival Intervals
+  </a>
  </li>
 </ul>
 
@@ -579,6 +579,7 @@ Name: unique, dtype: object
 <p>Let’s make the data easier to understand and to calculate the accuracy of the lines</p>
 <ul class="simple">
 <li><p>Start with the bus arrival times table above</p></li>
+<li><p>Filter out invalid records with <em>TRIP_ID</em> = 0</p></li>
 <li><p>Create a <em>scheduled</em> column timestamp with the combination of the date and the scheduled stop time</p></li>
 <li><p>Create a <em>actual</em> column timestamp with the combination of the date and the actual stop time</p></li>
 <li><p>Calculate the difference between the above timestamps</p></li>
@@ -592,7 +593,8 @@ Name: unique, dtype: object
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">trips_accuracy</span> <span class="o">=</span> <span class="p">(</span>
     <span class="n">bus_arrival_times</span>
-    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">scheduled</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">OPD_DATE</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">x</span><span class="o">.</span><span class="n">SCH_STOP_TM</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">query</span><span class="p">(</span><span class="s1">&#39;TRIP_ID &gt; 0&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">scheduled</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">OPD_DATE</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">x</span><span class="o">.</span><span class="n">SCH_STOP_TM</span><span class="p">,</span> <span class="n">errors</span><span class="o">=</span><span class="s1">&#39;raise&#39;</span><span class="p">))</span>
     <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">actual</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">OPD_DATE</span> <span class="o">+</span> <span class="s1">&#39; &#39;</span> <span class="o">+</span> <span class="n">x</span><span class="o">.</span><span class="n">ACT_STOP_TM</span><span class="p">))</span>
     <span class="o">.</span><span class="n">assign</span><span class="p">(</span>
         <span class="n">time_diff</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span> <span class="p">:</span> <span class="p">(</span><span class="n">x</span><span class="o">.</span><span class="n">actual</span> <span class="o">-</span> <span class="n">x</span><span class="o">.</span><span class="n">scheduled</span><span class="p">)</span>
@@ -744,7 +746,7 @@ Name: unique, dtype: object
     </tr>
   </tbody>
 </table>
-<p>39157 rows × 5 columns</p>
+<p>38917 rows × 5 columns</p>
 </div></div></div>
 </div>
 <div class="section" id="accuracy-histogram">
@@ -813,6 +815,599 @@ Name: unique, dtype: object
 <div class="cell_output docutils container">
 <img alt="../_images/08.01_Logistics_analysis_17_0.png" src="../_images/08.01_Logistics_analysis_17_0.png" />
 </div>
+</div>
+<p>You might expect that the buses stick closer to their schedule near the beginning of each one-way trip and show more spread near the end, and this is borne out in the data: the southbound C-line and northbound D and E lines are near the beginning of their respective routes, and in the opposite direction they are near the end.</p>
+</div>
+</div>
+<div class="section" id="scheduled-and-observed-arrival-intervals">
+<h2>Scheduled and Observed Arrival Intervals<a class="headerlink" href="#scheduled-and-observed-arrival-intervals" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li><p>Start with the trips_accuracy table above</p></li>
+<li><p>Sort the value based on the Scheduled time</p></li>
+<li><p>Group by <em>route</em> and <em>direction</em></p></li>
+<li><p>Focus only on the Scheduled and actual time columns</p></li>
+<li><p>calculate the diff between every adjacent trips in each Group</p></li>
+<li><p>Convert null values to 0</p></li>
+<li><p>Convert the time delta values to minutes</p></li>
+<li><p>Merge with the original table based on the similar index of both tables</p></li>
+<li><p>Change the name of the column from the diff table to include the suffix _interval</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">trips_intervals</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">trips_accuracy</span>
+    <span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s1">&#39;scheduled&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;route&#39;</span><span class="p">,</span> <span class="s1">&#39;direction&#39;</span><span class="p">])</span>
+    <span class="p">[</span><span class="s1">&#39;scheduled&#39;</span><span class="p">,</span><span class="s1">&#39;actual&#39;</span><span class="p">]</span>
+    <span class="o">.</span><span class="n">diff</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">fillna</span><span class="p">(</span><span class="n">pd</span><span class="o">.</span><span class="n">Timedelta</span><span class="p">(</span><span class="n">seconds</span><span class="o">=</span><span class="mi">0</span><span class="p">))</span>
+    <span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s1">&#39;timedelta64[m]&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">merge</span><span class="p">(</span>
+        <span class="n">trips_accuracy</span><span class="p">,</span>
+        <span class="n">left_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> 
+        <span class="n">right_index</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+        <span class="n">suffixes</span><span class="o">=</span><span class="p">(</span><span class="s2">&quot;_interval&quot;</span><span class="p">,</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+    <span class="p">)</span>
+<span class="p">)</span>
+<span class="n">trips_intervals</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;ipython-input-10-e2d0d33a4212&gt;:2: FutureWarning: Indexing with multiple keys (implicitly converted to a tuple of keys) will be deprecated, use a list instead.
+  trips_accuracy
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>scheduled_interval</th>
+      <th>actual_interval</th>
+      <th>route</th>
+      <th>direction</th>
+      <th>scheduled</th>
+      <th>actual</th>
+      <th>minutes_late</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>19512</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>C</td>
+      <td>northbound</td>
+      <td>2016-03-26 00:00:25</td>
+      <td>2016-03-26 00:05:01</td>
+      <td>4.600000</td>
+    </tr>
+    <tr>
+      <th>79</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>C</td>
+      <td>southbound</td>
+      <td>2016-03-26 00:04:57</td>
+      <td>2016-03-26 00:05:18</td>
+      <td>0.350000</td>
+    </tr>
+    <tr>
+      <th>19725</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>D</td>
+      <td>northbound</td>
+      <td>2016-03-26 00:05:25</td>
+      <td>2016-03-26 00:05:06</td>
+      <td>-0.316667</td>
+    </tr>
+    <tr>
+      <th>155</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>E</td>
+      <td>southbound</td>
+      <td>2016-03-26 00:27:59</td>
+      <td>2016-03-26 00:28:04</td>
+      <td>0.083333</td>
+    </tr>
+    <tr>
+      <th>19569</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>E</td>
+      <td>northbound</td>
+      <td>2016-03-26 00:28:10</td>
+      <td>2016-03-26 00:29:46</td>
+      <td>1.600000</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>19462</th>
+      <td>15.0</td>
+      <td>13.0</td>
+      <td>D</td>
+      <td>southbound</td>
+      <td>2016-05-27 23:44:58</td>
+      <td>2016-05-27 23:45:36</td>
+      <td>0.633333</td>
+    </tr>
+    <tr>
+      <th>4609</th>
+      <td>15.0</td>
+      <td>16.0</td>
+      <td>C</td>
+      <td>southbound</td>
+      <td>2016-05-27 23:49:57</td>
+      <td>2016-05-27 23:49:35</td>
+      <td>-0.366667</td>
+    </tr>
+    <tr>
+      <th>9735</th>
+      <td>30.0</td>
+      <td>27.0</td>
+      <td>E</td>
+      <td>southbound</td>
+      <td>2016-05-27 23:53:59</td>
+      <td>2016-05-27 23:57:15</td>
+      <td>3.266667</td>
+    </tr>
+    <tr>
+      <th>29313</th>
+      <td>30.0</td>
+      <td>30.0</td>
+      <td>E</td>
+      <td>northbound</td>
+      <td>2016-05-27 23:55:10</td>
+      <td>2016-05-27 23:54:09</td>
+      <td>-1.016667</td>
+    </tr>
+    <tr>
+      <th>19426</th>
+      <td>15.0</td>
+      <td>-1425.0</td>
+      <td>D</td>
+      <td>southbound</td>
+      <td>2016-05-27 23:59:58</td>
+      <td>2016-05-27 00:01:28</td>
+      <td>1.500000</td>
+    </tr>
+  </tbody>
+</table>
+<p>38917 rows × 7 columns</p>
+</div></div></div>
+</div>
+<p>We can see that we have a few issues with the midnights and some of the interval are a day apart. Previously, we fixed it in the flow, however, now we can use a function that is fixing this issues on a specific column to simplify our code.</p>
+<ul class="simple">
+<li><p>Start with the given table</p></li>
+<li><p>If the value is smaller than 1,000</p></li>
+<li><p>Assign to the given column name the original value of the column</p></li>
+<li><p>Otheriwse, assign a value that is (60 minutes by 24 hours) minutes smaller</p></li>
+<li><p>Repeat for values that are larger than -1,000</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span> <span class="nf">fix_midnights</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">col_name</span><span class="p">):</span>
+    <span class="n">fixed_df</span> <span class="o">=</span> <span class="p">(</span>
+        <span class="n">df</span>
+        <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="n">col_name</span> <span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+            <span class="n">x</span><span class="p">[</span><span class="n">col_name</span><span class="p">]</span> <span class="o">&lt;</span> <span class="mi">1_000</span><span class="p">,</span> 
+            <span class="n">x</span><span class="p">[</span><span class="n">col_name</span><span class="p">],</span> 
+            <span class="n">x</span><span class="p">[</span><span class="n">col_name</span><span class="p">]</span> <span class="o">-</span> <span class="mi">60</span><span class="o">*</span><span class="mi">24</span><span class="p">)}</span>
+        <span class="p">)</span>
+        <span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="o">**</span><span class="p">{</span><span class="n">col_name</span> <span class="p">:</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span>
+            <span class="n">x</span><span class="p">[</span><span class="n">col_name</span><span class="p">]</span> <span class="o">&gt;</span> <span class="o">-</span><span class="mi">1_000</span><span class="p">,</span> 
+            <span class="n">x</span><span class="p">[</span><span class="n">col_name</span><span class="p">],</span> 
+            <span class="n">x</span><span class="p">[</span><span class="n">col_name</span><span class="p">]</span> <span class="o">+</span> <span class="mi">60</span><span class="o">*</span><span class="mi">24</span><span class="p">)}</span>
+        <span class="p">)</span>
+    <span class="p">)</span>
+    <span class="k">return</span> <span class="n">fixed_df</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fixed_trip_intervals</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">trips_intervals</span>
+    <span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">fix_midnights</span><span class="p">,</span> <span class="s1">&#39;scheduled_interval&#39;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">pipe</span><span class="p">(</span><span class="n">fix_midnights</span><span class="p">,</span> <span class="s1">&#39;actual_interval&#39;</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">fixed_trip_intervals</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>scheduled_interval</th>
+      <th>actual_interval</th>
+      <th>route</th>
+      <th>direction</th>
+      <th>scheduled</th>
+      <th>actual</th>
+      <th>minutes_late</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>19512</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>C</td>
+      <td>northbound</td>
+      <td>2016-03-26 00:00:25</td>
+      <td>2016-03-26 00:05:01</td>
+      <td>4.600000</td>
+    </tr>
+    <tr>
+      <th>79</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>C</td>
+      <td>southbound</td>
+      <td>2016-03-26 00:04:57</td>
+      <td>2016-03-26 00:05:18</td>
+      <td>0.350000</td>
+    </tr>
+    <tr>
+      <th>19725</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>D</td>
+      <td>northbound</td>
+      <td>2016-03-26 00:05:25</td>
+      <td>2016-03-26 00:05:06</td>
+      <td>-0.316667</td>
+    </tr>
+    <tr>
+      <th>155</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>E</td>
+      <td>southbound</td>
+      <td>2016-03-26 00:27:59</td>
+      <td>2016-03-26 00:28:04</td>
+      <td>0.083333</td>
+    </tr>
+    <tr>
+      <th>19569</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>E</td>
+      <td>northbound</td>
+      <td>2016-03-26 00:28:10</td>
+      <td>2016-03-26 00:29:46</td>
+      <td>1.600000</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>19462</th>
+      <td>15.0</td>
+      <td>13.0</td>
+      <td>D</td>
+      <td>southbound</td>
+      <td>2016-05-27 23:44:58</td>
+      <td>2016-05-27 23:45:36</td>
+      <td>0.633333</td>
+    </tr>
+    <tr>
+      <th>4609</th>
+      <td>15.0</td>
+      <td>16.0</td>
+      <td>C</td>
+      <td>southbound</td>
+      <td>2016-05-27 23:49:57</td>
+      <td>2016-05-27 23:49:35</td>
+      <td>-0.366667</td>
+    </tr>
+    <tr>
+      <th>9735</th>
+      <td>30.0</td>
+      <td>27.0</td>
+      <td>E</td>
+      <td>southbound</td>
+      <td>2016-05-27 23:53:59</td>
+      <td>2016-05-27 23:57:15</td>
+      <td>3.266667</td>
+    </tr>
+    <tr>
+      <th>29313</th>
+      <td>30.0</td>
+      <td>30.0</td>
+      <td>E</td>
+      <td>northbound</td>
+      <td>2016-05-27 23:55:10</td>
+      <td>2016-05-27 23:54:09</td>
+      <td>-1.016667</td>
+    </tr>
+    <tr>
+      <th>19426</th>
+      <td>15.0</td>
+      <td>15.0</td>
+      <td>D</td>
+      <td>southbound</td>
+      <td>2016-05-27 23:59:58</td>
+      <td>2016-05-27 00:01:28</td>
+      <td>1.500000</td>
+    </tr>
+  </tbody>
+</table>
+<p>38917 rows × 7 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">FacetGrid</span><span class="p">(</span><span class="n">fixed_trip_intervals</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="s2">&quot;direction&quot;</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s2">&quot;route&quot;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">,</span> <span class="s2">&quot;actual_interval&quot;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">50</span><span class="p">)</span> <span class="o">+</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">set_titles</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{col_name}</span><span class="s1"> </span><span class="si">{row_name}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">set_axis_labels</span><span class="p">(</span><span class="s1">&#39;actual interval (minutes)&#39;</span><span class="p">,</span> <span class="s1">&#39;number of buses&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/08.01_Logistics_analysis_24_0.png" src="../_images/08.01_Logistics_analysis_24_0.png" />
+</div>
+</div>
+<p>the distributions may be affected by non-constant scheduled arrival intervals.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">g</span> <span class="o">=</span> <span class="n">sns</span><span class="o">.</span><span class="n">FacetGrid</span><span class="p">(</span><span class="n">fixed_trip_intervals</span><span class="p">,</span> <span class="n">row</span><span class="o">=</span><span class="s2">&quot;direction&quot;</span><span class="p">,</span> <span class="n">col</span><span class="o">=</span><span class="s2">&quot;route&quot;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">map</span><span class="p">(</span><span class="n">plt</span><span class="o">.</span><span class="n">hist</span><span class="p">,</span> <span class="s2">&quot;scheduled_interval&quot;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span> <span class="o">-</span> <span class="mf">0.5</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">set_titles</span><span class="p">(</span><span class="s1">&#39;</span><span class="si">{col_name}</span><span class="s1"> </span><span class="si">{row_name}</span><span class="s1">&#39;</span><span class="p">)</span>
+<span class="n">g</span><span class="o">.</span><span class="n">set_axis_labels</span><span class="p">(</span><span class="s1">&#39;scheduled interval (minutes)&#39;</span><span class="p">,</span> <span class="s1">&#39;frequency&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/08.01_Logistics_analysis_26_0.png" src="../_images/08.01_Logistics_analysis_26_0.png" />
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">trip_intervals_with_time</span> <span class="o">=</span> <span class="p">(</span>
+    <span class="n">fixed_trip_intervals</span>
+    <span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s2">&quot;hour = scheduled.dt.hour&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">eval</span><span class="p">(</span><span class="s2">&quot;dow = scheduled.dt.day_name()&quot;</span><span class="p">)</span>
+<span class="p">)</span>
+<span class="n">trip_intervals_with_time</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>scheduled_interval</th>
+      <th>actual_interval</th>
+      <th>route</th>
+      <th>direction</th>
+      <th>scheduled</th>
+      <th>actual</th>
+      <th>minutes_late</th>
+      <th>hour</th>
+      <th>dow</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>19512</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>C</td>
+      <td>northbound</td>
+      <td>2016-03-26 00:00:25</td>
+      <td>2016-03-26 00:05:01</td>
+      <td>4.600000</td>
+      <td>0</td>
+      <td>Saturday</td>
+    </tr>
+    <tr>
+      <th>79</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>C</td>
+      <td>southbound</td>
+      <td>2016-03-26 00:04:57</td>
+      <td>2016-03-26 00:05:18</td>
+      <td>0.350000</td>
+      <td>0</td>
+      <td>Saturday</td>
+    </tr>
+    <tr>
+      <th>19725</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>D</td>
+      <td>northbound</td>
+      <td>2016-03-26 00:05:25</td>
+      <td>2016-03-26 00:05:06</td>
+      <td>-0.316667</td>
+      <td>0</td>
+      <td>Saturday</td>
+    </tr>
+    <tr>
+      <th>155</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>E</td>
+      <td>southbound</td>
+      <td>2016-03-26 00:27:59</td>
+      <td>2016-03-26 00:28:04</td>
+      <td>0.083333</td>
+      <td>0</td>
+      <td>Saturday</td>
+    </tr>
+    <tr>
+      <th>19569</th>
+      <td>0.0</td>
+      <td>0.0</td>
+      <td>E</td>
+      <td>northbound</td>
+      <td>2016-03-26 00:28:10</td>
+      <td>2016-03-26 00:29:46</td>
+      <td>1.600000</td>
+      <td>0</td>
+      <td>Saturday</td>
+    </tr>
+    <tr>
+      <th>...</th>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+      <td>...</td>
+    </tr>
+    <tr>
+      <th>19462</th>
+      <td>15.0</td>
+      <td>13.0</td>
+      <td>D</td>
+      <td>southbound</td>
+      <td>2016-05-27 23:44:58</td>
+      <td>2016-05-27 23:45:36</td>
+      <td>0.633333</td>
+      <td>23</td>
+      <td>Friday</td>
+    </tr>
+    <tr>
+      <th>4609</th>
+      <td>15.0</td>
+      <td>16.0</td>
+      <td>C</td>
+      <td>southbound</td>
+      <td>2016-05-27 23:49:57</td>
+      <td>2016-05-27 23:49:35</td>
+      <td>-0.366667</td>
+      <td>23</td>
+      <td>Friday</td>
+    </tr>
+    <tr>
+      <th>9735</th>
+      <td>30.0</td>
+      <td>27.0</td>
+      <td>E</td>
+      <td>southbound</td>
+      <td>2016-05-27 23:53:59</td>
+      <td>2016-05-27 23:57:15</td>
+      <td>3.266667</td>
+      <td>23</td>
+      <td>Friday</td>
+    </tr>
+    <tr>
+      <th>29313</th>
+      <td>30.0</td>
+      <td>30.0</td>
+      <td>E</td>
+      <td>northbound</td>
+      <td>2016-05-27 23:55:10</td>
+      <td>2016-05-27 23:54:09</td>
+      <td>-1.016667</td>
+      <td>23</td>
+      <td>Friday</td>
+    </tr>
+    <tr>
+      <th>19426</th>
+      <td>15.0</td>
+      <td>15.0</td>
+      <td>D</td>
+      <td>southbound</td>
+      <td>2016-05-27 23:59:58</td>
+      <td>2016-05-27 00:01:28</td>
+      <td>1.500000</td>
+      <td>23</td>
+      <td>Friday</td>
+    </tr>
+  </tbody>
+</table>
+<p>38917 rows × 9 columns</p>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">heatmap</span><span class="p">(</span>
+    <span class="n">trip_intervals_with_time</span>
+    <span class="p">[[</span><span class="s1">&#39;hour&#39;</span><span class="p">,</span><span class="s1">&#39;dow&#39;</span><span class="p">,</span><span class="s1">&#39;scheduled_interval&#39;</span><span class="p">]]</span>
+    <span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;hour&#39;</span><span class="p">,</span><span class="s1">&#39;dow&#39;</span><span class="p">])</span>
+    <span class="o">.</span><span class="n">mean</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">reset_index</span><span class="p">()</span>
+    <span class="o">.</span><span class="n">pivot</span><span class="p">(</span><span class="n">index</span><span class="o">=</span><span class="s2">&quot;hour&quot;</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="s2">&quot;dow&quot;</span><span class="p">)</span>
+    <span class="o">.</span><span class="n">clip</span><span class="p">(</span><span class="n">upper</span><span class="o">=</span><span class="mi">60</span><span class="p">),</span>
+    <span class="n">cmap</span><span class="o">=</span><span class="s2">&quot;YlGnBu&quot;</span>
+<span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/08.01_Logistics_analysis_28_0.png" src="../_images/08.01_Logistics_analysis_28_0.png" />
 </div>
 </div>
 </div>
